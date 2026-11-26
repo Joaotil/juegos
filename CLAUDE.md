@@ -27,3 +27,8 @@ When designing any page or interface, also use the `frontend-design` skill.
 
 - Usa la skill `break-ui` para probar la pantalla con datos de peor caso.
 - Revisa la pantalla con `impeccable` en modo `audit`.
+
+## Pruebas en navegador
+- Después de crear o cambiar cualquier página o interfaz, ábrela con Playwright, toma una captura de pantalla y revisa que se vea y funcione bien.
+- Si hay errores en la consola o algo se ve roto, corrígelo y vuelve a probar antes de dar el trabajo por terminado.
+- Prueba también en tamaño móvil, no solo en escritorio.
