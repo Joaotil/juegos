@@ -19,12 +19,27 @@
     <div class="fondo-velo"></div>
   </div>
 
+  <!-- Vida del paisaje: nubes que pasan y aves que cruzan el cielo -->
+  <div class="ambiente" aria-hidden="true">
+    <img class="nube n1" src="assets/images/nube.svg" alt="">
+    <img class="nube n2" src="assets/images/nube.svg" alt="">
+    <img class="nube n3" src="assets/images/nube.svg" alt="">
+    <svg class="aves" viewBox="0 0 140 60">
+      <path class="ave" d="M0,20 Q9,8 18,20 Q27,8 36,20"/>
+      <path class="ave a2" d="M50,8 Q57,-1 64,8 Q71,-1 78,8"/>
+      <path class="ave a3" d="M86,34 Q93,25 100,34 Q107,25 114,34"/>
+    </svg>
+  </div>
+
+  <!-- Mama Quilla aparece flotando en el cielo cuando narra -->
+  <div id="narradora" class="narradora" aria-hidden="true">
+    <div class="narradora-aura"></div>
+    <img src="assets/characters/mamaquilla.svg" alt="">
+  </div>
+
   <!-- Barra superior: progreso, mapa, bitácora, sonido y menú -->
   <header id="hud" class="hud" hidden>
-    <div class="hud-marca">
-      <img src="assets/images/escudo.png" alt="" width="34" height="34">
-      <span>Misión Lloa</span>
-    </div>
+    <div class="hud-marca"><span>Misión Lloa</span></div>
     <div class="hud-progreso" aria-label="Progreso de la misión">
       <div class="barra"><div id="barra-relleno" class="barra-relleno"></div></div>
       <span id="progreso-texto">0 / 7</span>

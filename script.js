@@ -48,31 +48,32 @@ const MAPA_DIALOGOS = [
 
 /* Evidencias académicas: se ganan en las misiones y se usan en la decisión final */
 const EVIDENCIAS = {
-  h1: { materia: 'Historia',     texto: 'Los sistemas hidráulicos incas combinaban reservorios elevados, canales de piedra y caídas escalonadas para regar laderas pronunciadas.', fuente: 'Lane et al., 2023' },
-  h2: { materia: 'Historia',     texto: 'Con canales y terrazas, los incas aprovecharon terrenos montañosos y mejoraron la producción de alimentos.', fuente: 'Frogley et al., 2025' },
-  b1: { materia: 'Biología',     texto: 'En Ecuador la papa se cultiva en suelos volcánicos con pendientes pronunciadas, pH de 6,4 a 6,7 y materia orgánica de 7,5 % a 8,4 %.', fuente: 'Gaibor et al., 2024' },
-  b2: { materia: 'Biología',     texto: 'El exceso de nitrógeno es «consumo de lujo»: no mejora el rendimiento y causa pérdidas económicas y ambientales.', fuente: 'Gaibor et al., 2024' },
-  b3: { materia: 'Biología',     texto: 'La papa es uno de los cultivos más importantes de Ecuador: consumo promedio de 26 kg por persona al año.', fuente: 'Gaibor et al., 2024' },
-  f1: { materia: 'Física',       texto: 'Con la misma fuerza, más masa produce menos aceleración: mover más carga exige más fuerza (F = m·a).', fuente: 'Consulta: segunda ley de Newton' },
-  f2: { materia: 'Física',       texto: 'En una superficie inclinada, el movimiento depende de la gravedad, la inclinación y la fricción.', fuente: 'Consulta: segunda ley de Newton' },
-  m1: { materia: 'Matemáticas',  texto: 'De 18 ha, solo 13,5 ha son aprovechables al inicio: el 25 % tiene inclinación y erosión.', fuente: 'Ejercicio 1' },
-  m2: { materia: 'Matemáticas',  texto: 'Una pendiente de 30 % requiere medidas de conservación como terrazas y barreras vegetales.', fuente: 'Ejercicio 2' },
-  m3: { materia: 'Matemáticas',  texto: '12 ha × 22 t/ha con 12 % de pérdida por factores climáticos: 232,32 t para comercializar.', fuente: 'Ejercicio 4' },
-  m4: { materia: 'Matemáticas',  texto: 'Un terreno con 22 % de pendiente produjo 29,17 % menos que uno con 8 % (la pendiente no es necesariamente la única causa).', fuente: 'Ejercicio 7' },
-  m5: { materia: 'Matemáticas',  texto: 'Cinco cosechas: media de 20 t/ha y rango de 10 t/ha. La producción varía entre cosechas.', fuente: 'Ejercicio 8' },
-  m6: { materia: 'Matemáticas',  texto: 'Con terrazas y conservación del suelo (+15 % en el terreno inclinado), 20 ha producen 390 t.', fuente: 'Ejercicio 10' },
-  i1: { materia: 'Inglés',       texto: '“Our potato fields are far from the markets”: los campos de papa están lejos de los mercados.', fuente: 'Mensaje de radio' },
-  e1: { materia: 'Emprendimiento', texto: 'Lloa vive principalmente de la agricultura, pero sus productores tienen acceso limitado a mercados directos.', fuente: 'Lugmaña, 2025' },
-  e2: { materia: 'Emprendimiento', texto: 'Llevar 8 t de papa de Lloa a Quito cuesta 1.440 $ (0,18 $/kg; dos viajes de 720 $).', fuente: 'Ejercicio 3' },
-  e3: { materia: 'Emprendimiento', texto: 'Fertilizar 8 ha requiere 56 sacos: una inversión de 1.792 $.', fuente: 'Ejercicio 6' },
-  e4: { materia: 'Emprendimiento', texto: 'Vendiendo 30 t a 480 $/t: ingreso de 14.400 $, costo de 7.800 $ y ganancia de 6.600 $.', fuente: 'Ejercicio 9' },
+  h1: { materia: 'Historia',       texto: 'Los pueblos andinos guardaban el agua en reservorios, la conducían por canales de piedra y regulaban su caudal con caídas escalonadas.' },
+  h2: { materia: 'Historia',       texto: 'Con canales y terrazas lograron cultivar en laderas pronunciadas y producir más alimentos.' },
+  b1: { materia: 'Biología',       texto: 'La papa crece en suelos volcánicos con pendientes pronunciadas, pH de 6,4 a 6,7 y materia orgánica de 7,5 % a 8,4 %.' },
+  b2: { materia: 'Biología',       texto: 'Usar demasiado fertilizante no aumenta la cosecha: solo genera pérdidas económicas y ambientales.' },
+  b3: { materia: 'Biología',       texto: 'La papa es uno de los cultivos más importantes de Ecuador: 26 kg por persona al año.' },
+  f1: { materia: 'Física',         texto: 'A más carga, más fuerza se necesita para lograr la misma aceleración (F = m · a).' },
+  f2: { materia: 'Física',         texto: 'En las pendientes influyen la gravedad, la inclinación y la fricción.' },
+  m1: { materia: 'Matemáticas',    texto: 'De 18 ha, solo 13,5 ha se pueden cultivar al inicio: el 25 % tiene inclinación y erosión.' },
+  m2: { materia: 'Matemáticas',    texto: 'Un terreno con 30 % de pendiente necesita terrazas y barreras vegetales.' },
+  m3: { materia: 'Matemáticas',    texto: '12 ha producen 232,32 t para vender, aun perdiendo el 12 % por el clima.' },
+  m4: { materia: 'Matemáticas',    texto: 'Un terreno con 22 % de pendiente produjo 29,17 % menos que uno con 8 % (la pendiente no es necesariamente la única causa).' },
+  m5: { materia: 'Matemáticas',    texto: 'Las cosechas varían: media de 20 t/ha y rango de 10 t/ha.' },
+  m6: { materia: 'Matemáticas',    texto: 'Con terrazas y conservación del suelo, 20 ha pueden llegar a 390 t de papa.' },
+  i1: { materia: 'Inglés',         texto: '“Our potato fields are far from the markets”: los campos de papa están lejos de los mercados.' },
+  e1: { materia: 'Emprendimiento', texto: 'Lloa vive de la agricultura, pero sus productores tienen poco acceso a mercados directos.' },
+  e2: { materia: 'Emprendimiento', texto: 'Llevar 8 t de papa de Lloa a Quito cuesta 1.440 $ (0,18 $ por kilogramo, en dos viajes de 720 $).' },
+  e3: { materia: 'Emprendimiento', texto: 'Fertilizar 8 ha requiere 56 sacos: una inversión de 1.792 $.' },
+  e4: { materia: 'Emprendimiento', texto: 'Vendiendo 30 t a 480 $ cada una: ingreso de 14.400 $, costo de 7.800 $ y ganancia de 6.600 $.' },
 };
 
 /* ---------------------------------------------------------------------
    MISIONES (el orden de esta lista es el orden del juego)
    Tipos de reto disponibles:
-   lectura · relacionar · clasificar · opcion · acertijo · numero
-   medidor · carrito · imagen · escucha
+   explorar · deslizar · relacionar · clasificar · opcion · acertijo
+   numero · medidor · carrito · imagen · escucha
+   En «explorar», x e y son porcentajes sobre la ilustración del fondo.
    --------------------------------------------------------------------- */
 const MISIONES = [
   /* ---------------- MISIÓN 1: HISTORIA ---------------- */
@@ -80,57 +81,53 @@ const MISIONES = [
     id: 'm1', numero: 'Misión 1', materia: 'Historia', titulo: 'El legado del agua', lugar: 'Andenes del Legado',
     fondo: 'andenes', icono: 'historia', guia: 'siyaj', mapa: { x: 17, y: 42 },
     intro: [
-      ['quilla', 'Viajeros, soy Mama Quilla. Desde el cielo he visto a los pueblos de los Andes trabajar la tierra durante generaciones.'],
-      ['yaku',   'Soy Yaku Camayoc. Fui ingeniero hidráulico, pero he olvidado mucho de lo que sabía sobre el agua y la papa. Sin ese conocimiento no puedo ayudar a Lloa.'],
-      ['siyaj',  'Para eso estamos aquí. Estos andenes guardan la memoria de cómo los pueblos ancestrales aprovechaban la tierra. Empecemos por leer lo que dicen las investigaciones.'],
+      ['quilla', 'Viajeros, desde el cielo he visto a los pueblos de los Andes trabajar estas montañas durante generaciones.'],
+      ['yaku',   'Fui ingeniero hidráulico, pero he olvidado cómo llevaban el agua hasta los cultivos. Sin ese saber no puedo ayudar a Lloa.'],
+      ['siyaj',  'Estos andenes guardan la respuesta. ¡Exploremos! Toca los destellos para descubrir sus secretos.'],
     ],
     retos: [
       {
-        tipo: 'lectura', titulo: 'Pergamino de los andenes',
-        instruccion: 'Lee con atención: lo necesitarás en los siguientes desafíos.',
-        fuentes: [
-          { cita: 'Frogley et al. (2025). Trees, terraces and llamas. Ambio.', texto: 'El sistema de riego fue fundamental para el desarrollo del Imperio inca, porque permitió transportar y distribuir el agua hacia los campos de cultivo. Mediante canales, terrazas agrícolas y técnicas de ingeniería hidráulica, los incas aprovecharon terrenos montañosos y mejoraron la producción de alimentos.' },
-          { cita: 'Lane, Pomeroy y Davila (2023). WIREs Water, 10(3).', texto: '«Los sistemas hidráulicos incaicos integraban reservorios elevados, canales revestidos de piedra y caídas escalonadas que regulaban el caudal según la estación, maximizando la eficiencia del riego en laderas pronunciadas».' },
+        tipo: 'explorar', titulo: 'Explora los andenes',
+        instruccion: 'Toca cada destello de la montaña para descubrir cómo funcionaba el sistema de agua.',
+        fondo: 'andenes', alt: 'Montaña con andenes, un reservorio en la cima y un canal que baja', quien: 'siyaj',
+        puntos: [
+          { x: 47.5, y: 33, nombre: 'El reservorio', texto: 'Arriba, en lo alto, guardaban el agua. Así podían repartirla durante todo el año.' },
+          { x: 49.5, y: 58, nombre: 'El canal de piedra', texto: 'El canal está revestido de piedra y conduce el agua ladera abajo, hacia los campos.' },
+          { x: 47,   y: 86, nombre: 'Las caídas escalonadas', texto: 'Estos desniveles regulaban cuánta agua pasaba, según la estación del año.' },
+          { x: 27,   y: 76, nombre: 'Los andenes', texto: 'Escalones de tierra en la montaña: el agua se reparte en ellos sin erosionar los cultivos.' },
+          { x: 76,   y: 60, nombre: 'Las laderas', texto: 'Con canales y terrazas, los pueblos andinos cultivaron terrenos montañosos y produjeron más alimentos.' },
         ],
       },
       {
-        tipo: 'relacionar', titulo: 'Reconstruye el sistema hidráulico',
-        instruccion: 'Arrastra cada parte del sistema inca hasta la función que cumplía, desde la cima de la montaña hasta los cultivos. También puedes tocar una ficha y luego su lugar.',
+        tipo: 'relacionar', titulo: 'Reconstruye el sistema',
+        instruccion: 'Lleva cada parte del sistema a su función, desde la cima hasta los cultivos. Arrastra, o toca una ficha y luego su lugar.',
         zonas: [
-          { id: 'z1', texto: '1 · En la parte alta: almacenar el agua' },
+          { id: 'z1', texto: '1 · Arriba: guardar el agua' },
           { id: 'z2', texto: '2 · Llevar el agua ladera abajo' },
           { id: 'z3', texto: '3 · Regular el caudal según la estación' },
-          { id: 'z4', texto: '4 · Repartir el agua en la ladera sin erosionar los cultivos' },
+          { id: 'z4', texto: '4 · Repartir el agua sin erosionar los cultivos' },
         ],
         fichas: [
           { id: 'a', texto: 'Reservorio elevado', zona: 'z1' },
           { id: 'b', texto: 'Canal revestido de piedra', zona: 'z2' },
           { id: 'c', texto: 'Caídas escalonadas', zona: 'z3' },
-          { id: 'd', texto: 'Andenes (terrazas agrícolas)', zona: 'z4' },
+          { id: 'd', texto: 'Andenes', zona: 'z4' },
         ],
-        ayuda: 'El agua se guarda arriba, se conduce, se regula y, al final, llega a los andenes. Vuelve a leer la cita de Lane et al.',
-      },
-      {
-        tipo: 'opcion', titulo: '¿Por qué era tan importante el riego?',
-        pregunta: 'Según Frogley et al. (2025), ¿por qué el sistema de riego fue fundamental para el Imperio inca?',
-        opciones: [
-          { texto: 'Permitió transportar y distribuir el agua hacia los campos y aprovechar los terrenos montañosos.', correcta: true },
-          { texto: 'Sirvió solo para abastecer de agua a las ciudades.', fb: 'El texto habla de llevar agua a los campos de cultivo.' },
-          { texto: 'Reemplazó la necesidad de cultivar en las montañas.', fb: 'Al contrario: permitió cultivar en terrenos montañosos.' },
-        ],
-        ayuda: 'Busca en el pergamino las palabras «transportar» y «distribuir».',
+        exito: '¡El agua vuelve a correr por la montaña!',
+        ayuda: 'Recuerda tu recorrido: el agua se guarda arriba, baja por el canal, se regula y llega a los andenes.',
       },
       {
         tipo: 'acertijo', titulo: 'El acertijo de la montaña',
+        quien: 'quilla',
         pregunta: 'Somos escalones de tierra en la ladera. El agua baja por nosotros sin arrastrar los cultivos. ¿Quiénes somos?',
         respuestas: ['andenes', 'terrazas', 'terrazas agricolas', 'los andenes', 'las terrazas', 'anden', 'terraza'],
-        ayuda: 'Los incas los construían en las montañas. Tienen dos nombres: uno empieza con «A» y otro con «T».',
+        ayuda: 'Tienen dos nombres: uno empieza con «A» y otro con «T».',
       },
     ],
     cierre: [
-      ['siyaj', '¡Lo lograste! Reservorios, canales y andenes formaban una sola gran obra de ingeniería.'],
-      ['yaku',  'Ahora lo recuerdo: el agua se guardaba arriba, se conducía por canales de piedra y se repartía sin erosionar los cultivos.'],
-      ['quilla', 'Guarda esta primera clave. Ahora baja al huerto: Ixkik, la guardiana de las semillas, te espera.'],
+      ['siyaj', '¡Lo lograste! Reservorios, canales y andenes formaban una sola gran obra.'],
+      ['yaku',  'Ahora lo recuerdo: el agua se guardaba arriba, bajaba por canales de piedra y se repartía sin dañar los cultivos.'],
+      ['quilla', 'Guarda esta primera clave. Baja al huerto: Ixkik, la guardiana de las semillas, te espera.'],
     ],
     recompensa: {
       clave: 'La tierra',
@@ -145,76 +142,78 @@ const MISIONES = [
     id: 'm2', numero: 'Misión 2', materia: 'Biología', titulo: 'La vida en los Andes', lugar: 'Huerto de Ixkik',
     fondo: 'huerto', icono: 'biologia', guia: 'ixkik', mapa: { x: 30, y: 74 },
     intro: [
-      ['ixkik', 'Bienvenido a mi huerto. Soy Ixkik: cuido las semillas y los saberes de la tierra.'],
-      ['yaku',  'Necesito saber qué condiciones naturales permiten que la papa crezca bien. Sin eso, ninguna solución servirá.'],
-      ['ixkik', 'Entonces escuchemos al suelo. Un estudio sobre suelos volcánicos de Ecuador nos dará las pistas.'],
+      ['ixkik', 'Bienvenido a mi huerto. Aquí cuido las semillas y los saberes de la tierra.'],
+      ['yaku',  'Necesito saber qué necesita la papa para crecer bien. Sin eso, ninguna solución servirá.'],
+      ['ixkik', 'Entonces escuchemos a la tierra. Recorre el huerto conmigo.'],
     ],
     retos: [
       {
-        tipo: 'lectura', titulo: 'El cuaderno de Ixkik',
-        instruccion: 'Lee los hallazgos del estudio: los usarás en el laboratorio de suelo.',
-        fuentes: [
-          { cita: 'Gaibor, Espinosa y Cartagena (2024). Siembra, 11(2).', texto: '«La papa (S. tuberosum), con un consumo promedio de 26 kg persona⁻¹ año⁻¹, es uno de los cultivos más importantes de Ecuador (...) Mucho del N absorbido por la planta a altas dosis de aplicación del nutriente al suelo es consumo de lujo y no aporta al rendimiento».' },
-          { cita: 'Paráfrasis del equipo', texto: 'En Ecuador, el cultivo de papa se desarrolla principalmente en suelos de origen volcánico con pendientes pronunciadas, pH ligeramente ácido (entre 6,4 y 6,7) y alto contenido de materia orgánica (7,5 % a 8,4 %). Un manejo inadecuado o excesivo de fertilizantes no mejora el rendimiento y genera pérdidas económicas y ambientales.' },
+        tipo: 'explorar', titulo: 'Recorre el huerto',
+        instruccion: 'Toca los destellos del huerto: cada uno guarda un secreto de la papa.',
+        fondo: 'huerto', alt: 'Huerto de papas en flor con una casa, cercas y colinas', quien: 'ixkik',
+        puntos: [
+          { x: 50, y: 90, nombre: 'La tierra', texto: 'Es suelo de origen volcánico, con mucha materia orgánica: entre 7,5 % y 8,4 %.' },
+          { x: 14, y: 75, nombre: 'Una muestra de suelo', texto: 'La papa prefiere un suelo ligeramente ácido: con un pH entre 6,4 y 6,7.' },
+          { x: 62, y: 80, nombre: 'Una flor de papa', texto: 'La papa es uno de los cultivos más importantes de Ecuador: cada persona come unos 26 kg al año.' },
+          { x: 22, y: 56, nombre: 'Las colinas', texto: 'Muchos terrenos de papa están en pendientes pronunciadas.' },
+          { x: 77, y: 66, nombre: 'La bodega', texto: 'Aquí guardo el fertilizante. Poner de más no da más papa: la planta no lo aprovecha y se pierde dinero.' },
         ],
       },
       {
         tipo: 'medidor', titulo: 'Laboratorio de suelo',
-        instruccion: 'Ajusta los medidores hasta reproducir el suelo volcánico descrito en el estudio. Luego pulsa «Comprobar».',
+        instruccion: 'Ajusta los medidores hasta reproducir el suelo ideal para la papa. Si aciertas, la semilla brotará.',
         controles: [
           { id: 'ph', etiqueta: 'pH del suelo', min: 4, max: 9, paso: 0.1, inicio: 5, objetivo: [6.4, 6.7], unidad: '' },
           { id: 'mo', etiqueta: 'Materia orgánica', min: 0, max: 12, paso: 0.1, inicio: 2, objetivo: [7.5, 8.4], unidad: '%' },
         ],
-        ayuda: 'El estudio dice: pH ligeramente ácido entre 6,4 y 6,7, y materia orgánica entre 7,5 % y 8,4 %.',
+        ayuda: 'Ligeramente ácido es un pH un poco menor que 7. Revisa tus descubrimientos del huerto en la bitácora.',
       },
       {
-        tipo: 'clasificar', titulo: '¿Verdad o mito?',
-        instruccion: 'Clasifica cada afirmación según lo que dice el estudio de Gaibor et al. (2024).',
-        zonas: [
-          { id: 'v', texto: 'Lo afirma el estudio' },
-          { id: 'f', texto: 'Es un mito' },
+        tipo: 'deslizar', titulo: '¿Verdad o mito?',
+        instruccion: 'Desliza cada tarjeta: a la derecha si es verdad, a la izquierda si es un mito. También puedes usar los botones.',
+        izq: 'Mito', der: 'Verdad',
+        cartas: [
+          { texto: 'La papa crece bien en suelos de origen volcánico.', lado: 'der' },
+          { texto: 'Más fertilizante siempre produce más papa.', lado: 'izq', fb: 'Es un mito: el exceso de nitrógeno no aumenta el rendimiento.' },
+          { texto: 'Muchos terrenos de papa están en pendientes pronunciadas.', lado: 'der' },
+          { texto: 'La papa es un cultivo poco importante en Ecuador.', lado: 'izq', fb: 'Es un mito: cada persona consume unos 26 kg al año.' },
+          { texto: 'Abonar de más genera pérdidas económicas y ambientales.', lado: 'der' },
+          { texto: 'A la papa le conviene un suelo con poca materia orgánica.', lado: 'izq', fb: 'Es un mito: el suelo ideal es rico en materia orgánica.' },
         ],
-        fichas: [
-          { id: 'a', texto: 'La papa se cultiva en suelos de origen volcánico.', zona: 'v' },
-          { id: 'b', texto: 'Esos suelos suelen tener pendientes pronunciadas.', zona: 'v' },
-          { id: 'c', texto: 'Más nitrógeno siempre produce más papa.', zona: 'f' },
-          { id: 'd', texto: 'El exceso de fertilizante genera pérdidas económicas y ambientales.', zona: 'v' },
-          { id: 'e', texto: 'La papa es un cultivo poco importante en Ecuador.', zona: 'f' },
-          { id: 'g', texto: 'El suelo apto tiene poca materia orgánica.', zona: 'f' },
-        ],
-        ayuda: 'Recuerda el «consumo de lujo» y el consumo de 26 kg por persona al año.',
       },
       {
-        tipo: 'numero', titulo: 'Mezcla experimental de sustrato',
-        pregunta: 'Para preparar 500 kg de sustrato agrícola experimental se propone usar 50 % de tierra volcánica, 30 % de suelo arenoso y 20 % de materia orgánica. ¿Cuántos kilogramos de cada componente se necesitan?',
+        tipo: 'numero', titulo: 'La mezcla de Ixkik',
+        quien: 'ixkik',
+        pregunta: 'Quiero preparar 500 kg de sustrato para un experimento: 50 % de tierra volcánica, 30 % de suelo arenoso y 20 % de materia orgánica. ¿Cuántos kilos necesito de cada uno?',
         campos: [
           { etiqueta: 'Tierra volcánica', respuesta: 250, unidad: 'kg' },
           { etiqueta: 'Suelo arenoso', respuesta: 150, unidad: 'kg' },
           { etiqueta: 'Materia orgánica', respuesta: 100, unidad: 'kg' },
         ],
-        exito: 'Esta proporción es una mezcla experimental, no una receta universal: la composición adecuada se determina con un análisis del suelo.',
+        exito: 'Es solo una mezcla de prueba: la composición adecuada se decide con un análisis del suelo.',
         ayuda: 'Multiplica 500 kg por cada porcentaje: 500 × 0,50; 500 × 0,30; 500 × 0,20.',
       },
       {
         tipo: 'opcion', titulo: 'El dilema del fertilizante',
-        pregunta: 'Un vecino de Lloa quiere duplicar el nitrógeno que aplica para cosechar el doble de papa. ¿Qué le aconsejas?',
+        quien: 'ixkik',
+        pregunta: 'Un vecino quiere echar el doble de fertilizante para cosechar el doble de papa. ¿Qué le aconsejamos?',
         opciones: [
-          { texto: 'Hacer primero un análisis del suelo: el exceso de nitrógeno es consumo de lujo y no aumenta el rendimiento.', correcta: true },
-          { texto: 'Duplicarlo: más nitrógeno siempre significa más papa.', fb: 'El estudio indica lo contrario: a dosis altas, el nitrógeno es «consumo de lujo».' },
-          { texto: 'Aplicarlo sin medir, porque el suelo volcánico lo absorbe todo.', fb: 'Un manejo excesivo genera pérdidas económicas y ambientales.' },
+          { texto: 'Que primero analice su suelo: el exceso de fertilizante no aumenta la cosecha.', correcta: true },
+          { texto: 'Que lo duplique: más fertilizante siempre significa más papa.', fb: 'La planta no aprovecha el exceso: es «consumo de lujo».' },
+          { texto: 'Que lo eche sin medir, porque el suelo volcánico lo absorbe todo.', fb: 'Usarlo de más genera pérdidas económicas y ambientales.' },
         ],
-        ayuda: 'Piensa en el «consumo de lujo» del cuaderno de Ixkik.',
+        ayuda: 'Piensa en lo que te mostré en la bodega del huerto.',
       },
     ],
     cierre: [
-      ['ixkik', 'Ahora conoces el suelo donde crece la papa: volcánico, ligeramente ácido y rico en materia orgánica.'],
-      ['ixkik', 'Y recuerda: más fertilizante no siempre significa más cosecha. Cuidar la tierra también es cuidar la economía de las familias.'],
-      ['yaku',  'Pero esos suelos están en pendientes pronunciadas... Mover las cosechas por esas laderas no es fácil.'],
+      ['ixkik', 'Ahora conoces la tierra de la papa: volcánica, ligeramente ácida y rica en materia orgánica.'],
+      ['ixkik', 'Y recuerda: más fertilizante no siempre es más cosecha. Cuidar la tierra también es cuidar a las familias.'],
+      ['yaku',  'Pero esos suelos están en pendientes... Mover las cosechas por esas laderas no es fácil.'],
       ['kinich', '¡Eso es lo mío! Te espero en el camino de la cosecha.'],
     ],
     recompensa: {
       clave: 'es el corazón',
-      pista: 'Suelo para la papa: volcánico, pH 6,4–6,7 y materia orgánica de 7,5 % a 8,4 %. Te servirá para entender el mensaje de radio.',
+      pista: 'Suelo para la papa: volcánico, pH 6,4–6,7 y mucha materia orgánica. Te servirá para entender el mensaje de radio.',
       objeto: { nombre: 'Bolsa de semillas de Ixkik', desc: 'Semillas guardadas con cuidado por la guardiana.' },
       evidencias: ['b1', 'b2', 'b3'],
     },
@@ -225,23 +224,25 @@ const MISIONES = [
     id: 'm3', numero: 'Misión 3', materia: 'Física', titulo: 'Transportar el agua', lugar: 'Camino de la cosecha',
     fondo: 'camino', icono: 'fisica', guia: 'kinich', mapa: { x: 47, y: 62 },
     intro: [
-      ['kinich', '¡Hola! Soy K\'inich. Por este camino, los agricultores llevan sus sacos de papa en carritos hasta los lugares de recolección.'],
-      ['kinich', 'Cada saco pesa y cada subida cuesta. Para entenderlo necesitamos la segunda ley de Newton.'],
+      ['kinich', '¡Hola! Por este camino los agricultores llevan sus sacos de papa en carritos hasta los lugares de recolección.'],
+      ['kinich', 'Cada saco pesa y cada subida cuesta. ¿Por qué? ¡Vamos a averiguarlo!'],
       ['yaku',   'Fuerza, masa y aceleración... Ayúdame a recordar cómo se relacionan.'],
     ],
     retos: [
       {
-        tipo: 'lectura', titulo: 'La ley del movimiento',
-        instruccion: 'Repasa la segunda ley de Newton antes de mover el carrito.',
-        formula: 'F = m · a',
-        fuentes: [
-          { cita: 'Consulta del equipo (Becerra Córdova, 2009)', texto: 'La aceleración que adquiere un cuerpo es directamente proporcional a la fuerza neta que se aplica sobre él e inversamente proporcional a su masa. F es la fuerza en newtons (N), m es la masa en kilogramos (kg) y a es la aceleración en metros por segundo al cuadrado (m/s²).' },
-          { cita: 'Características', texto: 'La aceleración aumenta cuando aumenta la fuerza aplicada. La aceleración disminuye cuando aumenta la masa, si la fuerza se mantiene constante. Si la fuerza neta es cero, no existe aceleración.' },
+        tipo: 'explorar', titulo: 'Observa el camino',
+        instruccion: 'Toca los destellos del camino para entender qué hace difícil el transporte.',
+        fondo: 'camino', alt: 'Camino rural que baja entre colinas con un carrito cargado de sacos', quien: 'kinich',
+        puntos: [
+          { x: 52, y: 84, nombre: 'El carrito', texto: 'Mientras más sacos lleva, más masa tiene... y más fuerza hace falta para moverlo.' },
+          { x: 56, y: 66, nombre: 'La subida', texto: 'En una pendiente influyen la gravedad, la inclinación y la fricción del camino.' },
+          { x: 84, y: 82, nombre: 'Las parcelas', texto: 'De aquí salen los sacos hacia los lugares de recolección.' },
+          { x: 87.5, y: 17, nombre: 'La ley del sol', texto: 'Mi regla favorita: F = m · a. La fuerza va en newtons, la masa en kilogramos y la aceleración en m/s².' },
         ],
       },
       {
         tipo: 'relacionar', titulo: 'Cada magnitud con su unidad',
-        instruccion: 'Arrastra cada unidad hasta la magnitud que mide.',
+        instruccion: 'Lleva cada unidad hasta la magnitud que mide.',
         zonas: [
           { id: 'f', texto: 'Fuerza (F)' },
           { id: 'm', texto: 'Masa (m)' },
@@ -255,21 +256,18 @@ const MISIONES = [
         ayuda: 'La unidad de fuerza lleva el nombre de Isaac Newton.',
       },
       {
-        tipo: 'carrito', titulo: 'Empuja el carrito',
-        instruccion: 'El carrito de K\'inich tiene una masa de 20 kg. Ajusta la fuerza neta hasta que su aceleración sea de 5 m/s² y pulsa «Comprobar».',
-        masa: 20, objetivo: 5, fmax: 200, fpaso: 10,
-        ayuda: 'Despeja F en F = m · a: F = 20 kg × 5 m/s².',
-      },
-      {
-        tipo: 'numero', titulo: 'El doble de carga',
-        pregunta: 'K\'inich carga más sacos y el carrito llega a 40 kg (el doble). Si empuja con la misma fuerza neta de 100 N, ¿cuál será la aceleración?',
-        campos: [{ etiqueta: 'Aceleración', respuesta: 2.5, unidad: 'm/s²' }],
+        tipo: 'carrito', titulo: 'Lleva la cosecha',
+        instruccion: 'Ayuda a K\'inich a llevar el carrito hasta el centro de acopio. Observa cómo se mueve según la fuerza y la carga.',
+        rondas: [
+          { modo: 'fuerza', masa: 20, objetivo: 5, texto: 'Ronda 1: el carrito pesa 20 kg. Ajusta la fuerza para que acelere a 5 m/s².', exito: '¡Exacto! 20 kg × 5 m/s² = 100 N.' },
+          { modo: 'aceleracion', masa: 40, fuerza: 100, respuesta: 2.5, texto: 'Ronda 2: K\'inich cargó más sacos y ahora son 40 kg. Si empuja con los mismos 100 N, ¿qué aceleración tendrá?' },
+        ],
         exito: 'Con el doble de masa y la misma fuerza, la aceleración se reduce a la mitad.',
-        ayuda: 'a = F ÷ m = 100 N ÷ 40 kg.',
+        ayuda: 'F = m · a. En la ronda 1 calcula F = 20 × 5. En la ronda 2 calcula a = F ÷ m.',
       },
       {
         tipo: 'relacionar', titulo: 'Causa y efecto',
-        instruccion: 'Relaciona cada situación con lo que le ocurre a la aceleración.',
+        instruccion: 'Relaciona cada situación con lo que le pasa a la aceleración.',
         zonas: [
           { id: 'z1', texto: 'Aumenta la fuerza y la masa no cambia' },
           { id: 'z2', texto: 'Aumenta la masa y la fuerza no cambia' },
@@ -278,13 +276,13 @@ const MISIONES = [
         fichas: [
           { id: 'a', texto: 'La aceleración aumenta', zona: 'z1' },
           { id: 'b', texto: 'La aceleración disminuye', zona: 'z2' },
-          { id: 'c', texto: 'No existe aceleración', zona: 'z3' },
+          { id: 'c', texto: 'No hay aceleración', zona: 'z3' },
         ],
-        ayuda: 'La aceleración es directamente proporcional a la fuerza e inversamente proporcional a la masa.',
+        ayuda: 'Piensa en lo que viste en el carrito: más carga, menos aceleración.',
       },
       {
         tipo: 'imagen', titulo: 'Lee el plano inclinado',
-        instruccion: 'Los caminos de Lloa tienen pendientes. Observa el diagrama de un bloque sobre un plano inclinado y toca la fuerza que se pide.',
+        instruccion: 'Así se ve un saco sobre una pendiente. Toca la fuerza que se pide.',
         img: 'assets/images/plano-inclinado.jpg', alt: 'Diagrama de un bloque sobre un plano inclinado con sus fuerzas: normal, peso, componentes del peso y fuerza de rozamiento.',
         puntos: [
           { id: 'N',  x: 50, y: 33, etiqueta: 'la fuerza normal (N)' },
@@ -292,19 +290,19 @@ const MISIONES = [
           { id: 'Fr', x: 66, y: 46, etiqueta: 'la fuerza de rozamiento (Fr)' },
         ],
         pasos: ['N', 'p', 'Fr'],
-        exito: 'En un plano inclinado, el movimiento depende de la gravedad, la inclinación y la fricción.',
+        exito: 'En una pendiente, el movimiento depende de la gravedad, la inclinación y la fricción.',
         ayuda: 'La normal es perpendicular a la superficie; el peso apunta hacia abajo; el rozamiento va paralelo a la superficie.',
       },
     ],
     cierre: [
-      ['kinich', '¡Excelente! A mayor carga, más fuerza se necesita para lograr la misma aceleración.'],
-      ['yaku',   'Y en una pendiente, la gravedad, la inclinación y la fricción también influyen. Transportar en Lloa exige planificación.'],
+      ['kinich', '¡Excelente! A más carga, más fuerza se necesita para lograr la misma aceleración.'],
+      ['yaku',   'Y en las pendientes también influyen la gravedad y la fricción. Transportar en Lloa exige planificación.'],
       ['yuknoom', 'Ahora pongamos números a todo esto. Te espero en las parcelas.'],
     ],
     recompensa: {
       clave: 'que mantiene',
-      pista: 'a = F ÷ m. Si la masa sube y la fuerza no cambia, la aceleración baja. Mover más cosecha exige más fuerza.',
-      objeto: { nombre: 'Dinamómetro', desc: 'Instrumento para medir la fuerza, como en el experimento del carrito con agua.' },
+      pista: 'a = F ÷ m. Si la masa sube y la fuerza no cambia, la aceleración baja.',
+      objeto: { nombre: 'Dinamómetro', desc: 'Instrumento para medir la fuerza al mover una carga.' },
       evidencias: ['f1', 'f2'],
     },
   },
@@ -316,71 +314,71 @@ const MISIONES = [
     intro: [
       ['yuknoom', 'Soy Yuknoom. Me gusta mirar el todo antes de decidir. Y para ver el todo, hay que calcular.'],
       ['yaku',    'Necesito saber cuánta papa pueden producir los terrenos de Lloa y cuánto influyen las pendientes.'],
-      ['yuknoom', 'Cada resultado abre un candado de mi libreta. Ve con calma: un buen cálculo vale más que una respuesta rápida.'],
+      ['yuknoom', 'Mi libreta tiene siete candados. Cada resultado abre uno. Un buen cálculo vale más que una respuesta rápida.'],
     ],
     retos: [
       {
-        tipo: 'numero', titulo: 'Candado 1 · El área aprovechable',
-        pregunta: 'Una comunidad de Lloa dispone de un terreno de 18 hectáreas, pero el 25 % presenta condiciones poco favorables por la inclinación y la erosión. ¿Cuántas hectáreas pueden usarse inicialmente para cultivar papa?',
+        tipo: 'numero', titulo: 'Candado 1 · El área aprovechable', quien: 'yuknoom',
+        pregunta: 'Esta comunidad tiene 18 hectáreas, pero el 25 % sufre por la inclinación y la erosión. ¿Cuántas hectáreas pueden sembrarse de papa al inicio?',
         figura: 'terreno',
         campos: [{ etiqueta: 'Área aprovechable', respuesta: 13.5, unidad: 'ha' }],
         ayuda: 'Calcula el 25 % de 18 (18 × 0,25) y réstalo de 18.',
       },
       {
-        tipo: 'numero', titulo: 'Candado 2 · La pendiente',
-        pregunta: 'Un terreno agrícola de Lloa tiene una diferencia de altura de 36 m entre dos puntos separados horizontalmente por 120 m. ¿Cuál es el porcentaje de pendiente?',
+        tipo: 'numero', titulo: 'Candado 2 · La pendiente', quien: 'yuknoom',
+        pregunta: 'Medí un terreno: sube 36 m de altura en 120 m de distancia horizontal. ¿Cuál es su pendiente en porcentaje?',
         figura: 'pendiente',
         campos: [{ etiqueta: 'Pendiente', respuesta: 30, unidad: '%' }],
         ayuda: 'P = (36 ÷ 120) × 100.',
       },
       {
-        tipo: 'opcion', titulo: '¿Qué significa ese 30 %?',
-        pregunta: 'Una pendiente del 30 % es una inclinación considerable. ¿Qué implica para la producción de papa?',
+        tipo: 'opcion', titulo: '¿Qué significa ese 30 %?', quien: 'yuknoom',
+        pregunta: 'Un 30 % es una inclinación considerable. ¿Qué necesita ese terreno para producir papa?',
         opciones: [
-          { texto: 'Requiere medidas de conservación del suelo, como terrazas y barreras vegetales, para reducir la erosión.', correcta: true },
-          { texto: 'No tiene ningún efecto: la papa crece igual en cualquier inclinación.', fb: 'Una pendiente considerable favorece la erosión del suelo.' },
-          { texto: 'Obliga a abandonar el terreno.', fb: 'Hay alternativas: los pueblos andinos ya las usaban. Revisa tu pista de la Misión 1.' },
+          { texto: 'Medidas de conservación del suelo, como terrazas y barreras vegetales.', correcta: true },
+          { texto: 'Nada: la papa crece igual en cualquier inclinación.', fb: 'Una pendiente considerable favorece la erosión del suelo.' },
+          { texto: 'Abandonarlo para siempre.', fb: 'Hay alternativas: los pueblos andinos ya las usaban. Revisa tu pista de la Misión 1.' },
         ],
         ayuda: 'Consulta la pista de la Misión 1 en tu bitácora.',
       },
       {
-        tipo: 'numero', titulo: 'Candado 3 · La cosecha comercializable',
-        pregunta: 'Una asociación quiere cultivar papa en 12 hectáreas. Cada hectárea produce aproximadamente 22 toneladas, pero se estima una pérdida del 12 % por factores climáticos. ¿Cuántas toneladas podrán comercializarse?',
+        tipo: 'numero', titulo: 'Candado 3 · La cosecha para vender', quien: 'yuknoom',
+        pregunta: 'Una asociación sembrará 12 hectáreas. Cada hectárea da unas 22 toneladas, pero el clima se lleva el 12 %. ¿Cuántas toneladas podrán venderse?',
         campos: [{ etiqueta: 'Papa para vender', respuesta: 232.32, unidad: 't' }],
         ayuda: 'Producción total: 12 × 22. Pérdida: ese resultado × 0,12. Resta la pérdida.',
       },
       {
-        tipo: 'numero', titulo: 'Candado 4 · Pendiente y productividad',
-        pregunta: 'Dos terrenos de 4 ha cada uno: el A (pendiente de 8 %) produce 24 t/ha y el B (pendiente de 22 %) produce 17 t/ha. ¿En qué porcentaje es menor la producción total de B respecto de la de A?',
+        tipo: 'numero', titulo: 'Candado 4 · Pendiente y producción', quien: 'yuknoom',
+        pregunta: 'Dos terrenos de 4 ha: el A (pendiente de 8 %) da 24 t/ha y el B (pendiente de 22 %) da 17 t/ha. ¿En qué porcentaje es menor la producción total de B respecto de A?',
         campos: [{ etiqueta: 'Diferencia porcentual', respuesta: 29.17, unidad: '%', tol: 0.05 }],
-        exito: 'B produce 29,17 % menos que A. Hay una diferencia de productividad, aunque esto no demuestra que la pendiente sea la única causa.',
+        exito: 'B produce 29,17 % menos. Hay diferencia, aunque eso no prueba que la pendiente sea la única causa.',
         ayuda: 'A: 4 × 24. B: 4 × 17. Diferencia ÷ producción de A × 100.',
       },
       {
         tipo: 'relacionar', titulo: 'Candado 5 · Ordena las cosechas',
-        instruccion: 'Una comunidad registró cinco cosechas (t/ha): 18, 22, 20, 25 y 15. Ordénalas de menor a mayor para encontrar la mediana.',
+        instruccion: 'Yuknoom anotó cinco cosechas en t/ha. Ordena las barras de menor a mayor para encontrar la mediana.',
         zonas: [1, 2, 3, 4, 5].map(n => ({ id: 'p' + n, texto: n + '.º' })),
         fichas: [
-          { id: 'a', texto: '18', zona: 'p2' }, { id: 'b', texto: '22', zona: 'p4' }, { id: 'c', texto: '20', zona: 'p3' },
-          { id: 'd', texto: '25', zona: 'p5' }, { id: 'e', texto: '15', zona: 'p1' },
+          { id: 'a', texto: '18', barra: 18, zona: 'p2' }, { id: 'b', texto: '22', barra: 22, zona: 'p4' }, { id: 'c', texto: '20', barra: 20, zona: 'p3' },
+          { id: 'd', texto: '25', barra: 25, zona: 'p5' }, { id: 'e', texto: '15', barra: 15, zona: 'p1' },
         ],
         compacto: true,
-        ayuda: 'El valor más pequeño es 15 y el más grande, 25.',
+        ayuda: 'La barra más baja es 15 y la más alta, 25.',
       },
       {
-        tipo: 'numero', titulo: 'Candado 6 · Estadística de la cosecha',
-        pregunta: 'Con las cosechas 15, 18, 20, 22 y 25 t/ha, calcula la media aritmética, la mediana y el rango.',
+        tipo: 'numero', titulo: 'Candado 6 · Estadística de la cosecha', quien: 'yuknoom',
+        pregunta: 'Con las cosechas ordenadas (15, 18, 20, 22 y 25 t/ha), calcula la media, la mediana y el rango.',
         campos: [
           { etiqueta: 'Media', respuesta: 20, unidad: 't/ha' },
           { etiqueta: 'Mediana', respuesta: 20, unidad: 't/ha' },
           { etiqueta: 'Rango', respuesta: 10, unidad: 't/ha' },
         ],
-        exito: 'La producción promedio es de 20 t/ha, pero hay una variación de 10 t/ha entre la cosecha más alta y la más baja.',
+        exito: 'El promedio es de 20 t/ha, pero entre la mejor y la peor cosecha hay 10 t/ha de diferencia.',
         ayuda: 'Media: suma ÷ 5. Mediana: el valor del centro. Rango: mayor − menor.',
       },
       {
-        tipo: 'numero', titulo: 'Candado final · Terrazas que transforman',
-        pregunta: 'Lloa dispone de 20 ha: 12 ha con pendiente moderada producen 21 t/ha y 8 ha más inclinadas producen 15 t/ha. Con terrazas y técnicas de conservación del suelo, la productividad del segundo terreno aumenta un 15 %. ¿Cuál será la producción total?',
+        tipo: 'numero', titulo: 'Candado final · Terrazas que transforman', quien: 'yuknoom',
+        pregunta: 'Tenemos 20 ha: 12 ha con pendiente moderada dan 21 t/ha y 8 ha más inclinadas dan 15 t/ha. Si con terrazas y conservación del suelo el terreno inclinado mejora un 15 %, ¿cuál será la producción total?',
         campos: [{ etiqueta: 'Producción total', respuesta: 390, unidad: 't' }],
         ayuda: '12 × 21 = 252. Luego 8 × 15 = 120, y 120 × 1,15. Suma ambos resultados.',
       },
@@ -388,7 +386,7 @@ const MISIONES = [
     cierre: [
       ['yuknoom', 'Ya tienes los números: área aprovechable, pendiente, producción y estabilidad de las cosechas.'],
       ['yuknoom', 'Observa: con terrazas y conservación del suelo, la producción total llega a 390 toneladas.'],
-      ['siyaj',   '¡Escuchen! Algo se oye desde la antena del cerro... ¡Es un mensaje en inglés!'],
+      ['siyaj',   '¡Escuchen! Algo suena en la antena del cerro... ¡Es un mensaje en inglés!'],
     ],
     recompensa: {
       clave: 'viva',
@@ -403,8 +401,8 @@ const MISIONES = [
     id: 'en', numero: 'Reto auditivo', materia: 'Inglés', titulo: 'Mensaje desde la antena', lugar: 'Antena del cerro',
     fondo: 'antena', icono: 'ingles', guia: 'siyaj', mapa: { x: 80, y: 26 },
     intro: [
-      ['siyaj',  'La antena capta un mensaje de radio de los agricultores de Lloa. Está en inglés.'],
-      ['quilla', 'Escúchalo con atención: contiene un dato que necesitarás en la plaza del mercado.'],
+      ['siyaj',  'La antena capta un mensaje de radio de los agricultores de Lloa. ¡Está en inglés!'],
+      ['quilla', 'Escúchalo con atención: trae un dato que necesitarás en la plaza del mercado.'],
     ],
     retos: [
       {
@@ -425,7 +423,7 @@ const MISIONES = [
       },
     ],
     cierre: [
-      ['siyaj', 'Great job! El mensaje confirma lo que hemos aprendido y nos da la tarifa de transporte de Lloa a Quito: 0,18 dólares por kilogramo.'],
+      ['siyaj', 'Great job! El mensaje nos dio la tarifa de transporte de Lloa a Quito: 0,18 dólares por kilogramo.'],
       ['yaku',  'Ese dato es clave. Vamos a la plaza: allí se decide si la papa llega o no al mercado.'],
     ],
     recompensa: {
@@ -441,39 +439,39 @@ const MISIONES = [
     id: 'm5', numero: 'Misión 5', materia: 'Emprendimiento y Gestión', titulo: 'Una solución para la comunidad', lugar: 'Plaza de Lloa',
     fondo: 'plaza', icono: 'emprendimiento', guia: 'siyaj', mapa: { x: 79, y: 80 },
     intro: [
-      ['siyaj',   'Esta es la plaza de Lloa. Aquí se nota el problema: la cosecha existe, pero llegar al mercado es otra historia.'],
-      ['yaku',    'Debemos analizar la comercialización: costos, mercados y ganancias. Sin esos datos no podremos proponer nada viable.'],
-      ['yuknoom', 'Usa las pistas que reuniste. La tarifa del mensaje de radio te servirá.'],
+      ['siyaj',   'Esta es la plaza de Lloa. La cosecha existe... pero llegar al mercado es otra historia.'],
+      ['yaku',    'Debemos entender cómo se vende la papa: costos, mercados y ganancias.'],
+      ['yuknoom', 'Usa tus pistas. La tarifa del mensaje de radio te servirá.'],
     ],
     retos: [
       {
-        tipo: 'lectura', titulo: 'Lo que viven los productores',
-        instruccion: 'Lee el diagnóstico de la parroquia de Lloa.',
-        fuentes: [
-          { cita: 'Lugmaña (2025). Tesis de pregrado, UNACH.', texto: '«La parroquia de Lloa ubicada en el cantón Quito, vive principalmente de la agricultura [...] sin embargo, los productores enfrentan limitaciones en la gestión comercial y en el acceso a mercados directos».' },
-          { cita: 'Paráfrasis del equipo', texto: 'Los agricultores de Lloa sufren un marcado alejamiento de los canales formales de comercialización, lo que dificulta la venta justa de sus cosechas y frena el desarrollo productivo. El aislamiento no es solo geográfico o vial: también es comercial y de apoyo institucional.' },
+        tipo: 'explorar', titulo: 'Recorre la plaza',
+        instruccion: 'Toca los destellos y escucha lo que pasa en el mercado de Lloa.',
+        fondo: 'plaza', alt: 'Plaza de Lloa con iglesia, casas, banderines y puestos de mercado', quien: 'siyaj',
+        puntos: [
+          { x: 13, y: 88, nombre: 'Un puesto de papas', texto: 'Lloa vive principalmente de la agricultura: aquí se ve el trabajo de muchas familias.' },
+          { x: 66, y: 88, nombre: 'Otro puesto', texto: 'Pero vender no es fácil: los productores tienen poco acceso a mercados directos.' },
+          { x: 44, y: 66, nombre: 'La iglesia', texto: 'El problema no es solo el camino: también falta apoyo y organización para vender.' },
+          { x: 90, y: 70, nombre: 'El camino a la ciudad', texto: 'Los mercados grandes, como los de Quito, quedan lejos de las parcelas.' },
         ],
       },
       {
-        tipo: 'clasificar', titulo: 'Diagnóstico de la comercialización',
-        instruccion: 'Separa los problemas que describe el estudio de las afirmaciones que no corresponden.',
-        zonas: [
-          { id: 'si', texto: 'Problema descrito por el estudio' },
-          { id: 'no', texto: 'No corresponde' },
+        tipo: 'deslizar', titulo: '¿Problema de Lloa?',
+        instruccion: 'Desliza a la derecha lo que sí es un problema de Lloa y a la izquierda lo que no corresponde.',
+        izq: 'No corresponde', der: 'Problema real',
+        cartas: [
+          { texto: 'Poco acceso a mercados directos', lado: 'der' },
+          { texto: 'Dificultad para vender a un precio justo', lado: 'der' },
+          { texto: 'Falta de organización y apoyo para vender', lado: 'der' },
+          { texto: 'Los mercados grandes quedan lejos de las parcelas', lado: 'der' },
+          { texto: 'Lloa no depende de la agricultura', lado: 'izq', fb: 'No: Lloa vive principalmente de la agricultura.' },
+          { texto: 'Los agricultores venden sin problema en todos los mercados', lado: 'izq', fb: 'No: les cuesta llegar a los mercados directos.' },
         ],
-        fichas: [
-          { id: 'a', texto: 'Limitaciones en la gestión comercial', zona: 'si' },
-          { id: 'b', texto: 'Acceso limitado a mercados directos', zona: 'si' },
-          { id: 'c', texto: 'Dificultad para lograr una venta justa', zona: 'si' },
-          { id: 'd', texto: 'Aislamiento comercial e institucional', zona: 'si' },
-          { id: 'e', texto: 'Lloa no depende de la agricultura', zona: 'no' },
-          { id: 'g', texto: 'Los agricultores venden sin problema en todos los mercados', zona: 'no' },
-        ],
-        ayuda: 'El estudio dice que Lloa vive principalmente de la agricultura.',
       },
       {
-        tipo: 'numero', titulo: 'El costo del traslado',
-        pregunta: 'La comunidad necesita transportar 8 toneladas de papa desde Lloa hasta Quito, en dos viajes iguales. Usa la tarifa por kilogramo del mensaje de radio. ¿Cuánto cuesta cada viaje y cuál es el costo total?',
+        tipo: 'numero', titulo: 'El costo del traslado', quien: 'siyaj',
+        pregunta: 'La comunidad quiere llevar 8 toneladas de papa a Quito en dos viajes iguales. Con la tarifa del mensaje de radio, ¿cuánto cuesta cada viaje y cuánto en total?',
+        figura: 'camion',
         campos: [
           { etiqueta: 'Costo por viaje', respuesta: 720, unidad: '$' },
           { etiqueta: 'Costo total', respuesta: 1440, unidad: '$' },
@@ -481,8 +479,8 @@ const MISIONES = [
         ayuda: '8 toneladas = 8.000 kg. Multiplica por 0,18 $/kg y divide entre dos viajes.',
       },
       {
-        tipo: 'numero', titulo: 'Inversión en fertilizante',
-        pregunta: 'Para fertilizar 8 ha, la recomendación técnica (basada en un análisis del suelo) es usar 350 kg de fertilizante por hectárea. Cada saco contiene 50 kg y cuesta 32 $. ¿Cuántos sacos se compran y cuál es la inversión?',
+        tipo: 'numero', titulo: 'Inversión en fertilizante', quien: 'ixkik',
+        pregunta: 'Para 8 ha, el análisis del suelo recomienda 350 kg de fertilizante por hectárea. Cada saco trae 50 kg y cuesta 32 $. ¿Cuántos sacos compramos y cuánto invertimos?',
         campos: [
           { etiqueta: 'Sacos', respuesta: 56, unidad: 'sacos' },
           { etiqueta: 'Inversión', respuesta: 1792, unidad: '$' },
@@ -490,15 +488,15 @@ const MISIONES = [
         ayuda: '8 × 350 kg; luego ÷ 50 kg por saco; luego × 32 $.',
       },
       {
-        tipo: 'numero', titulo: 'Ingreso, costo y ganancia',
-        pregunta: 'Una asociación vende cada tonelada de papa a 480 $. Sus costos de producción y transporte son C(x) = 180x + 2.400, donde x son las toneladas. Explora la gráfica y calcula los valores para x = 30 t.',
+        tipo: 'numero', titulo: 'Ingreso, costo y ganancia', quien: 'yuknoom',
+        pregunta: 'Si vendemos cada tonelada a 480 $ y los costos de producción y transporte son C(x) = 180x + 2.400 (x = toneladas), mueve la gráfica y calcula los valores para 30 toneladas.',
         figura: 'funcion',
         campos: [
           { etiqueta: 'Ingreso I(30)', respuesta: 14400, unidad: '$' },
           { etiqueta: 'Costo C(30)', respuesta: 7800, unidad: '$' },
           { etiqueta: 'Ganancia', respuesta: 6600, unidad: '$' },
         ],
-        exito: 'Vendiendo 30 t, la asociación obtiene 14.400 $ de ingreso, 7.800 $ de costo y 6.600 $ de ganancia.',
+        exito: 'Vendiendo 30 t se ganan 6.600 $ después de pagar producción y transporte.',
         ayuda: 'I(x) = 480x. Ganancia = I(30) − C(30). Consulta la pista de la Misión 4.',
       },
     ],
@@ -529,29 +527,29 @@ const OPCIONES = {
     letra: 'A', nombre: 'Extensión de un canal', color: 'agua',
     idea: 'Ampliar la conducción de agua hacia los terrenos de cultivo de papa.',
     datos: [
-      'Los incas usaron reservorios, canales de piedra y caídas escalonadas para regar laderas pronunciadas (Lane et al., 2023).',
-      'Con canales y terrazas aprovecharon terrenos montañosos y mejoraron la producción (Frogley et al., 2025).',
-      'Una pendiente de 30 % requiere terrazas y barreras vegetales (Matemáticas, ej. 2).',
-      'Con terrazas y conservación del suelo, el terreno inclinado mejora un 15 % y 20 ha llegan a 390 t (Matemáticas, ej. 10).',
-      'Se estima una pérdida de 12 % de la cosecha por factores climáticos (Matemáticas, ej. 4).',
+      'Los pueblos andinos ya regaban laderas pronunciadas con reservorios, canales de piedra y caídas escalonadas.',
+      'Canales y terrazas permitieron cultivar en la montaña y producir más alimentos.',
+      'Un terreno con 30 % de pendiente necesita terrazas y barreras vegetales.',
+      'Con terrazas y conservación del suelo, 20 ha pueden llegar a 390 t de papa.',
+      'El clima puede llevarse el 12 % de la cosecha.',
     ],
     vacios: [
-      'Los documentos no indican el costo de construir o extender un canal.',
-      'No hay datos de caudal ni del tiempo de llegada del agua.',
+      'Cuánto costaría construir o extender el canal.',
+      'Cuánta agua llevaría y en cuánto tiempo llegaría.',
     ],
   },
   traslado: {
     letra: 'B', nombre: 'Servicio de traslado', color: 'tierra',
     idea: 'Organizar un servicio que lleve las cosechas de papa desde los terrenos hasta los mercados.',
     datos: [
-      'Llevar 8 t de Lloa a Quito cuesta 1.440 $ (0,18 $/kg; dos viajes de 720 $) (Matemáticas, ej. 3).',
-      'Vendiendo 30 t a 480 $/t, la ganancia es de 6.600 $, ya descontados los costos de producción y transporte (Matemáticas, ej. 9).',
-      'Los productores tienen acceso limitado a mercados directos y dificultades para una venta justa (Lugmaña, 2025).',
-      'Más carga exige más fuerza, y en las pendientes influyen la gravedad, la inclinación y la fricción (Física).',
+      'Llevar 8 t de Lloa a Quito cuesta 1.440 $ (0,18 $ por kilogramo).',
+      'Vendiendo 30 t a 480 $ cada una quedan 6.600 $ de ganancia, ya pagados producción y transporte.',
+      'Los productores tienen poco acceso a mercados directos y les cuesta vender a un precio justo.',
+      'Mover más carga exige más fuerza, y las pendientes lo complican.',
     ],
     vacios: [
-      'Los documentos solo mencionan Quito como destino; no nombran compradores específicos.',
-      'No se indica la distancia en kilómetros hasta los mercados ni el costo de un vehículo.',
+      'Quiénes serían los compradores, aparte de los mercados de Quito.',
+      'La distancia exacta y cuánto costaría un vehículo.',
     ],
   },
 };
@@ -716,11 +714,16 @@ let fondoActual = null;
 function ponerFondo(nombre) {
   if (nombre === fondoActual) return;
   fondoActual = nombre;
+  document.body.dataset.fondo = nombre;
   const a = $('#fondo-a'), b = $('#fondo-b');
   const [visible, oculto] = a.classList.contains('visible') ? [a, b] : [b, a];
   oculto.src = `assets/backgrounds/${nombre}.svg`;
   oculto.classList.add('visible'); visible.classList.remove('visible');
 }
+
+/* Mama Quilla flota en el cielo cuando narra */
+function mostrarNarradora(ver) { $('#narradora').classList.toggle('visible', ver); }
+const hablando = si => ['#dialogo', '#narradora', '.escenario'].forEach(sel => document.querySelector(sel)?.classList.toggle('hablando', si));
 
 /* ---------- Navegación entre pantallas ---------- */
 const PANTALLAS = {};
@@ -729,6 +732,7 @@ async function ir(pantalla, { guardarEstado = true } = {}) {
   if (transicionando) return;
   transicionando = true;
   speechSynthesis?.cancel();
+  mostrarNarradora(false);
   const cortina = $('#cortina');
   cortina.classList.add('activa');
   await esperar(reducirMovimiento ? 0 : 320);
@@ -818,32 +822,38 @@ async function dialogo(lineas) {
     $('#dialogo-retrato').src = p.img; $('#dialogo-retrato').alt = p.nombre;
     $('#dialogo-nombre').textContent = p.nombre;
     caja.dataset.quien = quien;
+    mostrarNarradora(quien === 'quilla');
     const retrato = $('#dialogo-retrato');
     retrato.classList.remove('entra'); void retrato.offsetWidth; retrato.classList.add('entra');
     await escribir(texto, frase, seguir);
   }
   caja.classList.remove('abierto');
+  mostrarNarradora(false);
   await esperar(reducirMovimiento ? 0 : 200);
   caja.hidden = true;
 }
 /* Escribe el texto letra por letra; el primer clic completa la frase, el segundo continúa */
-function escribir(el, frase, boton) {
+function escribir(el, frase, boton, etiqueta = 'Continuar', marco = $('#dialogo')) {
   return new Promise(resolve => {
     let i = 0, completo = false;
     el.textContent = '';
-    boton.textContent = 'Continuar';
-    const terminar = () => { completo = true; clearInterval(timer); el.textContent = frase; $('#dialogo').classList.add('listo'); };
-    $('#dialogo').classList.remove('listo');
+    boton.textContent = etiqueta;
+    hablando(true);
+    const terminar = () => { completo = true; clearInterval(timer); el.textContent = frase; marco.classList.add('listo'); hablando(false); };
+    marco.classList.remove('listo');
     const timer = setInterval(() => {
       i += 2; el.textContent = frase.slice(0, i);
       if (i >= frase.length) terminar();
     }, reducirMovimiento ? 1 : 22);
+    const soltar = () => { boton.onclick = null; document.removeEventListener('keydown', tecla); };
     const avanzar = () => {
       if (!completo) { terminar(); return; }
-      boton.onclick = null; document.removeEventListener('keydown', tecla);
-      Sonido.clic(); resolve();
+      soltar(); Sonido.clic(); resolve();
     };
-    const tecla = e => { if ((e.key === 'Enter' || e.key === ' ') && $('#modal').hidden && document.activeElement !== $('#dialogo-saltar')) { e.preventDefault(); avanzar(); } };
+    const tecla = e => {
+      if (!boton.isConnected) { clearInterval(timer); soltar(); return; } // la pantalla cambió
+      if ((e.key === 'Enter' || e.key === ' ') && $('#modal').hidden && !e.target.closest('input, textarea, #dialogo-saltar')) { e.preventDefault(); avanzar(); }
+    };
     boton.onclick = avanzar;
     document.addEventListener('keydown', tecla);
     boton.focus({ preventScroll: true });
@@ -860,16 +870,20 @@ PANTALLAS.inicio = main => {
   const conPartida = haySave() && (S.hechas.length > 0 || S.pantalla !== 'inicio');
   main.append(html(`
     <section class="inicio">
-      <img class="inicio-escudo" src="assets/images/escudo.png" alt="Escudo de la U.E. San Andrés Quitumbe" width="96" height="96">
-      <p class="inicio-colegio">Unidad Educativa Franciscana San Andrés Quitumbe</p>
-      <h1 class="inicio-titulo">Misión Lloa</h1>
-      <p class="inicio-subtitulo">yaku kamachikkuna</p>
-      <p class="inicio-lema">Ayuda a Yaku Camayoc y a los agricultores de papa de Lloa, Pichincha, a encontrar una solución para su comunidad.</p>
-      <div class="inicio-botones">
-        ${conPartida ? `<button class="btn btn-oro btn-grande" data-ir="continuar">${icono('flecha')} Continuar aventura</button>` : ''}
-        <button class="btn ${conPartida ? 'btn-claro' : 'btn-oro btn-grande'}" data-ir="nueva">${conPartida ? 'Nueva partida' : icono('flecha') + ' Comenzar aventura'}</button>
+      <div class="inicio-panel">
+        <span class="chip">Lloa · Pichincha · Ecuador</span>
+        <h1 class="inicio-titulo">Misión Lloa</h1>
+        <p class="inicio-subtitulo">yaku kamachikkuna</p>
+        <p class="inicio-lema">Las familias de Lloa cultivan papa en tierras generosas, pero sus parcelas están lejos de los mercados y llevar la cosecha es difícil. Recorre Lloa, supera seis desafíos, reúne las claves de Mama Quilla y ayuda a Yaku Camayoc a decidir el futuro de la comunidad.</p>
+        <div class="inicio-botones">
+          ${conPartida ? `<button class="btn btn-oro btn-grande" data-ir="continuar">${icono('flecha')} Continuar aventura</button>` : ''}
+          <button class="btn ${conPartida ? 'btn-claro' : 'btn-oro btn-grande'}" data-ir="nueva">${conPartida ? 'Nueva partida' : icono('flecha') + ' Comenzar aventura'}</button>
+        </div>
+        <p class="inicio-nota">U.E. Franciscana San Andrés Quitumbe</p>
       </div>
-      <p class="inicio-nota">Tercero de Bachillerato · Escape room interdisciplinario</p>
+      <div class="inicio-elenco" aria-hidden="true">
+        ${['yuknoom', 'ixkik', 'yaku', 'kinich', 'siyaj'].map(id => `<img src="${PERSONAJES[id].img}" alt="" class="elenco-${id}">`).join('')}
+      </div>
     </section>`));
   main.querySelector('[data-ir="continuar"]')?.addEventListener('click', () => {
     Sonido.iniciar(); Sonido.clic();
@@ -883,14 +897,14 @@ PANTALLAS.inicio = main => {
   });
 };
 
-/* 2. Introducción cinematográfica */
+/* 2. Introducción cinematográfica: Mama Quilla narra desde el cielo */
 PANTALLAS.intro = main => {
-  let i = 0, timer;
+  let i = 0, silencio;
   const nodo = html(`
     <section class="cine">
       <div class="cine-banda"></div>
       <div class="cine-texto">
-        <img class="cine-retrato" src="${PERSONAJES.quilla.img}" alt="Mama Quilla">
+        <span class="cine-quien">Mama Quilla</span>
         <p id="cine-frase" aria-live="polite"></p>
       </div>
       <div class="cine-controles">
@@ -901,15 +915,19 @@ PANTALLAS.intro = main => {
       <div class="cine-banda abajo"></div>
     </section>`);
   main.append(nodo);
+  mostrarNarradora(true);
   const frase = $('#cine-frase', nodo);
   const mostrar = () => {
-    clearTimeout(timer);
+    clearTimeout(silencio);
     const panel = INTRO[i];
     ponerFondo(panel.fondo);
     frase.classList.remove('entra'); void frase.offsetWidth; frase.classList.add('entra');
     frase.textContent = panel.texto;
     nodo.querySelectorAll('.cine-puntos span').forEach((s, k) => s.classList.toggle('activo', k === i));
-    if (S.sonido) hablar(panel.texto, 'es-ES', 0.95);
+    // La narradora "habla" mientras se lee la frase (con voz si está activa)
+    hablando(true);
+    const callar = () => hablando(false);
+    if (!(S.sonido && hablar(panel.texto, 'es-ES', 0.95, callar))) silencio = setTimeout(callar, Math.min(panel.texto.length * 45, 6000));
   };
   const seguir = () => { Sonido.clic(); if (++i < INTRO.length) mostrar(); else ir('personajes'); };
   $('#cine-seguir', nodo).addEventListener('click', seguir);
@@ -918,38 +936,49 @@ PANTALLAS.intro = main => {
   $('#cine-seguir', nodo).focus();
 };
 
-/* 3. Presentación de los personajes */
-PANTALLAS.personajes = main => {
+/* 3. Presentación: cada personaje sale a escena y se presenta */
+const PRESENTACION = [
+  ['yaku',    'Soy Yaku Camayoc. Fui ingeniero hidráulico, pero he olvidado mucho de lo que sabía. Necesito su ayuda para que Lloa salga adelante.'],
+  ['quilla',  'Yo soy Mama Quilla. Desde el cielo observo Lloa, y los guiaré en cada paso de esta misión.'],
+  ['siyaj',   '¡Soy Siyaj Chan, tu guía! Me encanta explorar: juntos recorreremos cada rincón de Lloa.'],
+  ['yuknoom', 'Soy Yuknoom. Antes de decidir, miro el todo. Te ayudaré a interpretar la información con calma.'],
+  ['kinich',  '¡Soy K\'inich! Cuando el camino se ponga difícil, ahí estaré con energía y pistas. ¡Vamos!'],
+  ['ixkik',   'Soy Ixkik, guardiana de las semillas. Te enseñaré a escuchar a la tierra y a cuidar los cultivos.'],
+];
+PANTALLAS.personajes = async main => {
   ponerFondo('inicio');
-  const orden = ['yaku', 'quilla', 'siyaj', 'yuknoom', 'kinich', 'ixkik'];
-  main.append(html(`
-    <section class="presentacion">
-      <h2 class="titulo-seccion">Quienes te acompañan</h2>
-      <p class="subtitulo-seccion">Toca cada retrato para escuchar su saludo.</p>
-      <div class="tarjetas-personajes">
-        ${orden.map(id => {
-          const p = PERSONAJES[id];
-          return `<button class="tarjeta-personaje" data-id="${id}">
-            <img src="${p.img}" alt="">
-            <span class="tp-nombre">${p.nombre}</span>
-            <span class="tp-ref">${p.ref}</span>
-            <span class="tp-rol">${p.rol}</span>
-            <span class="tp-pers">${p.personalidad}</span>
-          </button>`;
-        }).join('')}
+  const nodo = html(`
+    <section class="escenario">
+      <div class="escenario-figura"><div class="escenario-aura"></div><img alt=""></div>
+      <div class="escenario-info panel">
+        <p class="escenario-num"></p>
+        <h2 class="escenario-nombre"></h2>
+        <p class="escenario-ref"></p>
+        <p class="escenario-rol"></p>
+        <div class="escenario-globo"><p class="escenario-frase" aria-live="polite"></p></div>
+        <div class="escenario-pie">
+          <div class="cine-puntos">${PRESENTACION.map(() => '<span></span>').join('')}</div>
+          <button class="btn btn-texto" id="pres-saltar">Saltar</button>
+          <button class="btn btn-oro" id="pres-seguir">Siguiente</button>
+        </div>
       </div>
-      <button class="btn btn-oro btn-grande" id="al-mapa">${icono('mapa')} Abrir el mapa de Lloa</button>
-    </section>`));
-  const saludos = {
-    yaku: 'Gracias por venir, viajeros. Sin ustedes no podré recordar lo que Lloa necesita.',
-    quilla: 'Los observaré desde el cielo y los guiaré en cada paso.',
-    siyaj: 'Yo seré tu guía. ¡Hay mucho por explorar!',
-    yuknoom: 'Te ayudaré a interpretar la información. Pensar con calma es nuestra mejor herramienta.',
-    kinich: '¡Cuando el camino se ponga difícil, ahí estaré con energía y pistas!',
-    ixkik: 'Cuido las semillas y los saberes agrícolas. Te enseñaré a escuchar a la tierra.',
-  };
-  main.querySelectorAll('.tarjeta-personaje').forEach(b => b.addEventListener('click', () => dialogo([[b.dataset.id, saludos[b.dataset.id]]])));
-  $('#al-mapa', main).addEventListener('click', () => { Sonido.clic(); ir('mapa'); });
+    </section>`);
+  main.append(nodo);
+  $('#pres-saltar', nodo).addEventListener('click', () => ir('mapa'));
+  for (const [k, [id, frase]] of PRESENTACION.entries()) {
+    if (!nodo.isConnected) return;
+    const p = PERSONAJES[id], img = $('.escenario-figura img', nodo);
+    nodo.dataset.quien = id;
+    img.src = p.img; img.alt = p.nombre;
+    [img, $('.escenario-info', nodo)].forEach(el => { el.classList.remove('entra'); void el.offsetWidth; el.classList.add('entra'); });
+    $('.escenario-num', nodo).textContent = `Personaje ${k + 1} de ${PRESENTACION.length}`;
+    $('.escenario-nombre', nodo).textContent = p.nombre;
+    $('.escenario-ref', nodo).textContent = p.ref;
+    $('.escenario-rol', nodo).textContent = `${p.rol}. ${p.personalidad}`;
+    nodo.querySelectorAll('.cine-puntos span').forEach((s, j) => s.classList.toggle('activo', j === k));
+    await escribir($('.escenario-frase', nodo), frase, $('#pres-seguir', nodo), k + 1 < PRESENTACION.length ? 'Siguiente' : 'Abrir el mapa', nodo);
+  }
+  if (nodo.isConnected) ir('mapa');
 };
 
 /* 4. Mapa principal de exploración */
@@ -1075,7 +1104,7 @@ async function retoResuelto(m, i, marco, reto) {
   const fb = marco.querySelector('.reto-feedback');
   fb.className = 'reto-feedback ok';
   fb.textContent = reto.exito ? '¡Correcto! ' + reto.exito : '¡Correcto!';
-  if (reto.tipo !== 'lectura') aviso('Desafío completado', 'logro', 'check');
+  aviso('Desafío completado', 'logro', 'check');
   if (!completada(m.id)) { S.paso[m.id] = i + 1; guardar(); }
   const seguir = html(`<button class="btn btn-oro">${i + 1 < m.retos.length ? 'Siguiente desafío' : 'Completar misión'} ${icono('flecha')}</button>`);
   marco.querySelector('.reto-acciones').append(seguir);
@@ -1146,7 +1175,7 @@ PANTALLAS.sala = main => {
       <header class="sala-cabecera panel">
         <p class="mision-materia">Casa Comunal · Sala de comparación</p>
         <h2 class="mision-titulo">El futuro de Lloa</h2>
-        <p>Yaku Camayoc necesita tu ayuda para comparar dos alternativas. No hay una respuesta escrita de antemano: decide con los datos que reuniste.</p>
+        <p>Yaku Camayoc necesita tu ayuda para comparar dos alternativas. No hay una respuesta escrita de antemano: decide con lo que descubriste.</p>
       </header>
       <div class="alternativas">
         ${['canal', 'traslado'].map(k => { const o = OPCIONES[k]; return `
@@ -1154,9 +1183,9 @@ PANTALLAS.sala = main => {
             <span class="alt-letra">${o.letra}</span>
             <h3>${o.nombre}</h3>
             <p class="alt-idea">${o.idea}</p>
-            <h4>Lo que dicen los documentos</h4>
+            <h4>Lo que descubriste</h4>
             <ul>${o.datos.map(d => `<li>${d}</li>`).join('')}</ul>
-            <h4>Lo que los documentos no dicen</h4>
+            <h4>Lo que todavía no se sabe</h4>
             <ul class="alt-vacios">${o.vacios.map(d => `<li>${d}</li>`).join('')}</ul>
           </article>`; }).join('')}
       </div>
@@ -1331,7 +1360,7 @@ PANTALLAS.fin = main => {
           <h4>Tu justificación</h4>
           <blockquote>${esc(F.texto)}</blockquote>
           <h4>Evidencias que la respaldan</h4>
-          <ul>${F.usadas.map(id => `<li>${EVIDENCIAS[id].texto} <small>(${EVIDENCIAS[id].fuente})</small></li>`).join('')}</ul>
+          <ul>${F.usadas.map(id => `<li>${EVIDENCIAS[id].texto}</li>`).join('')}</ul>
         </article>
         <article class="panel fin-bloque fin-reflexion">
           <h3>Reflexión final</h3>
@@ -1362,20 +1391,115 @@ const botonComprobar = (ctx, alPulsar) => {
   return b;
 };
 
-/* Lectura de fuentes académicas */
-RETOS.lectura = (reto, ctx) => {
-  ctx.cuerpo.append(html(`<div class="lectura">
-    ${reto.formula ? `<p class="formula">${reto.formula}</p>` : ''}
-    ${reto.fuentes.map(f => `<figure class="fuente"><blockquote>${f.texto}</blockquote><figcaption>${f.cita}</figcaption></figure>`).join('')}
-  </div>`));
-  const b = html(`<button class="btn btn-oro">${icono('bitacora')} Lo he leído</button>`);
-  b.addEventListener('click', () => ctx.resuelto());
-  ctx.acciones.prepend(b);
+/* El personaje que plantea la pregunta aparece junto a ella */
+const preguntaHTML = reto => reto.quien
+  ? `<div class="habla"><img src="${PERSONAJES[reto.quien].img}" alt="${PERSONAJES[reto.quien].nombre}"><p class="pregunta">${reto.pregunta}</p></div>`
+  : `<p class="pregunta">${reto.pregunta}</p>`;
+
+/* Explorar una escena: tocar los destellos para descubrir información */
+RETOS.explorar = (reto, ctx) => {
+  const vistos = new Set();
+  const caja = html(`<div class="explorar">
+    <div class="explorar-escena">
+      <img src="assets/backgrounds/${reto.fondo}.svg" alt="${reto.alt}">
+      ${reto.puntos.map((p, k) => `<button class="hallazgo" style="left:${p.x}%;top:${p.y}%" data-k="${k}" aria-label="Investigar: ${p.nombre}"><span></span></button>`).join('')}
+    </div>
+    <div class="explorar-nota" aria-live="polite">
+      <img src="${PERSONAJES[reto.quien].img}" alt="${PERSONAJES[reto.quien].nombre}">
+      <p><b>¿Qué habrá aquí?</b>Toca un destello de la escena.</p>
+    </div>
+    <p class="explorar-contador"></p>
+  </div>`);
+  ctx.cuerpo.append(caja);
+  const nota = $('.explorar-nota', caja), contador = $('.explorar-contador', caja);
+  const contar = () => { contador.textContent = `Descubrimientos: ${vistos.size} de ${reto.puntos.length}`; };
+  contar();
+  caja.querySelectorAll('.hallazgo').forEach(b => b.addEventListener('click', () => {
+    const p = reto.puntos[b.dataset.k];
+    Sonido.clic();
+    b.classList.add('visto');
+    $('p', nota).innerHTML = `<b>${p.nombre}</b>${p.texto}`;
+    nota.classList.remove('entra'); void nota.offsetWidth; nota.classList.add('entra');
+    if (vistos.has(b.dataset.k)) return;
+    vistos.add(b.dataset.k); contar();
+    if (vistos.size === reto.puntos.length) ctx.resuelto();
+  }));
+};
+
+/* Tarjetas para deslizar a izquierda o derecha (la tarjeta sigue al dedo 1:1) */
+RETOS.deslizar = (reto, ctx) => {
+  const cola = barajar(reto.cartas);
+  let aciertos = 0, carta = null;
+  const caja = html(`<div class="deslizar">
+    <div class="mazo">
+      <span class="mazo-lado izq">${icono('flecha')} ${reto.izq}</span>
+      <span class="mazo-lado der">${reto.der} ${icono('flecha')}</span>
+    </div>
+    <div class="mazo-botones">
+      <button class="btn btn-claro" type="button" data-lado="izq">${reto.izq}</button>
+      <span class="mazo-cuenta"></span>
+      <button class="btn btn-claro" type="button" data-lado="der">${reto.der}</button>
+    </div>
+  </div>`);
+  ctx.cuerpo.append(caja);
+  const mazo = $('.mazo', caja);
+  const siguiente = () => {
+    $('.mazo-cuenta', caja).textContent = `${aciertos} de ${reto.cartas.length}`;
+    if (!cola.length) { caja.querySelectorAll('.mazo-botones button').forEach(b => b.disabled = true); ctx.resuelto(); return; }
+    carta = html(`<div class="carta" tabindex="0" role="group" aria-label="Tarjeta: ${cola[0].texto}"><p>${cola[0].texto}</p></div>`);
+    mazo.append(carta);
+    arrastrable(carta);
+  };
+  const decidir = lado => {
+    if (!carta) return;
+    const c = cola[0], el = carta, dir = lado === 'izq' ? -1 : 1;
+    mazo.classList.remove('hacia-izq', 'hacia-der');
+    if (c.lado === lado) {
+      carta = null;
+      el.style.transition = 'transform 280ms cubic-bezier(0.23, 1, 0.32, 1), opacity 280ms ease';
+      el.style.transform = `translateX(${dir * 140}%) rotate(${dir * 16}deg)`; el.style.opacity = '0';
+      setTimeout(() => el.remove(), 280);
+      cola.shift(); aciertos++; Sonido.clic();
+      ctx.feedback.className = 'reto-feedback ok'; ctx.feedback.textContent = '¡Bien!';
+      siguiente();
+    } else {
+      el.style.transition = 'transform 260ms cubic-bezier(0.23, 1, 0.32, 1)'; el.style.transform = '';
+      ctx.mal(c.fb || 'Mmm... piénsalo otra vez.');
+    }
+  };
+  // Seguimiento 1:1 del puntero; al soltar decide por distancia o por velocidad
+  function arrastrable(el) {
+    let inicio = null;
+    el.addEventListener('pointerdown', e => {
+      if (inicio || e.button > 0) return;
+      inicio = { x: e.clientX, t: e.timeStamp, id: e.pointerId, ultX: e.clientX, ultT: e.timeStamp, vel: 0 };
+      el.setPointerCapture(e.pointerId); el.style.transition = 'none';
+    });
+    el.addEventListener('pointermove', e => {
+      if (!inicio || e.pointerId !== inicio.id) return;
+      const dx = e.clientX - inicio.x;
+      inicio.vel = (e.clientX - inicio.ultX) / Math.max(1, e.timeStamp - inicio.ultT);
+      inicio.ultX = e.clientX; inicio.ultT = e.timeStamp;
+      el.style.transform = `translateX(${dx}px) rotate(${dx / 18}deg)`;
+      mazo.classList.toggle('hacia-izq', dx < -30); mazo.classList.toggle('hacia-der', dx > 30);
+    });
+    const soltar = e => {
+      if (!inicio || e.pointerId !== inicio.id) return;
+      const dx = e.clientX - inicio.x, vel = inicio.vel; inicio = null;
+      if (Math.abs(dx) > 110 || (Math.abs(vel) > 0.6 && Math.abs(dx) > 20)) decidir(dx < 0 ? 'izq' : 'der');
+      else { el.style.transition = 'transform 220ms cubic-bezier(0.23, 1, 0.32, 1)'; el.style.transform = ''; mazo.classList.remove('hacia-izq', 'hacia-der'); }
+    };
+    el.addEventListener('pointerup', soltar);
+    el.addEventListener('pointercancel', soltar);
+    el.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') decidir('izq'); if (e.key === 'ArrowRight') decidir('der'); });
+  }
+  caja.querySelectorAll('[data-lado]').forEach(b => b.addEventListener('click', () => decidir(b.dataset.lado)));
+  siguiente();
 };
 
 /* Selección con retroalimentación por opción */
 RETOS.opcion = (reto, ctx) => {
-  const lista = html(`<div class="opciones"><p class="pregunta">${reto.pregunta}</p></div>`);
+  const lista = html(`<div class="opciones">${preguntaHTML(reto)}</div>`);
   reto.opciones.forEach(o => {
     const b = html(`<button class="opcion">${o.texto}</button>`);
     b.addEventListener('click', () => {
@@ -1389,14 +1513,14 @@ RETOS.opcion = (reto, ctx) => {
 
 /* Acertijo de respuesta escrita */
 RETOS.acertijo = (reto, ctx) => {
-  const f = html(`<form class="acertijo"><p class="pregunta">${reto.pregunta}</p>
+  const f = html(`<form class="acertijo">${preguntaHTML(reto)}
     <label class="campo"><span>Tu respuesta</span><input type="text" autocomplete="off" spellcheck="false"></label></form>`);
   ctx.cuerpo.append(f);
   const input = $('input', f);
   const probar = () => {
     if (!input.value.trim()) { ctx.mal('Escribe una respuesta.'); return; }
     if (reto.respuestas.map(normalizar).includes(normalizar(input.value))) ctx.resuelto();
-    else ctx.mal('Esa no es la respuesta. Piensa en lo que leíste en el pergamino.');
+    else ctx.mal('Esa no es la respuesta. Piensa en lo que descubriste en la montaña.');
   };
   f.addEventListener('submit', e => { e.preventDefault(); probar(); });
   botonComprobar(ctx, probar);
@@ -1405,7 +1529,7 @@ RETOS.acertijo = (reto, ctx) => {
 /* Candado numérico (uno o varios campos) */
 RETOS.numero = (reto, ctx) => {
   const f = html(`<form class="candado" novalidate>
-    <p class="pregunta">${reto.pregunta}</p>
+    ${preguntaHTML(reto)}
     ${reto.figura ? `<div class="figura">${FIGURAS[reto.figura]()}</div>` : ''}
     <div class="candado-campos">
       <span class="candado-icono">${icono('candado')}</span>
@@ -1435,7 +1559,7 @@ RETOS.numero = (reto, ctx) => {
 RETOS.medidor = (reto, ctx) => {
   const v = {};
   const caja = html(`<div class="medidor">
-    <div class="muestra" aria-hidden="true"><div class="muestra-tierra"></div><div class="muestra-tira"></div></div>
+    <div class="muestra" aria-hidden="true"><div class="brote"><svg viewBox="0 0 60 80"><path d="M30,80 V30" stroke="#4f7f32" stroke-width="5" stroke-linecap="round"/><ellipse cx="18" cy="34" rx="14" ry="8" fill="#6fa04a" transform="rotate(-30 18 34)"/><ellipse cx="42" cy="28" rx="14" ry="8" fill="#6fa04a" transform="rotate(30 42 28)"/><circle cx="30" cy="16" r="7" fill="#fff"/><circle cx="30" cy="16" r="3" fill="#f3c25a"/></svg></div><div class="muestra-tierra"></div><div class="muestra-tira"></div></div>
     <div class="medidor-controles">${reto.controles.map(c => {
       v[c.id] = c.inicio;
       return `<label class="deslizador"><span>${c.etiqueta}: <output data-o="${c.id}">${fmt(c.inicio)}${c.unidad ? ' ' + c.unidad : ''}</output></span>
@@ -1447,6 +1571,12 @@ RETOS.medidor = (reto, ctx) => {
     const mo = v.mo ?? 0, ph = v.ph ?? 7;
     $('.muestra-tierra', caja).style.background = `hsl(28 ${30 + mo * 2}% ${62 - mo * 3.5}%)`;
     $('.muestra-tira', caja).style.background = `hsl(${(ph - 4) * 30} 55% 52%)`;
+    // Cercanía al suelo ideal (0 a 1): la planta crece a medida que el jugador se acerca
+    const cerca = reto.controles.reduce((t, c) => {
+      const d = v[c.id] < c.objetivo[0] ? c.objetivo[0] - v[c.id] : v[c.id] > c.objetivo[1] ? v[c.id] - c.objetivo[1] : 0;
+      return t * (1 - Math.min(1, d / ((c.max - c.min) / 3)));
+    }, 1);
+    $('.brote', caja).style.transform = `scale(${0.15 + 0.85 * cerca})`;
   };
   caja.querySelectorAll('input').forEach(inp => inp.addEventListener('input', () => {
     const c = reto.controles.find(x => x.id === inp.dataset.id);
@@ -1463,46 +1593,74 @@ RETOS.medidor = (reto, ctx) => {
 };
 const fmt = n => String(Math.round(n * 100) / 100).replace('.', ',');
 
-/* Simulador del carrito (segunda ley de Newton) */
+/* Simulador del carrito por rondas (segunda ley de Newton) */
 RETOS.carrito = (reto, ctx) => {
-  let F = 0, x = 0, vel = 0, ultimo = performance.now();
+  let r = 0, F = 0, x = 0, vel = 0, ultimo = performance.now();
   const caja = html(`<div class="carrito">
+    <p class="ronda-texto pregunta"></p>
     <div class="pista-carrito" aria-hidden="true">
-      <div class="carro"><span class="saco"></span><span class="saco"></span><span class="saco"></span><span class="rueda"></span><span class="rueda"></span></div>
+      <div class="carro"><span class="saco"></span><span class="saco"></span><span class="saco"></span><span class="saco extra"></span><span class="saco extra"></span><span class="rueda"></span><span class="rueda"></span></div>
+      <div class="meta"><span>Centro de acopio</span></div>
       <div class="flecha-fuerza"></div>
     </div>
     <div class="carrito-datos">
-      <span>Masa: <b>${reto.masa} kg</b></span>
+      <span>Masa: <b><output id="c-m"></output> kg</b></span>
       <span>Fuerza neta: <b><output id="c-f">0</output> N</b></span>
       <span>Aceleración: <b><output id="c-a">0</output> m/s²</b></span>
     </div>
-    <label class="deslizador"><span>Fuerza aplicada por K'inich</span>
-      <input type="range" min="0" max="${reto.fmax}" step="${reto.fpaso}" value="0"></label>
+    <label class="deslizador"><span>Fuerza que aplica K'inich</span>
+      <input type="range" min="0" max="200" step="10" value="0"></label>
+    <label class="campo campo-unidad ronda-campo" hidden><span>Tu respuesta: aceleración</span>
+      <span class="campo-unidad"><input type="text" inputmode="decimal" autocomplete="off"><em>m/s²</em></span></label>
   </div>`);
   ctx.cuerpo.append(caja);
-  const carro = $('.carro', caja), flecha = $('.flecha-fuerza', caja), pista = $('.pista-carrito', caja);
-  $('input', caja).addEventListener('input', e => {
-    F = +e.target.value;
-    $('#c-f').textContent = F; $('#c-a').textContent = fmt(F / reto.masa);
-    flecha.style.transform = `scaleX(${F / reto.fmax})`;
-    x = 0; vel = 0;
-  });
-  // Animación: el carrito acelera con a = F/m y vuelve a empezar al llegar al final
+  const carro = $('.carro', caja), flecha = $('.flecha-fuerza', caja), pista = $('.pista-carrito', caja), rango = $('input[type=range]', caja);
+  const pintar = () => {
+    const R = reto.rondas[r];
+    $('#c-f').textContent = F;
+    $('#c-a').textContent = R.modo === 'aceleracion' && !caja.classList.contains('ronda-ok') ? '?' : fmt(F / R.masa);
+    flecha.style.transform = `scaleX(${F / 200})`;
+  };
+  const iniciarRonda = () => {
+    const R = reto.rondas[r];
+    caja.classList.remove('ronda-ok');
+    caja.classList.toggle('cargado', R.masa > 20);
+    $('.ronda-texto', caja).textContent = R.texto;
+    $('#c-m').textContent = R.masa;
+    F = R.modo === 'fuerza' ? 0 : R.fuerza;
+    rango.value = F; rango.disabled = R.modo !== 'fuerza';
+    $('.ronda-campo', caja).hidden = R.modo !== 'aceleracion';
+    x = 0; vel = 0; pintar();
+  };
+  rango.addEventListener('input', () => { F = +rango.value; x = 0; vel = 0; pintar(); });
+  // El carrito acelera con a = F/m y vuelve a empezar al llegar al centro de acopio
   const animar = ahora => {
     if (!caja.isConnected) return;
     const dt = Math.min((ahora - ultimo) / 1000, 0.05); ultimo = ahora;
-    const a = F / reto.masa;
+    const a = F / reto.rondas[r].masa;
     if (!reducirMovimiento) { vel += a * dt; x += vel * dt * 40; }
-    const limite = pista.clientWidth - carro.clientWidth;
+    const limite = pista.clientWidth - carro.clientWidth - 20;
     if (x > limite) { x = 0; vel = 0; }
     carro.style.transform = `translateX(${x}px)`;
     requestAnimationFrame(animar);
   };
   requestAnimationFrame(animar);
+  iniciarRonda();
   botonComprobar(ctx, () => {
-    const a = F / reto.masa;
-    if (a === reto.objetivo) ctx.resuelto();
-    else ctx.mal(a < reto.objetivo ? `Con ${F} N la aceleración es ${fmt(a)} m/s²: falta fuerza.` : `Con ${F} N la aceleración es ${fmt(a)} m/s²: es demasiada fuerza.`);
+    const R = reto.rondas[r];
+    const ok = R.modo === 'fuerza' ? F / R.masa === R.objetivo : aceptaNumero($('.ronda-campo input', caja).value, R.respuesta);
+    if (!ok) {
+      if (R.modo === 'fuerza') ctx.mal(F / R.masa < R.objetivo ? `Con ${F} N acelera a ${fmt(F / R.masa)} m/s²: falta fuerza.` : `Con ${F} N acelera a ${fmt(F / R.masa)} m/s²: es demasiada fuerza.`);
+      else ctx.mal('Esa no es la aceleración. Divide la fuerza entre la nueva masa.');
+      return;
+    }
+    caja.classList.add('ronda-ok'); pintar();
+    if (r + 1 < reto.rondas.length) {
+      r++;
+      Sonido.exito();
+      ctx.feedback.className = 'reto-feedback ok'; ctx.feedback.textContent = R.exito || '¡Correcto!';
+      setTimeout(iniciarRonda, reducirMovimiento ? 0 : 1100);
+    } else { rango.disabled = true; ctx.resuelto(); }
   });
 };
 
@@ -1603,7 +1761,7 @@ function crearArrastre(reto, ctx, capacidad) {
   ctx.cuerpo.append(caja);
   const zonaDe = id => caja.querySelector(`[data-zona="${id}"] .zona-fichas`);
   fichas.forEach(f => {
-    const el = html(`<button class="ficha" type="button" data-id="${f.id}">${f.etiqueta ? `<small>${f.etiqueta}</small>` : ''}<span>${f.texto}</span></button>`);
+    const el = html(`<button class="ficha ${f.barra ? 'ficha-barra' : ''}" type="button" data-id="${f.id}">${f.etiqueta ? `<small>${f.etiqueta}</small>` : ''}${f.barra ? `<i style="height:${f.barra * 3}px"></i>` : ''}<span>${f.texto}</span></button>`);
     const inicial = reto.inicial?.[f.id];
     (inicial && zonaDe(inicial) ? zonaDe(inicial) : zonaDe('pool')).append(el);
   });
@@ -1743,6 +1901,14 @@ const FIGURAS = {
     <text x="155" y="157" text-anchor="middle" fill="currentColor" font-size="14">120 m</text>
     <text x="300" y="104" fill="currentColor" font-size="14">36 m</text>
     <text x="70" y="130" fill="#2b2118" font-size="13">P = ?</text></svg>`,
+  camion: () => `<svg viewBox="0 0 320 120" role="img" aria-label="Dos viajes de camión de 4 toneladas cada uno">
+    ${[0, 1].map(k => `<g transform="translate(${10 + k * 160},10)">
+      <rect x="0" y="20" width="90" height="50" rx="6" fill="#c9a26b" stroke="#7a5233" stroke-width="2"/>
+      <rect x="90" y="36" width="40" height="34" rx="6" fill="#b5553a"/><rect x="100" y="42" width="20" height="14" rx="3" fill="#cfe3ec"/>
+      <circle cx="25" cy="76" r="11" fill="#4a3020"/><circle cx="105" cy="76" r="11" fill="#4a3020"/>
+      <text x="45" y="52" text-anchor="middle" font-size="16" font-weight="700" fill="#2b2118">4 t</text>
+      <text x="65" y="104" text-anchor="middle" font-size="13" fill="currentColor">Viaje ${k + 1}</text></g>`).join('')}
+  </svg>`,
   funcion: () => `<div class="grafica-funcion">
     <svg viewBox="0 0 320 200" role="img" aria-label="Gráfica de ingreso y costo según las toneladas vendidas">
       <line x1="40" y1="170" x2="310" y2="170" stroke="currentColor" opacity=".5"/><line x1="40" y1="10" x2="40" y2="170" stroke="currentColor" opacity=".5"/>
@@ -1778,7 +1944,7 @@ function abrirBitacora(pestana = 'claves') {
   const secciones = {
     claves: hechas.length ? `<ul class="bit-lista">${hechas.map(m => `<li>${icono('llave')}<span><b>«${m.recompensa.clave}»</b><small>${m.numero} · ${m.materia}</small></span></li>`).join('')}</ul>` : vacio('Aún no tienes claves. Completa la primera misión.'),
     pistas: hechas.length ? `<ul class="bit-lista">${hechas.map(m => `<li>${icono('pista')}<span>${m.recompensa.pista}<small>${m.numero} · ${m.titulo}</small></span></li>`).join('')}</ul>` : vacio('Las pistas aparecen al completar cada misión.'),
-    evidencias: evidenciasGanadas().length ? `<ul class="bit-lista">${evidenciasGanadas().map(id => `<li>${icono('evidencia')}<span>${EVIDENCIAS[id].texto}<small>${EVIDENCIAS[id].materia} · ${EVIDENCIAS[id].fuente}</small></span></li>`).join('')}</ul>` : vacio('Las evidencias académicas se usan en la decisión final.'),
+    evidencias: evidenciasGanadas().length ? `<ul class="bit-lista">${evidenciasGanadas().map(id => `<li>${icono('evidencia')}<span>${EVIDENCIAS[id].texto}<small>${EVIDENCIAS[id].materia}</small></span></li>`).join('')}</ul>` : vacio('Las evidencias académicas se usan en la decisión final.'),
     objetos: hechas.length ? `<ul class="bit-lista">${hechas.map(m => `<li>${icono('objeto')}<span><b>${m.recompensa.objeto.nombre}</b><small>${m.recompensa.objeto.desc}</small></span></li>`).join('')}</ul>` : vacio('Todavía no has encontrado objetos.'),
     misiones: `<ul class="bit-lista">${[...MISIONES.map(m => ({ t: `${m.numero}: ${m.titulo}`, s: m.materia, ok: completada(m.id) })), { t: 'Decisión final: el futuro de Lloa', s: 'Casa Comunal', ok: S.terminado }]
       .map(x => `<li class="${x.ok ? '' : 'pendiente'}">${icono(x.ok ? 'check' : 'candado')}<span><b>${x.t}</b><small>${x.s} · ${x.ok ? 'completada' : 'pendiente'}</small></span></li>`).join('')}</ul>`,
