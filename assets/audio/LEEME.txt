@@ -1,0 +1,9 @@
+Audio del reto de Inglés
+========================
+Si graban el mensaje en inglés con su propia voz:
+1. Guarden el archivo aquí (por ejemplo: mensaje-ingles.mp3).
+2. En script.js, busquen "audio: ''" dentro del reto de Inglés y escriban la ruta:
+   audio: 'assets/audio/mensaje-ingles.mp3',
+3. El guion que deben leer está en el mismo reto, en la propiedad "guion".
+
+Si no hay grabación, el juego lee el guion con la voz del navegador.

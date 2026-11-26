@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Current state
 
-The repository is nearly empty: `README.md` (contains only `# juegos`) is the only tracked file. There is no source code, package manifest, build, lint or test setup yet, so no commands are documented. Add them here once they exist.
+The repo holds one static game, «Misión Lloa: yaku kamachikkuna»: `index.html`, `styles.css`, `script.js` (editable content at the top, engine below) and `assets/`. No build, package manifest or test suite: open `index.html` directly in a browser (works offline via `file://`). Saved progress lives in `localStorage` key `misionLloa.v1`. All academic data must come from the project documents; do not invent figures.
 
 ## Design rule
 

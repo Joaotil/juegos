@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Misión Lloa: yaku kamachikkuna</title>
+  <meta name="description" content="Escape room educativo de la U.E. Franciscana San Andrés Quitumbe: ayuda a Yaku Camayoc y a los agricultores de papa de Lloa.">
+  <!-- Fuente opcional: sin conexión se usan las fuentes de respaldo definidas en styles.css -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Fondo ilustrado: dos capas para fundir un escenario con el siguiente -->
+  <div class="fondo" aria-hidden="true">
+    <img id="fondo-a" class="fondo-img visible" alt="">
+    <img id="fondo-b" class="fondo-img" alt="">
+    <div class="fondo-velo"></div>
+  </div>
+
+  <!-- Barra superior: progreso, mapa, bitácora, sonido y menú -->
+  <header id="hud" class="hud" hidden>
+    <div class="hud-marca">
+      <img src="assets/images/escudo.png" alt="" width="34" height="34">
+      <span>Misión Lloa</span>
+    </div>
+    <div class="hud-progreso" aria-label="Progreso de la misión">
+      <div class="barra"><div id="barra-relleno" class="barra-relleno"></div></div>
+      <span id="progreso-texto">0 / 7</span>
+    </div>
+    <nav class="hud-botones">
+      <button class="btn-icono" data-accion="mapa" title="Mapa" aria-label="Ir al mapa"></button>
+      <button class="btn-icono" data-accion="bitacora" title="Bitácora" aria-label="Abrir bitácora (inventario)"></button>
+      <button class="btn-icono" data-accion="sonido" title="Sonido" aria-label="Activar o desactivar el sonido"></button>
+      <button class="btn-icono" data-accion="menu" title="Menú" aria-label="Abrir menú"></button>
+    </nav>
+  </header>
+
+  <main id="pantalla" class="pantalla"></main>
+
+  <!-- Cuadro de diálogo de los personajes -->
+  <div id="dialogo" class="dialogo" hidden>
+    <div class="dialogo-caja" role="dialog" aria-live="polite">
+      <img id="dialogo-retrato" class="dialogo-retrato" alt="">
+      <div class="dialogo-cuerpo">
+        <div id="dialogo-nombre" class="dialogo-nombre"></div>
+        <p id="dialogo-texto" class="dialogo-texto"></p>
+        <div class="dialogo-pie">
+          <button id="dialogo-saltar" class="btn btn-texto">Saltar diálogo</button>
+          <button id="dialogo-seguir" class="btn btn-oro">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal" class="modal" hidden></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <div id="cortina" class="cortina" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
