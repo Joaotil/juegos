@@ -594,7 +594,9 @@ const METAFORA = 'La tierra es el corazón que mantiene viva a nuestra comunidad
    2) MOTOR DEL JUEGO
    ===================================================================== */
 
-const CLAVE_GUARDADO = 'misionLloa.v1';
+/* Modo revisión (docente): lo activa revision.html. Todo desbloqueado y con soluciones visibles. */
+const MODO_REVISION = window.MODO_REVISION === true;
+const CLAVE_GUARDADO = MODO_REVISION ? 'misionLloa.revision' : 'misionLloa.v1';
 const ORDEN = [...MISIONES.map(m => m.id), 'final']; // 7 lugares del mapa
 const $ = (sel, raiz = document) => raiz.querySelector(sel);
 const mision = id => MISIONES.find(m => m.id === id);
@@ -618,7 +620,7 @@ function guardar() {
 }
 const haySave = () => { try { return !!localStorage.getItem(CLAVE_GUARDADO); } catch { return false; } };
 const completada = id => S.hechas.includes(id);
-const desbloqueada = id => ORDEN.indexOf(id) <= S.hechas.length;
+const desbloqueada = id => MODO_REVISION || ORDEN.indexOf(id) <= S.hechas.length;
 const evidenciasGanadas = () => MISIONES.filter(m => completada(m.id)).flatMap(m => m.recompensa.evidencias);
 
 /* ---------- Iconos de interfaz (SVG en línea, toman el color del texto) ---------- */
@@ -871,7 +873,7 @@ PANTALLAS.inicio = main => {
   main.append(html(`
     <section class="inicio">
       <div class="inicio-panel">
-        <span class="chip">Lloa · Pichincha · Ecuador</span>
+        <span class="chip">${MODO_REVISION ? 'Modo revisión (docente)' : 'Lloa · Pichincha · Ecuador'}</span>
         <h1 class="inicio-titulo">Misión Lloa</h1>
         <p class="inicio-subtitulo">yaku kamachikkuna</p>
         <p class="inicio-lema">Las familias de Lloa cultivan papa en tierras generosas, pero sus parcelas están lejos de los mercados y llevar la cosecha es difícil. Recorre Lloa, supera seis desafíos, reúne las claves de Mama Quilla y ayuda a Yaku Camayoc a decidir el futuro de la comunidad.</p>
@@ -993,6 +995,7 @@ PANTALLAS.mapa = main => {
       <div class="mapa-cabecera">
         <h2 class="titulo-seccion">Mapa de Lloa</h2>
         <p class="subtitulo-seccion">${avance < ORDEN.length ? 'Elige un lugar desbloqueado. Los candados se abren al completar la etapa anterior.' : 'Has recorrido todo Lloa.'}</p>
+        ${MODO_REVISION ? '<p class="revision-acciones"><button class="btn btn-claro" id="completar-todo">Completar todas las misiones</button></p>' : ''}
       </div>
       <div class="mapa-marco">
         <div class="mapa-lienzo">
@@ -1014,6 +1017,7 @@ PANTALLAS.mapa = main => {
       </div>
     </section>`);
   main.append(nodo);
+  $('#completar-todo', nodo)?.addEventListener('click', () => { S.hechas = MISIONES.map(m => m.id); S.paso = {}; guardar(); aviso('Misiones completadas: ya puedes revisar la decisión final.'); ir('mapa'); });
   nodo.querySelectorAll('.lugar').forEach(b => b.addEventListener('click', () => {
     const id = b.dataset.id;
     if (!desbloqueada(id)) {
@@ -1094,6 +1098,7 @@ function mostrarReto(m, i) {
     ctx.acciones.append(b);
   }
   RETOS[reto.tipo](reto, ctx);
+  agregarRevision(reto, ctx);
   marco.querySelector('input, button:not(.btn-ayuda)')?.focus({ preventScroll: true });
 }
 
@@ -1142,7 +1147,7 @@ async function completarMision(m) {
 
 /* 11a. Puerta de la Casa Comunal: ordenar las claves */
 PANTALLAS.puerta = main => {
-  if (S.hechas.length < MISIONES.length) { ir('mapa'); return; }
+  if (!MODO_REVISION && S.hechas.length < MISIONES.length) { ir('mapa'); return; }
   ponerFondo('asamblea');
   const nodo = html(`<section class="mision"><div class="mision-reto"><article class="reto panel">
       <div class="reto-cabecera"><span class="reto-num">Casa Comunal</span><h3>${PUERTA.titulo}</h3><p class="reto-instruccion">${PUERTA.instruccion}</p></div>
@@ -1161,7 +1166,9 @@ PANTALLAS.puerta = main => {
       ir('sala');
     },
   };
-  RETOS.relacionar({ zonas: fichas.map((_, k) => ({ id: 'p' + k, texto: (k + 1) + '.º' })), fichas, compacto: true }, ctx);
+  const retoPuerta = { tipo: 'relacionar', zonas: fichas.map((_, k) => ({ id: 'p' + k, texto: (k + 1) + '.º' })), fichas, compacto: true };
+  RETOS.relacionar(retoPuerta, ctx);
+  agregarRevision(retoPuerta, ctx);
 };
 
 /* 11b. Sala de comparación de alternativas */
@@ -1887,6 +1894,32 @@ function animarMovimiento(el, cambio) {
 }
 const barajar = arr => { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
+/* ---------- Modo revisión: solución visible y botón para resolver ---------- */
+function solucionHTML(reto) {
+  const lista = items => `<ul>${items.map(x => `<li>${x}</li>`).join('')}</ul>`;
+  const zona = id => reto.zonas.find(z => z.id === id).texto;
+  switch (reto.tipo) {
+    case 'explorar': return lista(reto.puntos.map(p => `<b>${p.nombre}:</b> ${p.texto}`));
+    case 'relacionar': case 'clasificar': return lista(reto.fichas.map(f => `${f.texto} → ${zona(f.zona)}`));
+    case 'deslizar': return lista(reto.cartas.map(c => `${c.texto} → <b>${c.lado === 'izq' ? reto.izq : reto.der}</b>`));
+    case 'opcion': return lista([reto.opciones.find(o => o.correcta).texto]);
+    case 'acertijo': return lista([`Andenes (también se acepta: ${reto.respuestas.filter(r => r !== 'andenes').join(', ')})`]);
+    case 'numero': return lista(reto.campos.map(c => `${c.etiqueta}: <b>${fmt(c.respuesta)} ${c.unidad}</b>`));
+    case 'medidor': return lista(reto.controles.map(c => `${c.etiqueta}: entre <b>${fmt(c.objetivo[0])} y ${fmt(c.objetivo[1])}${c.unidad ? ' ' + c.unidad : ''}</b>`));
+    case 'carrito': return lista(reto.rondas.map((r, k) => r.modo === 'fuerza' ? `Ronda ${k + 1}: fuerza = <b>${r.masa * r.objetivo} N</b>` : `Ronda ${k + 1}: aceleración = <b>${fmt(r.respuesta)} m/s²</b>`));
+    case 'imagen': return lista(reto.pasos.map(id => reto.puntos.find(p => p.id === id).etiqueta));
+    case 'escucha': return `<p><i>${reto.guion}</i></p>` + lista(reto.preguntas.map(q => `${q.pregunta} → <b>${q.tipo === 'opcion' ? q.opciones[q.correcta] : fmt(q.respuesta) + ' ' + q.unidad}</b>`));
+    default: return '';
+  }
+}
+function agregarRevision(reto, ctx) {
+  if (!MODO_REVISION) return;
+  ctx.cuerpo.after(html(`<details class="solucion" open><summary>Solución (modo revisión)</summary>${solucionHTML(reto)}</details>`));
+  const b = html(`<button class="btn btn-claro btn-resolver" type="button">${icono('check')} Resolver</button>`);
+  b.addEventListener('click', () => ctx.resuelto());
+  ctx.acciones.append(b);
+}
+
 /* ---------- Figuras de apoyo para los candados de Matemáticas ---------- */
 const FIGURAS = {
   terreno: () => `<svg viewBox="0 0 320 150" role="img" aria-label="Terreno de 18 hectáreas con un 25 % poco favorable">
@@ -1999,6 +2032,7 @@ console.assert(aceptaNumero('1.440', 1440) && aceptaNumero('1440', 1440) && acep
 console.assert(aceptaNumero('232,32', 232.32) && aceptaNumero('2.5', 2.5) && aceptaNumero('2,5 m/s²', 2.5) && aceptaNumero('0,18', 0.18), 'decimales');
 console.assert(!aceptaNumero('', 0) && !aceptaNumero('13', 13.5) && aceptaNumero('29,2', 29.17, 0.05), 'rechazos');
 
+if (MODO_REVISION) { document.body.classList.add('revision'); $('.hud-marca span').textContent = 'Misión Lloa · Revisión'; }
 document.addEventListener('visibilitychange', () => { if (document.hidden) speechSynthesis?.cancel(); });
 document.addEventListener('pointerdown', () => Sonido.iniciar(), { once: true });
 ir('inicio', { guardarEstado: false });

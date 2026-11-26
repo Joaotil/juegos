@@ -9,6 +9,8 @@ dos alternativas: la extensión de un canal y un servicio de traslado.
 Abre `index.html` con doble clic en un navegador moderno (Chrome, Edge, Firefox o Safari).
 No necesita internet ni instalación. El progreso se guarda solo en el navegador.
 
+`revision.html` abre el **modo revisión (docente)**: todo desbloqueado, la solución visible en cada desafío y un botón para resolverlo.
+
 ## Cómo editarlo
 
 - **Textos, diálogos, desafíos, respuestas y pistas:** sección `CONTENIDO EDITABLE` al inicio de `script.js`
