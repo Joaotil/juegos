@@ -36,7 +36,7 @@ const INTRO = [
 
 /* Mensajes del mapa según el avance (número de lugares completados) */
 const MAPA_DIALOGOS = [
-  ['siyaj',   'Este es el mapa de Lloa. Empecemos por los Andenes del Legado: Mama Quilla nos espera allí.'],
+  ['siyaj',   'Esta es la ruta del agua: el canal está seco. Empecemos por los Andenes del Legado, donde Mama Quilla nos espera.'],
   ['ixkik',   'La historia nos mostró el valor del agua. Ahora ven a mi huerto: la tierra también guarda secretos.'],
   ['kinich',  '¡Ya sabemos dónde crece bien la papa! Pero ¿cómo movemos la cosecha? Te espero en el camino.'],
   ['yuknoom', 'Fuerza y masa, entendidas. Ahora hagamos cuentas: terreno, pendiente y producción. Ven a las parcelas.'],
@@ -64,7 +64,6 @@ const EVIDENCIAS = {
   i1: { materia: 'Inglés',         texto: '“Our potato fields are far from the markets”: los campos de papa están lejos de los mercados.' },
   e1: { materia: 'Emprendimiento', texto: 'Lloa vive de la agricultura, pero sus productores tienen poco acceso a mercados directos.' },
   e2: { materia: 'Emprendimiento', texto: 'Llevar 8 t de papa de Lloa a Quito cuesta 1.440 $ (0,18 $ por kilogramo, en dos viajes de 720 $).' },
-  e3: { materia: 'Emprendimiento', texto: 'Fertilizar 8 ha requiere 56 sacos: una inversión de 1.792 $.' },
   e4: { materia: 'Emprendimiento', texto: 'Vendiendo 30 t a 480 $ cada una: ingreso de 14.400 $, costo de 7.800 $ y ganancia de 6.600 $.' },
 };
 
@@ -99,22 +98,24 @@ const MISIONES = [
         ],
       },
       {
-        tipo: 'relacionar', titulo: 'Reconstruye el sistema',
-        instruccion: 'Lleva cada parte del sistema a su función, desde la cima hasta los cultivos. Arrastra, o toca una ficha y luego su lugar.',
-        zonas: [
-          { id: 'z1', texto: '1 · Arriba: guardar el agua' },
-          { id: 'z2', texto: '2 · Llevar el agua ladera abajo' },
-          { id: 'z3', texto: '3 · Regular el caudal según la estación' },
-          { id: 'z4', texto: '4 · Repartir el agua sin erosionar los cultivos' },
+        tipo: 'tuberias', titulo: 'Lleva el agua a los andenes',
+        instruccion: 'Toca los tramos de canal para girarlos hasta que el agua baje del reservorio a los andenes.',
+        tam: 4,
+        // Recorrido de la solución: [fila, columna, lados que une] (N, E, S, O)
+        camino: [[0, 1, 'NS'], [1, 1, 'NE'], [1, 2, 'OS'], [2, 2, 'NO'], [2, 1, 'ES'], [3, 1, 'NE'], [3, 2, 'OS']],
+        exito: '¡El agua corre del reservorio a los andenes, como en los sistemas andinos!',
+        ayuda: 'Empieza junto al reservorio y sigue el agua tramo por tramo. Cada toque gira el tramo un cuarto de vuelta.',
+      },
+      {
+        tipo: 'memoria', titulo: 'Memoria del agua',
+        instruccion: 'Voltea dos cartas a la vez y encuentra cada parte del sistema con su función.',
+        parejas: [
+          ['Reservorio elevado', 'Guarda el agua en lo alto'],
+          ['Canal de piedra', 'Conduce el agua ladera abajo'],
+          ['Caídas escalonadas', 'Regulan el caudal según la estación'],
+          ['Andenes', 'Reparten el agua sin erosionar'],
         ],
-        fichas: [
-          { id: 'a', texto: 'Reservorio elevado', zona: 'z1' },
-          { id: 'b', texto: 'Canal revestido de piedra', zona: 'z2' },
-          { id: 'c', texto: 'Caídas escalonadas', zona: 'z3' },
-          { id: 'd', texto: 'Andenes', zona: 'z4' },
-        ],
-        exito: '¡El agua vuelve a correr por la montaña!',
-        ayuda: 'Recuerda tu recorrido: el agua se guarda arriba, baja por el canal, se regula y llega a los andenes.',
+        ayuda: 'Arriba se guarda, el canal conduce, las caídas regulan y los andenes reparten.',
       },
       {
         tipo: 'acertijo', titulo: 'El acertijo de la montaña',
@@ -194,15 +195,11 @@ const MISIONES = [
         ayuda: 'Multiplica 500 kg por cada porcentaje: 500 × 0,50; 500 × 0,30; 500 × 0,20.',
       },
       {
-        tipo: 'opcion', titulo: 'El dilema del fertilizante',
-        quien: 'ixkik',
-        pregunta: 'Un vecino quiere echar el doble de fertilizante para cosechar el doble de papa. ¿Qué le aconsejamos?',
-        opciones: [
-          { texto: 'Que primero analice su suelo: el exceso de fertilizante no aumenta la cosecha.', correcta: true },
-          { texto: 'Que lo duplique: más fertilizante siempre significa más papa.', fb: 'La planta no aprovecha el exceso: es «consumo de lujo».' },
-          { texto: 'Que lo eche sin medir, porque el suelo volcánico lo absorbe todo.', fb: 'Usarlo de más genera pérdidas económicas y ambientales.' },
-        ],
-        ayuda: 'Piensa en lo que te mostré en la bodega del huerto.',
+        tipo: 'dosis', titulo: 'La dosis justa',
+        instruccion: 'Un vecino quiere abonar más para cosechar más. Mueve el control: mira cómo cambian la cosecha y el dinero, y detente en la dosis justa.',
+        justa: 6, max: 10,
+        exito: 'Pasada la dosis justa la cosecha ya no sube: el abono extra es «consumo de lujo» y solo se pierde dinero.',
+        ayuda: 'Fíjate en el momento en que la cosecha deja de crecer.',
       },
     ],
     cierre: [
@@ -241,44 +238,26 @@ const MISIONES = [
         ],
       },
       {
-        tipo: 'relacionar', titulo: 'Cada magnitud con su unidad',
-        instruccion: 'Lleva cada unidad hasta la magnitud que mide.',
-        zonas: [
-          { id: 'f', texto: 'Fuerza (F)' },
-          { id: 'm', texto: 'Masa (m)' },
-          { id: 'a', texto: 'Aceleración (a)' },
-        ],
-        fichas: [
-          { id: 'n', texto: 'newtons (N)', zona: 'f' },
-          { id: 'kg', texto: 'kilogramos (kg)', zona: 'm' },
-          { id: 'ms', texto: 'metros por segundo al cuadrado (m/s²)', zona: 'a' },
+        tipo: 'memoria', titulo: 'Memoria de Newton',
+        instruccion: 'Encuentra cada magnitud con su unidad y la ley con su fórmula.',
+        parejas: [
+          ['Fuerza', 'newtons (N)'],
+          ['Masa', 'kilogramos (kg)'],
+          ['Aceleración', 'm/s²'],
+          ['Segunda ley de Newton', 'F = m · a'],
         ],
         ayuda: 'La unidad de fuerza lleva el nombre de Isaac Newton.',
       },
       {
-        tipo: 'carrito', titulo: 'Lleva la cosecha',
-        instruccion: 'Ayuda a K\'inich a llevar el carrito hasta el centro de acopio. Observa cómo se mueve según la fuerza y la carga.',
+        tipo: 'laboratorio', titulo: 'El carrito del agua',
+        instruccion: 'Carga el carrito con recipientes de agua y jala la manija del dinamómetro. Cada recipiente lleva 5 litros de agua (5 kg). Cada jalón queda anotado en la tabla.',
+        carrito: 10, recipiente: 5, maxRecipientes: 6, fmax: 150, fpaso: 10,
         rondas: [
-          { modo: 'fuerza', masa: 20, objetivo: 5, texto: 'Ronda 1: el carrito pesa 20 kg. Ajusta la fuerza para que acelere a 5 m/s².', exito: '¡Exacto! 20 kg × 5 m/s² = 100 N.' },
-          { modo: 'aceleracion', masa: 40, fuerza: 100, respuesta: 2.5, texto: 'Ronda 2: K\'inich cargó más sacos y ahora son 40 kg. Si empuja con los mismos 100 N, ¿qué aceleración tendrá?' },
+          { masa: 20, fuerza: 100, texto: 'Ronda 1: carga el carrito hasta 20 kg y jala con la fuerza justa para que acelere a 5 m/s².', exito: '¡Exacto! 20 kg × 5 m/s² = 100 N.' },
+          { masa: 40, fuerza: 100, predecir: 2.5, texto: 'Ronda 2: carga el carrito hasta 40 kg. Antes de jalar con 100 N, escribe tu predicción de la aceleración. Luego jala para comprobarla.' },
         ],
         exito: 'Con el doble de masa y la misma fuerza, la aceleración se reduce a la mitad.',
-        ayuda: 'F = m · a. En la ronda 1 calcula F = 20 × 5. En la ronda 2 calcula a = F ÷ m.',
-      },
-      {
-        tipo: 'relacionar', titulo: 'Causa y efecto',
-        instruccion: 'Relaciona cada situación con lo que le pasa a la aceleración.',
-        zonas: [
-          { id: 'z1', texto: 'Aumenta la fuerza y la masa no cambia' },
-          { id: 'z2', texto: 'Aumenta la masa y la fuerza no cambia' },
-          { id: 'z3', texto: 'La fuerza neta es cero' },
-        ],
-        fichas: [
-          { id: 'a', texto: 'La aceleración aumenta', zona: 'z1' },
-          { id: 'b', texto: 'La aceleración disminuye', zona: 'z2' },
-          { id: 'c', texto: 'No hay aceleración', zona: 'z3' },
-        ],
-        ayuda: 'Piensa en lo que viste en el carrito: más carga, menos aceleración.',
+        ayuda: 'Masa = 10 kg del carrito + 5 kg por recipiente. Ronda 1: F = 20 × 5. Ronda 2: a = 100 ÷ 40.',
       },
       {
         tipo: 'imagen', titulo: 'Lee el plano inclinado',
@@ -314,32 +293,22 @@ const MISIONES = [
     intro: [
       ['yuknoom', 'Soy Yuknoom. Me gusta mirar el todo antes de decidir. Y para ver el todo, hay que calcular.'],
       ['yaku',    'Necesito saber cuánta papa pueden producir los terrenos de Lloa y cuánto influyen las pendientes.'],
-      ['yuknoom', 'Mi libreta tiene siete candados. Cada resultado abre uno. Un buen cálculo vale más que una respuesta rápida.'],
+      ['yuknoom', 'Mi libreta tiene varios candados. Cada resultado abre uno. Un buen cálculo vale más que una respuesta rápida.'],
     ],
     retos: [
       {
-        tipo: 'numero', titulo: 'Candado 1 · El área aprovechable', quien: 'yuknoom',
+        tipo: 'numero', titulo: 'Candado 1 · El área aprovechable', quien: 'yuknoom', ruedas: true,
         pregunta: 'Esta comunidad tiene 18 hectáreas, pero el 25 % sufre por la inclinación y la erosión. ¿Cuántas hectáreas pueden sembrarse de papa al inicio?',
         figura: 'terreno',
         campos: [{ etiqueta: 'Área aprovechable', respuesta: 13.5, unidad: 'ha' }],
         ayuda: 'Calcula el 25 % de 18 (18 × 0,25) y réstalo de 18.',
       },
       {
-        tipo: 'numero', titulo: 'Candado 2 · La pendiente', quien: 'yuknoom',
-        pregunta: 'Medí un terreno: sube 36 m de altura en 120 m de distancia horizontal. ¿Cuál es su pendiente en porcentaje?',
-        figura: 'pendiente',
-        campos: [{ etiqueta: 'Pendiente', respuesta: 30, unidad: '%' }],
+        tipo: 'inclinometro', titulo: 'Candado 2 · El inclinómetro', quien: 'yuknoom',
+        pregunta: 'Medí un terreno: sube 36 m de altura en 120 m de distancia horizontal. Calcula su pendiente y ajusta el inclinómetro a ese porcentaje.',
+        objetivo: 30, base: 120, altura: 36,
+        exito: 'Pendiente de 30 %: una inclinación considerable. Ese terreno necesita terrazas y barreras vegetales para no erosionarse.',
         ayuda: 'P = (36 ÷ 120) × 100.',
-      },
-      {
-        tipo: 'opcion', titulo: '¿Qué significa ese 30 %?', quien: 'yuknoom',
-        pregunta: 'Un 30 % es una inclinación considerable. ¿Qué necesita ese terreno para producir papa?',
-        opciones: [
-          { texto: 'Medidas de conservación del suelo, como terrazas y barreras vegetales.', correcta: true },
-          { texto: 'Nada: la papa crece igual en cualquier inclinación.', fb: 'Una pendiente considerable favorece la erosión del suelo.' },
-          { texto: 'Abandonarlo para siempre.', fb: 'Hay alternativas: los pueblos andinos ya las usaban. Revisa tu pista de la Misión 1.' },
-        ],
-        ayuda: 'Consulta la pista de la Misión 1 en tu bitácora.',
       },
       {
         tipo: 'numero', titulo: 'Candado 3 · La cosecha para vender', quien: 'yuknoom',
@@ -377,7 +346,7 @@ const MISIONES = [
         ayuda: 'Media: suma ÷ 5. Mediana: el valor del centro. Rango: mayor − menor.',
       },
       {
-        tipo: 'numero', titulo: 'Candado final · Terrazas que transforman', quien: 'yuknoom',
+        tipo: 'numero', titulo: 'Candado final · Terrazas que transforman', quien: 'yuknoom', ruedas: true,
         pregunta: 'Tenemos 20 ha: 12 ha con pendiente moderada dan 21 t/ha y 8 ha más inclinadas dan 15 t/ha. Si con terrazas y conservación del suelo el terreno inclinado mejora un 15 %, ¿cuál será la producción total?',
         campos: [{ etiqueta: 'Producción total', respuesta: 390, unidad: 't' }],
         ayuda: '12 × 21 = 252. Luego 8 × 15 = 120, y 120 × 1,15. Suma ambos resultados.',
@@ -469,23 +438,28 @@ const MISIONES = [
         ],
       },
       {
+        tipo: 'camiones', titulo: 'Carga los camiones',
+        instruccion: 'Hay 8 toneladas de papa para llevar a Quito en dos viajes iguales. Elige un camión y toca los sacos para subirlos (toca un saco cargado para bajarlo).',
+        sacos: 8, camiones: 2,
+        exito: '¡4 toneladas en cada camión! Ahora calculemos cuánto cuesta el viaje.',
+        ayuda: 'Dos viajes iguales: reparte los 8 sacos por la mitad.',
+      },
+      {
         tipo: 'numero', titulo: 'El costo del traslado', quien: 'siyaj',
-        pregunta: 'La comunidad quiere llevar 8 toneladas de papa a Quito en dos viajes iguales. Con la tarifa del mensaje de radio, ¿cuánto cuesta cada viaje y cuánto en total?',
+        pregunta: 'Cada camión lleva 4 toneladas a Quito. Con la tarifa del mensaje de radio, ¿cuánto cuesta cada viaje y cuánto en total?',
         figura: 'camion',
         campos: [
           { etiqueta: 'Costo por viaje', respuesta: 720, unidad: '$' },
           { etiqueta: 'Costo total', respuesta: 1440, unidad: '$' },
         ],
-        ayuda: '8 toneladas = 8.000 kg. Multiplica por 0,18 $/kg y divide entre dos viajes.',
+        ayuda: '4 toneladas = 4.000 kg. Multiplica por 0,18 $/kg; luego suma los dos viajes.',
       },
       {
-        tipo: 'numero', titulo: 'Inversión en fertilizante', quien: 'ixkik',
-        pregunta: 'Para 8 ha, el análisis del suelo recomienda 350 kg de fertilizante por hectárea. Cada saco trae 50 kg y cuesta 32 $. ¿Cuántos sacos compramos y cuánto invertimos?',
-        campos: [
-          { etiqueta: 'Sacos', respuesta: 56, unidad: 'sacos' },
-          { etiqueta: 'Inversión', respuesta: 1792, unidad: '$' },
-        ],
-        ayuda: '8 × 350 kg; luego ÷ 50 kg por saco; luego × 32 $.',
+        tipo: 'equilibrio', titulo: 'El punto de equilibrio', quien: 'yuknoom',
+        pregunta: 'Si vendemos cada tonelada a 480 $ y los costos son C(x) = 180x + 2.400, ¿desde cuántas toneladas dejamos de perder dinero? Mueve x hasta el punto donde el ingreso alcanza al costo.',
+        objetivo: 8,
+        exito: 'Con 8 t el ingreso iguala al costo (3.840 $). Desde ahí, cada tonelada vendida deja ganancia.',
+        ayuda: 'Busca dónde se cruzan las dos líneas, o resuelve 480x = 180x + 2.400.',
       },
       {
         tipo: 'numero', titulo: 'Ingreso, costo y ganancia', quien: 'yuknoom',
@@ -509,7 +483,7 @@ const MISIONES = [
       clave: 'comunidad',
       pista: 'El problema de Lloa tiene dos caras: producir la papa y lograr venderla. Compara cómo responde cada alternativa a ambas.',
       objeto: { nombre: 'Balanza del mercado', desc: 'Para pesar las cosechas antes de venderlas.' },
-      evidencias: ['e1', 'e2', 'e3', 'e4'],
+      evidencias: ['e1', 'e2', 'e4'],
     },
   },
 ];
@@ -554,20 +528,24 @@ const OPCIONES = {
   },
 };
 
-/* Criterios de la tabla comparativa (Alta = más favorable) */
+/* Criterios de la balanza de la asamblea: el jugador elige qué alternativa gana en cada uno */
 const CRITERIOS = [
-  { id: 'utilidad',   nombre: 'Utilidad',            pregunta: '¿Qué tanto responde al problema de Lloa?' },
-  { id: 'recursos',   nombre: 'Recursos necesarios', pregunta: '¿Qué tan disponibles están los recursos que necesita?' },
-  { id: 'costos',     nombre: 'Costos',              pregunta: '¿Qué tan asumibles son sus costos?' },
-  { id: 'viabilidad', nombre: 'Viabilidad',          pregunta: '¿Qué tan posible es implementarla?' },
-  { id: 'beneficios', nombre: 'Beneficios',          pregunta: '¿Cuánto mejora la producción o la venta de papa?' },
-  { id: 'limites',    nombre: 'Limitaciones',        pregunta: '¿Qué tan manejables son sus limitaciones?' },
-  { id: 'necesidades', nombre: 'Necesidades de la comunidad', pregunta: '¿Qué tanto se ajusta a lo que necesitan las familias?' },
+  { id: 'costo',      nombre: 'Costo',      pregunta: '¿Cuál parece más asumible para la comunidad?' },
+  { id: 'beneficio',  nombre: 'Beneficio',  pregunta: '¿Cuál mejora más la producción o la venta de papa?' },
+  { id: 'viabilidad', nombre: 'Viabilidad', pregunta: '¿Cuál es más posible de lograr?' },
+  { id: 'necesidad',  nombre: 'Necesidades de Lloa', pregunta: '¿Cuál responde mejor a lo que viven las familias?' },
 ];
 
-const MIN_JUSTIFICACION = 150;   // caracteres mínimos de la justificación escrita
-const MIN_EVIDENCIAS_USADAS = 2; // evidencias que deben respaldar la decisión
-const MIN_EVIDENCIAS_ORDENADAS = 6;
+const MIN_JUSTIFICACION = 120; // caracteres mínimos de la justificación escrita
+
+/* Datos curiosos de la portada (todos salen de los documentos del proyecto) */
+const SABIAS = [
+  'En Ecuador, cada persona consume en promedio 26 kg de papa al año.',
+  'Los pueblos andinos regaban las laderas con reservorios, canales de piedra y andenes.',
+  'La papa crece bien en suelos volcánicos ricos en materia orgánica.',
+  'La parroquia de Lloa vive principalmente de la agricultura.',
+  'Abonar de más no da más papa: la planta no aprovecha el exceso.',
+];
 
 /* Desenlace: reacción de los personajes según la alternativa elegida */
 const DESENLACE = {
@@ -881,12 +859,32 @@ PANTALLAS.inicio = main => {
           ${conPartida ? `<button class="btn btn-oro btn-grande" data-ir="continuar">${icono('flecha')} Continuar aventura</button>` : ''}
           <button class="btn ${conPartida ? 'btn-claro' : 'btn-oro btn-grande'}" data-ir="nueva">${conPartida ? 'Nueva partida' : icono('flecha') + ' Comenzar aventura'}</button>
         </div>
+        <ol class="como-jugar">
+          <li><b>1</b>Recorre la ruta del agua</li>
+          <li><b>2</b>Resuelve retos de seis materias</li>
+          <li><b>3</b>Decide el futuro de Lloa</li>
+        </ol>
         <p class="inicio-nota">U.E. Franciscana San Andrés Quitumbe</p>
       </div>
+      <aside class="sabias" aria-live="polite">
+        <span class="sabias-titulo">¿Sabías que…?</span>
+        <p class="sabias-texto"></p>
+        <div class="sabias-materias">${MISIONES.map(m => `<img src="assets/icons/${m.icono}.svg" alt="${m.materia}" title="${m.materia}">`).join('')}</div>
+      </aside>
       <div class="inicio-elenco" aria-hidden="true">
         ${['yuknoom', 'ixkik', 'yaku', 'kinich', 'siyaj'].map(id => `<img src="${PERSONAJES[id].img}" alt="" class="elenco-${id}">`).join('')}
       </div>
     </section>`));
+  // Rota un dato curioso cada pocos segundos mientras la portada esté abierta
+  let dato = Math.floor(Math.random() * SABIAS.length);
+  const texto = $('.sabias-texto', main);
+  const rotar = () => {
+    if (!texto.isConnected) return;
+    texto.classList.remove('entra'); void texto.offsetWidth; texto.classList.add('entra');
+    texto.textContent = SABIAS[dato++ % SABIAS.length];
+    setTimeout(rotar, 6500);
+  };
+  rotar();
   main.querySelector('[data-ir="continuar"]')?.addEventListener('click', () => {
     Sonido.iniciar(); Sonido.clic();
     const p = S.pantalla;
@@ -983,60 +981,97 @@ PANTALLAS.personajes = async main => {
   if (nodo.isConnected) ir('mapa');
 };
 
-/* 4. Mapa principal de exploración */
+/* 4. La ruta del agua: panorama horizontal; el canal se llena a medida que avanzas */
+const CANAL = 'M300,430 C300,560 420,640 560,700 S900,770 1220,765 S1500,720 1700,745 S2060,800 2180,770 S2500,745 2640,775 S2900,805 3020,785';
+// Posición de cada estación en el panorama (3200 × 900): [x, y del letrero, y donde se para el viajero]
+const RUTA = { m1: [300, 300, 430], m2: [780, 560, 745], m3: [1240, 600, 765], m4: [1700, 580, 745], en: [2180, 390, 770], m5: [2640, 560, 775], final: [3030, 590, 785] };
 PANTALLAS.mapa = main => {
   ponerFondo('inicio');
-  const lugares = [...MISIONES.map(m => ({ id: m.id, nombre: m.lugar, sub: `${m.numero} · ${m.materia}`, icono: m.icono, ...m.mapa })),
-                   { id: 'final', nombre: 'Casa Comunal', sub: 'Decisión final', icono: 'asamblea', x: 91, y: 54 }];
+  const lugares = [...MISIONES.map(m => ({ id: m.id, nombre: m.lugar, sub: `${m.numero} · ${m.materia}`, icono: m.icono })),
+                   { id: 'final', nombre: 'Casa Comunal', sub: 'Asamblea final', icono: 'asamblea' }];
   const avance = S.hechas.length;
-  const puntos = lugares.map(l => `${l.x * 16},${l.y * 10}`);
+  const actual = S.terminado ? 'final' : ORDEN[Math.min(avance, ORDEN.length - 1)];
+  const pct = (v, total) => (v / total * 100) + '%';
   const nodo = html(`
-    <section class="mapa-pantalla">
-      <div class="mapa-cabecera">
-        <h2 class="titulo-seccion">Mapa de Lloa</h2>
-        <p class="subtitulo-seccion">${avance < ORDEN.length ? 'Elige un lugar desbloqueado. Los candados se abren al completar la etapa anterior.' : 'Has recorrido todo Lloa.'}</p>
+    <section class="ruta-pantalla">
+      <div class="ruta-cabecera">
+        <h2 class="titulo-seccion">La ruta del agua</h2>
+        <p class="subtitulo-seccion">El canal se llena con cada misión que completas. Desliza para recorrer Lloa y toca un letrero.</p>
         ${MODO_REVISION ? '<p class="revision-acciones"><button class="btn btn-claro" id="completar-todo">Completar todas las misiones</button></p>' : ''}
       </div>
-      <div class="mapa-marco">
-        <div class="mapa-lienzo">
-          <img src="assets/backgrounds/mapa.svg" alt="Mapa ilustrado de Lloa con volcán, río, caminos y parcelas">
-          <svg class="mapa-ruta" viewBox="0 0 1600 1000" preserveAspectRatio="none" aria-hidden="true">
-            <polyline points="${puntos.join(' ')}" class="ruta-pendiente"/>
-            <polyline points="${puntos.slice(0, Math.min(avance + 1, puntos.length)).join(' ')}" class="ruta-hecha"/>
+      <div class="ruta-marco" tabindex="0" aria-label="Panorama de Lloa: desplázate a los lados">
+        <div class="ruta-lienzo">
+          <img class="ruta-lejos" src="assets/backgrounds/ruta-lejos.svg" alt="">
+          <img class="ruta-cerca" src="assets/backgrounds/ruta.svg" alt="Panorama de Lloa con andenes, huerto, camino, parcelas, antena, plaza y casa comunal unidos por un canal">
+          <svg class="ruta-agua" viewBox="0 0 3200 900" preserveAspectRatio="none" aria-hidden="true">
+            <defs><mask id="mascara-agua"><path class="agua-lleno" d="${CANAL}" stroke="#fff"/></mask></defs>
+            <path class="agua-lleno" d="${CANAL}"/>
+            <path class="agua-brillo" d="${CANAL}" mask="url(#mascara-agua)"/>
           </svg>
-          ${lugares.map((l, i) => {
+          ${lugares.map(l => {
+            const [x, y] = RUTA[l.id];
             const hecho = l.id === 'final' ? S.terminado : completada(l.id);
-            const abierto = desbloqueada(l.id);
-            const estado = hecho ? 'hecho' : abierto ? 'abierto' : 'cerrado';
-            return `<button class="lugar lugar-${estado}" style="left:${l.x}%;top:${l.y}%" data-id="${l.id}" aria-label="${l.nombre}, ${l.sub}${estado === 'cerrado' ? ', bloqueado' : estado === 'hecho' ? ', completado' : ''}">
-              <span class="lugar-insignia"><img src="assets/icons/${l.icono}.svg" alt="">${estado === 'cerrado' ? `<span class="lugar-candado">${icono('candado')}</span>` : ''}${hecho ? `<span class="lugar-check">${icono('check')}</span>` : ''}</span>
-              <span class="lugar-texto"><b>${l.nombre}</b><small>${l.sub}</small></span>
+            const estado = hecho ? 'hecho' : desbloqueada(l.id) ? 'abierto' : 'cerrado';
+            return `<button class="estacion est-${estado}" style="left:${pct(x, 3200)};top:${pct(y, 900)}" data-id="${l.id}" aria-label="${l.nombre}, ${l.sub}${estado === 'cerrado' ? ', bloqueado' : estado === 'hecho' ? ', completado' : ''}">
+              <span class="est-insignia"><img src="assets/icons/${l.icono}.svg" alt="">${estado === 'cerrado' ? `<span class="lugar-candado">${icono('candado')}</span>` : ''}${hecho ? `<span class="lugar-check">${icono('check')}</span>` : ''}</span>
+              <span class="est-letrero"><b>${l.nombre}</b><small>${l.sub}</small></span>
+              <span class="est-poste"></span>
             </button>`;
           }).join('')}
+          <img class="viajero" src="${PERSONAJES.siyaj.img}" alt="Siyaj Chan" style="left:${pct(RUTA[actual][0], 3200)};top:${pct(RUTA[actual][2], 900)}">
         </div>
       </div>
     </section>`);
   main.append(nodo);
-  $('#completar-todo', nodo)?.addEventListener('click', () => { S.hechas = MISIONES.map(m => m.id); S.paso = {}; guardar(); aviso('Misiones completadas: ya puedes revisar la decisión final.'); ir('mapa'); });
-  nodo.querySelectorAll('.lugar').forEach(b => b.addEventListener('click', () => {
+  const marco = $('.ruta-marco', nodo), lienzo = $('.ruta-lienzo', nodo), lejos = $('.ruta-lejos', nodo), viajero = $('.viajero', nodo);
+  // Paralaje: la capa lejana se mueve más despacio que el valle
+  marco.addEventListener('scroll', () => { lejos.style.transform = `translateX(${marco.scrollLeft * 0.45}px)`; }, { passive: true });
+  // Rueda vertical del ratón = desplazamiento lateral
+  marco.addEventListener('wheel', e => { if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { marco.scrollLeft += e.deltaY; e.preventDefault(); } }, { passive: false });
+  // Arrastrar con el ratón para recorrer (en pantallas táctiles se usa el desplazamiento nativo)
+  let pan = null;
+  marco.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse' && !e.target.closest('.estacion')) pan = { x: e.clientX, s: marco.scrollLeft }; });
+  addEventListener('pointermove', e => { if (pan) { marco.scrollLeft = pan.s - (e.clientX - pan.x); marco.classList.add('arrastrando'); } });
+  addEventListener('pointerup', () => { pan = null; marco.classList.remove('arrastrando'); });
+  // El agua avanza hasta la última estación completada
+  const llenos = nodo.querySelectorAll('.agua-lleno'), muestra = llenos[1];
+  const largo = muestra.getTotalLength();
+  const largoHasta = x => { let a = 0, b = largo; for (let i = 0; i < 24; i++) { const m = (a + b) / 2; if (muestra.getPointAtLength(m).x < x) a = m; else b = m; } return a; };
+  const ultima = S.terminado ? 'final' : S.hechas.at(-1);
+  const meta = ultima ? largoHasta(RUTA[ultima][0]) : 0;
+  const previo = Math.min(S.aguaVista ?? 0, meta);
+  llenos.forEach(pth => { pth.style.strokeDasharray = `${largo}`; pth.style.strokeDashoffset = `${largo - previo}`; });
+  requestAnimationFrame(() => requestAnimationFrame(() => llenos.forEach(pth => { pth.style.strokeDashoffset = `${largo - meta}`; })));
+  if (meta !== S.aguaVista) { S.aguaVista = meta; guardar(); }
+  // Centrar la vista en el viajero
+  requestAnimationFrame(() => { marco.scrollLeft = RUTA[actual][0] / 3200 * lienzo.clientWidth - marco.clientWidth / 2; });
+  $('#completar-todo', nodo)?.addEventListener('click', () => { S.hechas = MISIONES.map(m => m.id); S.paso = {}; guardar(); aviso('Misiones completadas: ya puedes revisar la asamblea final.'); ir('mapa'); });
+  let caminando = false;
+  nodo.querySelectorAll('.estacion').forEach(b => b.addEventListener('click', async () => {
     const id = b.dataset.id;
+    if (caminando) return;
     if (!desbloqueada(id)) {
       Sonido.error();
+      b.classList.remove('sacudir'); void b.offsetWidth; b.classList.add('sacudir');
       const previo = ORDEN[ORDEN.indexOf(id) - 1];
       aviso(`Bloqueado: primero completa «${previo === 'final' ? 'Casa Comunal' : mision(previo).lugar}».`, 'error', 'candado');
       return;
     }
-    Sonido.clic();
+    Sonido.clic(); caminando = true;
+    // Siyaj Chan camina hasta la estación elegida
+    const ancho = lienzo.clientWidth, alto = lienzo.clientHeight;
+    const dx = (RUTA[id][0] - RUTA[actual][0]) / 3200 * ancho, dy = (RUTA[id][2] - RUTA[actual][2]) / 900 * alto;
+    marco.scrollTo({ left: RUTA[id][0] / 3200 * ancho - marco.clientWidth / 2, behavior: reducirMovimiento ? 'auto' : 'smooth' });
+    if (!reducirMovimiento && Math.abs(dx) > 2) {
+      viajero.classList.add('caminando'); viajero.classList.toggle('izquierda', dx < 0);
+      await viajero.animate([{ translate: '0 0' }, { translate: `${dx}px ${dy}px` }],
+        { duration: Math.min(1800, Math.max(500, Math.abs(dx) * 1.2)), easing: 'cubic-bezier(0.77, 0, 0.175, 1)', fill: 'forwards' }).finished;
+    }
     if (id === 'final') ir(S.terminado ? 'fin' : S.puerta ? 'sala' : 'puerta');
     else ir('mision:' + id);
   }));
-  // En pantallas angostas, centra el mapa en el próximo lugar por visitar
-  const siguiente = nodo.querySelector('.lugar-abierto') || nodo.querySelector('.lugar');
-  requestAnimationFrame(() => { const marco = $('.mapa-marco', nodo); marco.scrollLeft = siguiente.offsetLeft - marco.clientWidth / 2; });
   const [quien, frase] = MAPA_DIALOGOS[Math.min(avance + (S.terminado ? 1 : 0), MAPA_DIALOGOS.length - 1)];
-  if (S.vistoMapa !== avance) { S.vistoMapa = avance; guardar(); setTimeout(() => dialogo([[quien, frase]]), reducirMovimiento ? 0 : 450); }
-  else nodo.append(html(`<button class="mapa-guia" aria-label="Escuchar a ${PERSONAJES[quien].nombre}"><img src="${PERSONAJES[quien].img}" alt=""><span>${esc(frase)}</span></button>`));
-  nodo.querySelector('.mapa-guia')?.addEventListener('click', () => dialogo([[quien, frase]]));
+  if (S.vistoMapa !== avance) { S.vistoMapa = avance; guardar(); setTimeout(() => dialogo([[quien, frase]]), reducirMovimiento ? 0 : 900); }
 };
 
 /* 5-10. Pantalla de misión (sirve para las cinco misiones y el reto de inglés) */
@@ -1171,153 +1206,98 @@ PANTALLAS.puerta = main => {
   agregarRevision(retoPuerta, ctx);
 };
 
-/* 11b. Sala de comparación de alternativas */
+/* 11b-12. Asamblea: elegir, comparar con la balanza y justificar (una sola pantalla) */
 PANTALLAS.sala = main => {
   if (!S.puerta) { ir('mapa'); return; }
   ponerFondo('asamblea');
   const F = S.final;
+  if (!F.balanza) F.balanza = {};
   const evid = evidenciasGanadas();
   const nodo = html(`
     <section class="sala">
       <header class="sala-cabecera panel">
-        <p class="mision-materia">Casa Comunal · Sala de comparación</p>
+        <p class="mision-materia">Casa Comunal · Asamblea de Lloa</p>
         <h2 class="mision-titulo">El futuro de Lloa</h2>
-        <p>Yaku Camayoc necesita tu ayuda para comparar dos alternativas. No hay una respuesta escrita de antemano: decide con lo que descubriste.</p>
+        <p>Elige una alternativa, pésala en la balanza y explica tu decisión. No hay una respuesta escrita de antemano.</p>
       </header>
-      <div class="alternativas">
+      <div class="alternativas" role="radiogroup" aria-label="Alternativas">
         ${['canal', 'traslado'].map(k => { const o = OPCIONES[k]; return `
-          <article class="alternativa panel alt-${o.color}">
-            <span class="alt-letra">${o.letra}</span>
-            <h3>${o.nombre}</h3>
-            <p class="alt-idea">${o.idea}</p>
-            <h4>Lo que descubriste</h4>
-            <ul>${o.datos.map(d => `<li>${d}</li>`).join('')}</ul>
-            <h4>Lo que todavía no se sabe</h4>
-            <ul class="alt-vacios">${o.vacios.map(d => `<li>${d}</li>`).join('')}</ul>
-          </article>`; }).join('')}
+          <button class="alternativa panel alt-${o.color}" role="radio" aria-checked="${F.eleccion === k}" data-k="${k}">
+            <span class="alt-cabeza"><span class="alt-letra">${o.letra}</span><b>${o.nombre}</b></span>
+            <span class="alt-idea">${o.idea}</span>
+            <ul>${o.datos.slice(0, 3).map(d => `<li>${d}</li>`).join('')}</ul>
+            <span class="alt-vacio">Aún no se sabe: ${o.vacios[0].charAt(0).toLowerCase() + o.vacios[0].slice(1)}</span>
+          </button>`; }).join('')}
       </div>
-      <article class="reto panel" id="paso-evidencias">
-        <div class="reto-cabecera">
-          <span class="reto-num">Paso 1 de 2</span>
-          <h3>Organiza tus evidencias</h3>
-          <p class="reto-instruccion">Arrastra al menos ${MIN_EVIDENCIAS_ORDENADAS} evidencias de tu bitácora a la alternativa que respaldan. No hay respuestas incorrectas: es tu análisis.</p>
+      <article class="panel balanza-panel">
+        <h3>La balanza</h3>
+        <p class="reto-instruccion">¿Qué alternativa gana en cada criterio? La balanza se inclinará hacia ella.</p>
+        <div class="balanza-cuerpo">
+          <svg class="balanza" viewBox="0 0 320 170" aria-hidden="true">
+            <polygon points="150,160 170,160 164,60 156,60" fill="#7a5233"/><rect x="120" y="156" width="80" height="10" rx="4" fill="#5a3a26"/>
+            <g class="viga"><rect x="40" y="56" width="240" height="8" rx="4" fill="#4a3020"/><circle cx="160" cy="60" r="8" fill="#d4a23c"/></g>
+            <g class="plato plato-a"><line x1="0" y1="0" x2="-22" y2="46" stroke="#4a3020" stroke-width="2"/><line x1="0" y1="0" x2="22" y2="46" stroke="#4a3020" stroke-width="2"/><ellipse cx="0" cy="48" rx="30" ry="7" fill="#4f86ad"/><text x="0" y="74" text-anchor="middle" font-size="16" font-weight="800" fill="#4f86ad">A</text></g>
+            <g class="plato plato-b"><line x1="0" y1="0" x2="-22" y2="46" stroke="#4a3020" stroke-width="2"/><line x1="0" y1="0" x2="22" y2="46" stroke="#4a3020" stroke-width="2"/><ellipse cx="0" cy="48" rx="30" ry="7" fill="#7a5233"/><text x="0" y="74" text-anchor="middle" font-size="16" font-weight="800" fill="#7a5233">B</text></g>
+          </svg>
+          <div class="criterios">${CRITERIOS.map(c => `<div class="criterio"><span><b>${c.nombre}</b><small>${c.pregunta}</small></span>
+            <div class="segmentos" role="radiogroup" aria-label="${c.nombre}">${['canal', 'traslado'].map(k => `<button role="radio" data-c="${c.id}" data-k="${k}" aria-checked="${F.balanza[c.id] === k}">${OPCIONES[k].letra}</button>`).join('')}</div></div>`).join('')}</div>
         </div>
-        <div class="reto-cuerpo"></div>
-        <p class="reto-feedback" role="status" aria-live="polite"></p>
       </article>
-      <article class="reto panel">
-        <div class="reto-cabecera">
-          <span class="reto-num">Paso 2 de 2</span>
-          <h3>Tabla comparativa</h3>
-          <p class="reto-instruccion">Evalúa cada criterio para las dos alternativas: <b>Alta</b> es la valoración más favorable.</p>
-        </div>
-        <div class="tabla-envoltura"><table class="tabla-criterios">
-          <thead><tr><th scope="col">Criterio</th><th scope="col">A · Canal</th><th scope="col">B · Traslado</th></tr></thead>
-          <tbody>${CRITERIOS.map(c => `<tr><th scope="row"><b>${c.nombre}</b><small>${c.pregunta}</small></th>
-            ${['canal', 'traslado'].map(k => `<td><div class="segmentos" role="radiogroup" aria-label="${c.nombre}, ${OPCIONES[k].nombre}">
-              ${[1, 2, 3].map(v => `<button role="radio" data-c="${c.id}" data-k="${k}" data-v="${v}" aria-checked="${F.criterios[c.id + '.' + k] === v}">${['Baja', 'Media', 'Alta'][v - 1]}</button>`).join('')}
-            </div></td>`).join('')}</tr>`).join('')}</tbody>
-        </table></div>
-        <p class="reto-feedback" id="tabla-feedback" role="status" aria-live="polite"></p>
-        <div class="reto-acciones"><button class="btn btn-oro btn-grande" id="a-decision">Ir a la decisión ${icono('flecha')}</button></div>
-      </article>
-    </section>`);
-  main.append(nodo);
-  // Paso 1: clasificación libre de evidencias
-  const ctxEv = { cuerpo: $('#paso-evidencias .reto-cuerpo', nodo), acciones: html('<div></div>'), feedback: $('#paso-evidencias .reto-feedback', nodo) };
-  RETOS.clasificar({
-    libre: true,
-    zonas: [{ id: 'canal', texto: 'A · Respalda el canal' }, { id: 'traslado', texto: 'B · Respalda el traslado' }, { id: 'ambas', texto: 'Aplica a ambas' }],
-    fichas: evid.map(id => ({ id, texto: EVIDENCIAS[id].texto, etiqueta: EVIDENCIAS[id].materia })),
-    inicial: F.ubicacion,
-    alCambiar: ubic => { F.ubicacion = ubic; guardar(); },
-  }, ctxEv);
-  // Paso 2: tabla de criterios
-  nodo.querySelectorAll('.segmentos button').forEach(b => b.addEventListener('click', () => {
-    Sonido.clic();
-    F.criterios[b.dataset.c + '.' + b.dataset.k] = +b.dataset.v; guardar();
-    b.parentElement.querySelectorAll('button').forEach(x => x.setAttribute('aria-checked', x === b));
-  }));
-  $('#a-decision', nodo).addEventListener('click', () => {
-    const ordenadas = Object.values(F.ubicacion).filter(z => z !== 'pool').length;
-    const faltan = CRITERIOS.length * 2 - Object.keys(F.criterios).length;
-    const fb = $('#tabla-feedback', nodo);
-    if (ordenadas < Math.min(MIN_EVIDENCIAS_ORDENADAS, evid.length)) { Sonido.error(); fb.className = 'reto-feedback mal'; fb.textContent = `Ordena al menos ${MIN_EVIDENCIAS_ORDENADAS} evidencias en el paso 1 (llevas ${ordenadas}).`; return; }
-    if (faltan > 0) { Sonido.error(); fb.className = 'reto-feedback mal'; fb.textContent = `Completa la tabla: faltan ${faltan} valoraciones.`; return; }
-    Sonido.clic(); ir('decision');
-  });
-};
-
-/* 12. Decisión y justificación final */
-PANTALLAS.decision = main => {
-  if (!S.puerta) { ir('mapa'); return; }
-  ponerFondo('asamblea');
-  const F = S.final;
-  const puntos = k => CRITERIOS.reduce((s, c) => s + (F.criterios[c.id + '.' + k] || 0), 0);
-  const max = CRITERIOS.length * 3;
-  const evid = evidenciasGanadas();
-  const nodo = html(`
-    <section class="sala">
-      <header class="sala-cabecera panel">
-        <p class="mision-materia">Casa Comunal · Decisión final</p>
-        <h2 class="mision-titulo">¿Qué alternativa propones?</h2>
-        <p>Según tu tabla comparativa: <b>A · Canal ${puntos('canal')}/${max}</b> y <b>B · Traslado ${puntos('traslado')}/${max}</b>. La puntuación orienta, pero la decisión y sus razones son tuyas.</p>
-      </header>
-      <form class="decision panel" novalidate>
-        <fieldset class="eleccion">
-          <legend>1. Elige una alternativa</legend>
-          ${['canal', 'traslado'].map(k => `<label class="eleccion-opcion alt-${OPCIONES[k].color}">
-            <input type="radio" name="eleccion" value="${k}" ${F.eleccion === k ? 'checked' : ''}>
-            <span class="alt-letra">${OPCIONES[k].letra}</span><span><b>${OPCIONES[k].nombre}</b><small>${OPCIONES[k].idea}</small></span>
-          </label>`).join('')}
-        </fieldset>
-        <fieldset class="usadas">
-          <legend>2. Marca al menos ${MIN_EVIDENCIAS_USADAS} evidencias que respaldan tu decisión</legend>
-          <div class="usadas-lista">${evid.map(id => `<label><input type="checkbox" value="${id}" ${F.usadas.includes(id) ? 'checked' : ''}><span><small>${EVIDENCIAS[id].materia}</small>${EVIDENCIAS[id].texto}</span></label>`).join('')}</div>
-        </fieldset>
-        <label class="justificacion">
-          <span class="legend">3. Justifica tu decisión con tus propias palabras</span>
-          <small>Explica por qué tu alternativa es la más conveniente para Lloa, qué ventajas y limitaciones tiene, y qué datos la respaldan (mínimo ${MIN_JUSTIFICACION} caracteres).</small>
-          <textarea rows="7" maxlength="2000" placeholder="Proponemos... porque... Una limitación es... Los datos que lo respaldan son...">${esc(F.texto)}</textarea>
-          <span class="contador"></span>
-        </label>
+      <form class="panel justificar" novalidate>
+        <h3>Explica tu decisión</h3>
+        <p class="reto-instruccion">Escribe por qué tu alternativa es la más conveniente para Lloa y qué limitación tiene. Toca una evidencia de tu bitácora para citarla.</p>
+        <div class="chips">${evid.map(id => `<button type="button" class="chip-ev" data-id="${id}" aria-pressed="${F.usadas.includes(id)}"><small>${EVIDENCIAS[id].materia}</small>${EVIDENCIAS[id].texto}</button>`).join('')}</div>
+        <textarea rows="6" maxlength="2000" aria-label="Tu justificación" placeholder="Proponemos... porque... Una limitación es...">${esc(F.texto)}</textarea>
+        <span class="contador"></span>
         <p class="reto-feedback" role="status" aria-live="polite"></p>
-        <div class="reto-acciones">
-          <button type="button" class="btn btn-claro" id="volver-sala">Volver a la comparación</button>
-          <button type="submit" class="btn btn-oro btn-grande">Presentar a la comunidad ${icono('flecha')}</button>
-        </div>
+        <div class="reto-acciones"><button type="submit" class="btn btn-oro btn-grande">Presentar a la comunidad ${icono('flecha')}</button></div>
       </form>
     </section>`);
   main.append(nodo);
   const form = $('form', nodo), area = $('textarea', form), contador = $('.contador', form), fb = $('.reto-feedback', form);
+  // La viga gira según cuántos criterios gana cada alternativa; los platos cuelgan siempre derechos
+  const pesar = () => {
+    const votos = Object.values(F.balanza);
+    const dif = votos.filter(v => v === 'traslado').length - votos.filter(v => v === 'canal').length;
+    const ang = dif * 6, rad = ang * Math.PI / 180;
+    $('.viga', nodo).setAttribute('transform', `rotate(${ang} 160 60)`);
+    [['a', -110], ['b', 110]].forEach(([lado, d]) => $(`.plato-${lado}`, nodo).setAttribute('transform', `translate(${160 + d * Math.cos(rad)} ${60 + d * Math.sin(rad)})`));
+  };
   const contar = () => {
     const n = area.value.trim().length;
     contador.textContent = `${n} / ${MIN_JUSTIFICACION} caracteres`;
     contador.classList.toggle('ok', n >= MIN_JUSTIFICACION);
   };
-  contar();
+  pesar(); contar();
+  nodo.querySelectorAll('.alternativa').forEach(b => b.addEventListener('click', () => {
+    Sonido.clic(); F.eleccion = b.dataset.k; guardar(); fb.textContent = '';
+    nodo.querySelectorAll('.alternativa').forEach(x => x.setAttribute('aria-checked', x === b));
+  }));
+  nodo.querySelectorAll('.segmentos button').forEach(b => b.addEventListener('click', () => {
+    Sonido.clic(); F.balanza[b.dataset.c] = b.dataset.k; guardar(); fb.textContent = '';
+    b.parentElement.querySelectorAll('button').forEach(x => x.setAttribute('aria-checked', x === b));
+    pesar();
+  }));
+  nodo.querySelectorAll('.chip-ev').forEach(b => b.addEventListener('click', () => {
+    Sonido.clic();
+    const id = b.dataset.id;
+    if (!F.usadas.includes(id)) { F.usadas.push(id); area.value = (area.value.trim() + ' ' + EVIDENCIAS[id].texto).trim(); }
+    b.setAttribute('aria-pressed', 'true');
+    F.texto = area.value; guardar(); contar();
+  }));
   area.addEventListener('input', () => { F.texto = area.value; guardar(); contar(); fb.textContent = ''; });
-  form.addEventListener('change', e => {
-    fb.textContent = '';
-    if (e.target.name === 'eleccion') F.eleccion = e.target.value;
-    if (e.target.type === 'checkbox') F.usadas = [...form.querySelectorAll('.usadas input:checked')].map(c => c.value);
-    guardar();
-  });
-  $('#volver-sala', nodo).addEventListener('click', () => ir('sala'));
   form.addEventListener('submit', e => {
     e.preventDefault();
     const errores = [];
-    if (!F.eleccion) errores.push('elige una alternativa');
-    if (F.usadas.length < MIN_EVIDENCIAS_USADAS) errores.push(`marca al menos ${MIN_EVIDENCIAS_USADAS} evidencias`);
+    if (!F.eleccion) errores.push('elige una alternativa (A o B)');
+    const faltan = CRITERIOS.filter(c => !F.balanza[c.id]).length;
+    if (faltan) errores.push(`completa la balanza (faltan ${faltan} criterio${faltan > 1 ? 's' : ''})`);
     if (F.texto.trim().length < MIN_JUSTIFICACION) errores.push(`escribe una justificación de al menos ${MIN_JUSTIFICACION} caracteres`);
-    if (errores.length) {
-      Sonido.error(); fb.className = 'reto-feedback mal';
-      fb.textContent = 'Para presentar tu propuesta: ' + errores.join(', ') + '.';
-      return;
-    }
+    if (errores.length) { Sonido.error(); fb.className = 'reto-feedback mal'; fb.textContent = 'Para presentar tu propuesta: ' + errores.join(', ') + '.'; return; }
     Sonido.clic(); ir('desenlace');
   });
 };
+PANTALLAS.decision = PANTALLAS.sala; // partidas guardadas con la versión anterior
 
 /* 13. Escena de desenlace */
 PANTALLAS.desenlace = async main => {
@@ -1366,8 +1346,8 @@ PANTALLAS.fin = main => {
           <p class="fin-eleccion alt-${o.color}"><span class="alt-letra">${o.letra}</span>${o.nombre}</p>
           <h4>Tu justificación</h4>
           <blockquote>${esc(F.texto)}</blockquote>
-          <h4>Evidencias que la respaldan</h4>
-          <ul>${F.usadas.map(id => `<li>${EVIDENCIAS[id].texto}</li>`).join('')}</ul>
+          <h4>Tu balanza</h4>
+          <ul>${CRITERIOS.map(c => `<li><b>${c.nombre}:</b> ${F.balanza?.[c.id] ? OPCIONES[F.balanza[c.id]].nombre : '—'}</li>`).join('')}</ul>
         </article>
         <article class="panel fin-bloque fin-reflexion">
           <h3>Reflexión final</h3>
@@ -1375,7 +1355,7 @@ PANTALLAS.fin = main => {
         </article>
       </div>
       <div class="fin-botones">
-        <button class="btn btn-claro" id="fin-mapa">${icono('mapa')} Ver el mapa</button>
+        <button class="btn btn-claro" id="fin-mapa">${icono('mapa')} Ver la ruta del agua</button>
         <button class="btn btn-oro btn-grande" id="fin-otra">${icono('repetir')} Volver a jugar</button>
       </div>
     </section>`));
@@ -1540,19 +1520,33 @@ RETOS.numero = (reto, ctx) => {
     ${reto.figura ? `<div class="figura">${FIGURAS[reto.figura]()}</div>` : ''}
     <div class="candado-campos">
       <span class="candado-icono">${icono('candado')}</span>
-      ${reto.campos.map((c, k) => `<label class="campo"><span>${c.etiqueta}</span>
+      ${reto.campos.map((c, k) => reto.ruedas
+        ? `<div class="campo"><span>${c.etiqueta}</span><div class="ruedas">${[...fmt(c.respuesta)].map(ch => /\d/.test(ch)
+            ? `<span class="rueda-num"><button type="button" data-paso="1" aria-label="Subir">▲</button><b>0</b><button type="button" data-paso="-1" aria-label="Bajar">▼</button></span>`
+            : `<span class="rueda-sep">${ch}</span>`).join('')}<em>${c.unidad}</em><input type="hidden" data-k="${k}"></div></div>`
+        : `<label class="campo"><span>${c.etiqueta}</span>
         <span class="campo-unidad"><input type="text" inputmode="decimal" autocomplete="off" data-k="${k}"><em>${c.unidad}</em></span></label>`).join('')}
     </div>
   </form>`);
   ctx.cuerpo.append(f);
   if (reto.figura === 'funcion') activarGraficaFuncion(f);
   const inputs = [...f.querySelectorAll('.candado-campos input')];
+  // Ruedas de combinación: cada flecha gira un dígito; el valor se arma en el campo oculto
+  const leerRuedas = cont => { cont.querySelector('input').value = [...cont.children].map(n => n.matches('.rueda-num') ? n.querySelector('b').textContent : n.matches('.rueda-sep') ? n.textContent : '').join(''); };
+  f.querySelectorAll('.ruedas').forEach(leerRuedas);
+  f.querySelectorAll('.rueda-num button').forEach(b => b.addEventListener('click', () => {
+    const num = b.parentElement.querySelector('b');
+    num.textContent = (+num.textContent + +b.dataset.paso + 10) % 10;
+    num.classList.remove('gira'); void num.offsetWidth; num.classList.add('gira');
+    Sonido.clic(); leerRuedas(b.closest('.ruedas'));
+  }));
   const probar = () => {
     if (inputs.some(i => !i.value.trim())) { ctx.mal('Completa todos los campos del candado.'); return; }
     let malos = 0;
     inputs.forEach((inp, k) => {
       const ok = aceptaNumero(inp.value, reto.campos[k].respuesta, reto.campos[k].tol);
-      inp.classList.toggle('mal', !ok); inp.classList.toggle('ok', ok);
+      (inp.type === 'hidden' ? inp.parentElement : inp).classList.toggle('mal', !ok);
+      (inp.type === 'hidden' ? inp.parentElement : inp).classList.toggle('ok', ok);
       if (!ok) malos++;
     });
     if (malos) ctx.mal(malos === inputs.length ? 'El candado no se abre. Revisa tus cálculos.' : `Casi: ${malos} de ${inputs.length} valores no coinciden.`);
@@ -1600,74 +1594,319 @@ RETOS.medidor = (reto, ctx) => {
 };
 const fmt = n => String(Math.round(n * 100) / 100).replace('.', ',');
 
-/* Simulador del carrito por rondas (segunda ley de Newton) */
-RETOS.carrito = (reto, ctx) => {
-  let r = 0, F = 0, x = 0, vel = 0, ultimo = performance.now();
-  const caja = html(`<div class="carrito">
-    <p class="ronda-texto pregunta"></p>
-    <div class="pista-carrito" aria-hidden="true">
-      <div class="carro"><span class="saco"></span><span class="saco"></span><span class="saco"></span><span class="saco extra"></span><span class="saco extra"></span><span class="rueda"></span><span class="rueda"></span></div>
-      <div class="meta"><span>Centro de acopio</span></div>
-      <div class="flecha-fuerza"></div>
-    </div>
-    <div class="carrito-datos">
-      <span>Masa: <b><output id="c-m"></output> kg</b></span>
-      <span>Fuerza neta: <b><output id="c-f">0</output> N</b></span>
-      <span>Aceleración: <b><output id="c-a">0</output> m/s²</b></span>
-    </div>
-    <label class="deslizador"><span>Fuerza que aplica K'inich</span>
-      <input type="range" min="0" max="200" step="10" value="0"></label>
-    <label class="campo campo-unidad ronda-campo" hidden><span>Tu respuesta: aceleración</span>
-      <span class="campo-unidad"><input type="text" inputmode="decimal" autocomplete="off"><em>m/s²</em></span></label>
+/* Rompecabezas de canales: girar tramos hasta que el agua llegue a los andenes */
+RETOS.tuberias = (reto, ctx) => {
+  const N = reto.tam, LADOS = 'NESO', MOV = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+  const solucion = new Map(reto.camino.map(([f, c, l]) => [f + ',' + c, l]));
+  const tipoDe = l => (LADOS.indexOf(l[0]) + 2) % 4 === LADOS.indexOf(l[1]) ? 'recto' : 'codo';
+  const celdas = [];
+  for (let f = 0; f < N; f++) for (let c = 0; c < N; c++) {
+    const l = solucion.get(f + ',' + c);
+    const giro = Math.floor(Math.random() * 4);
+    celdas.push({ f, c, tipo: l ? tipoDe(l) : (Math.random() < .5 ? 'recto' : 'codo'), giro, grados: giro * 90 });
+  }
+  const celda = (f, c) => celdas[f * N + c];
+  // Lados que une un tramo: el recto une N-S y el codo N-E; cada giro suma un cuarto de vuelta
+  const lados = t => (t.tipo === 'recto' ? [0, 2] : [0, 1]).map(k => (k + t.giro) % 4);
+  const [f0, c0, l0] = reto.camino[0], [fN, cN, lN] = reto.camino.at(-1);
+  const entrada = LADOS.indexOf(l0[0]), salida = LADOS.indexOf(lN[1]);
+  // Sigue el agua desde el reservorio; devuelve las celdas mojadas y si llegó a los andenes
+  const fluir = () => {
+    let f = f0, c = c0, entra = entrada; const mojadas = [];
+    while (f >= 0 && f < N && c >= 0 && c < N) {
+      const t = celda(f, c), L = lados(t);
+      if (!L.includes(entra) || mojadas.includes(t)) break;
+      mojadas.push(t);
+      const sale = L.find(x => x !== entra);
+      if (f === fN && c === cN && sale === salida) return { mojadas, llega: true };
+      f += MOV[sale][0]; c += MOV[sale][1]; entra = (sale + 2) % 4;
+    }
+    return { mojadas, llega: false };
+  };
+  if (fluir().llega) { const t = celda(f0, c0); t.giro = (t.giro + 1) % 4; t.grados += 90; } // nunca empezar resuelto
+  const forma = t => t.tipo === 'recto' ? 'M50,0 V100' : 'M50,0 Q50,50 100,50';
+  const caja = html(`<div class="tuberias" style="--n:${N}">
+    <div class="tub-marca" style="grid-column:${c0 + 1}">${icono('flecha')}<span>Reservorio</span></div>
+    <div class="tub-rejilla">${celdas.map((t, k) => `<button class="tramo" type="button" data-k="${k}" aria-label="Tramo fila ${t.f + 1}, columna ${t.c + 1}: tocar para girar">
+      <svg viewBox="0 0 100 100" style="transform:rotate(${t.grados}deg)"><path d="${forma(t)}" class="t-borde"/><path d="${forma(t)}" class="t-lecho"/><path d="${forma(t)}" class="t-agua"/></svg></button>`).join('')}</div>
+    <div class="tub-marca abajo" style="grid-column:${cN + 1}">${icono('flecha')}<span>Andenes</span></div>
+    <p class="tub-giros">Giros: 0</p>
   </div>`);
   ctx.cuerpo.append(caja);
-  const carro = $('.carro', caja), flecha = $('.flecha-fuerza', caja), pista = $('.pista-carrito', caja), rango = $('input[type=range]', caja);
+  let giros = 0;
   const pintar = () => {
-    const R = reto.rondas[r];
-    $('#c-f').textContent = F;
-    $('#c-a').textContent = R.modo === 'aceleracion' && !caja.classList.contains('ronda-ok') ? '?' : fmt(F / R.masa);
-    flecha.style.transform = `scaleX(${F / 200})`;
+    const { mojadas, llega } = fluir();
+    caja.querySelectorAll('.tramo').forEach((b, k) => b.classList.toggle('con-agua', mojadas.includes(celdas[k])));
+    caja.classList.toggle('llega', llega);
+    return llega;
+  };
+  pintar();
+  caja.querySelectorAll('.tramo').forEach(b => b.addEventListener('click', () => {
+    const t = celdas[b.dataset.k];
+    t.giro = (t.giro + 1) % 4; t.grados += 90;
+    b.querySelector('svg').style.transform = `rotate(${t.grados}deg)`;
+    $('.tub-giros', caja).textContent = `Giros: ${++giros}`;
+    Sonido.clic();
+    if (pintar()) { caja.querySelectorAll('.tramo').forEach(x => x.disabled = true); ctx.resuelto(); }
+  }));
+};
+
+/* Memoria: voltear cartas y encontrar parejas */
+RETOS.memoria = (reto, ctx) => {
+  const cartas = barajar(reto.parejas.flatMap((p, k) => [{ k, t: p[0] }, { k, t: p[1] }]));
+  const caja = html(`<div class="memoria">${cartas.map((c, i) => `<button class="mcarta" type="button" data-i="${i}" aria-label="Carta ${i + 1}, boca abajo">
+    <span class="mcarta-cara mcarta-dorso" aria-hidden="true">${icono('estrella')}</span>
+    <span class="mcarta-cara mcarta-frente">${c.t}</span></button>`).join('')}</div>`);
+  ctx.cuerpo.append(caja);
+  let abiertas = [], pares = 0, intentos = 0, ocupado = false;
+  caja.querySelectorAll('.mcarta').forEach(b => b.addEventListener('click', () => {
+    const c = cartas[b.dataset.i];
+    if (ocupado || b.classList.contains('abierta')) return;
+    b.classList.add('abierta'); b.setAttribute('aria-label', c.t); Sonido.clic();
+    abiertas.push([b, c]);
+    if (abiertas.length < 2) return;
+    intentos++;
+    const [[b1, c1], [b2, c2]] = abiertas; abiertas = [];
+    if (c1.k === c2.k) {
+      [b1, b2].forEach(x => { x.classList.add('par'); x.disabled = true; });
+      pares++;
+      ctx.feedback.className = 'reto-feedback ok'; ctx.feedback.textContent = `¡Pareja! (${pares} de ${reto.parejas.length})`;
+      if (pares === reto.parejas.length) ctx.resuelto();
+    } else {
+      ocupado = true;
+      ctx.feedback.className = 'reto-feedback'; ctx.feedback.textContent = `Intentos: ${intentos}. Esas dos no van juntas.`;
+      setTimeout(() => { [b1, b2].forEach(x => { x.classList.remove('abierta'); x.setAttribute('aria-label', 'Carta boca abajo'); }); ocupado = false; }, 900);
+    }
+  }));
+};
+
+/* La dosis justa de abono: la cosecha deja de crecer y el exceso solo cuesta dinero */
+RETOS.dosis = (reto, ctx) => {
+  const caja = html(`<div class="dosis">
+    <div class="dosis-escena" aria-hidden="true">
+      <svg class="dosis-planta" viewBox="0 0 120 160"><path class="tallo" d="M60,150 V40" stroke="#4f7f32" stroke-width="6" stroke-linecap="round"/>
+        <g class="hojas"><ellipse cx="38" cy="70" rx="24" ry="11" fill="#6fa04a" transform="rotate(-25 38 70)"/><ellipse cx="82" cy="60" rx="24" ry="11" fill="#6fa04a" transform="rotate(25 82 60)"/><ellipse cx="42" cy="104" rx="20" ry="9" fill="#5d8a3a" transform="rotate(-20 42 104)"/><ellipse cx="80" cy="96" rx="20" ry="9" fill="#5d8a3a" transform="rotate(20 80 96)"/></g>
+        <circle cx="60" cy="34" r="9" fill="#fff"/><circle cx="60" cy="34" r="4" fill="#f3c25a"/></svg>
+      <div class="dosis-medidas">
+        <div class="medida"><span>Cosecha</span><div class="papas">${'<i></i>'.repeat(reto.justa)}</div></div>
+        <div class="medida"><span>Dinero perdido</span><div class="monedas">${'<i></i>'.repeat(reto.max - reto.justa)}</div></div>
+      </div>
+    </div>
+    <label class="deslizador"><span>Abono aplicado: <output>0</output> de ${reto.max} medidas</span>
+      <input type="range" min="0" max="${reto.max}" step="1" value="0"></label>
+    <p class="dosis-estado" aria-live="polite"></p>
+  </div>`);
+  ctx.cuerpo.append(caja);
+  const r = $('input', caja);
+  const pintar = () => {
+    const x = +r.value, cosecha = Math.min(x, reto.justa), perdido = Math.max(0, x - reto.justa);
+    $('output', caja).textContent = x;
+    caja.querySelectorAll('.papas i').forEach((p, k) => p.classList.toggle('lleno', k < cosecha));
+    caja.querySelectorAll('.monedas i').forEach((m, k) => m.classList.toggle('lleno', k < perdido));
+    $('.dosis-planta', caja).style.transform = `scale(${0.55 + 0.45 * cosecha / reto.justa})`;
+    $('.dosis-estado', caja).textContent = x === 0 ? 'Sin abono, la planta crece poco.' : x < reto.justa ? 'La cosecha sigue creciendo…' : x === reto.justa ? 'La cosecha llegó a su máximo.' : 'La cosecha ya no sube, pero el gasto sí.';
+  };
+  r.addEventListener('input', pintar); pintar();
+  botonComprobar(ctx, () => {
+    const x = +r.value;
+    if (x === reto.justa) ctx.resuelto();
+    else ctx.mal(x < reto.justa ? 'La planta todavía puede aprovechar más abono: la cosecha puede crecer.' : 'Ese abono extra no aumenta la cosecha: es «consumo de lujo» y se pierde dinero.');
+  });
+};
+
+/* Laboratorio del carrito con agua: se jala el dinamómetro y se anotan masa, fuerza y aceleración */
+RETOS.laboratorio = (reto, ctx) => {
+  let n = 0, r = 0, s = 0, moviendo = false, sMax = 200;
+  const ensayos = [];
+  const masa = () => reto.carrito + n * reto.recipiente;
+  const fuerza = () => Math.round(s / sMax * reto.fmax / reto.fpaso) * reto.fpaso;
+  const caja = html(`<div class="lab">
+    <p class="ronda-texto pregunta"></p>
+    <div class="lab-pista">
+      <div class="lab-carro" aria-hidden="true">
+        <div class="lab-tanques">${'<span class="tanque"><i></i></span>'.repeat(reto.maxRecipientes)}</div>
+        <div class="lab-caja"><span class="lab-masa"></span></div>
+        <span class="rueda"></span><span class="rueda"></span>
+      </div>
+      <div class="lab-resorte" aria-hidden="true"></div>
+      <button class="lab-manija" type="button" aria-label="Manija del dinamómetro: arrástrala hacia la derecha para jalar, o usa las flechas y Enter">
+        <span class="lab-lectura">0 N</span>
+      </button>
+      <div class="meta"><span>Centro de acopio</span></div>
+    </div>
+    <div class="lab-controles">
+      <button class="btn btn-claro" type="button" data-carga="-1">− Recipiente</button>
+      <span class="lab-carga"></span>
+      <button class="btn btn-claro" type="button" data-carga="1">+ Recipiente</button>
+    </div>
+    <label class="campo campo-unidad lab-prediccion" hidden><span>Tu predicción de la aceleración</span>
+      <span class="campo-unidad"><input type="text" inputmode="decimal" autocomplete="off"><em>m/s²</em></span></label>
+    <div class="tabla-envoltura"><table class="lab-tabla">
+      <thead><tr><th>Ensayo</th><th>Masa (kg)</th><th>Fuerza (N)</th><th>Aceleración (m/s²)</th></tr></thead>
+      <tbody><tr class="vacia"><td colspan="4">Jala el dinamómetro para registrar tu primer ensayo.</td></tr></tbody>
+    </table></div>
+  </div>`);
+  ctx.cuerpo.append(caja);
+  const pista = $('.lab-pista', caja), carro = $('.lab-carro', caja), manija = $('.lab-manija', caja), resorte = $('.lab-resorte', caja);
+  const pintar = () => {
+    caja.querySelectorAll('.tanque').forEach((t, k) => t.classList.toggle('lleno', k < n));
+    $('.lab-masa', caja).textContent = `${masa()} kg`;
+    $('.lab-carga', caja).textContent = `${n} recipiente${n === 1 ? '' : 's'} · ${masa()} kg`;
+    $('.lab-lectura', caja).textContent = `${fuerza()} N`;
+    manija.style.transform = `translateX(${s}px)`;
+    resorte.style.transform = `scaleX(${(30 + s) / 30})`;
+    caja.querySelectorAll('[data-carga]').forEach(b => { b.disabled = moviendo || (b.dataset.carga < 0 ? n === 0 : n === reto.maxRecipientes); });
   };
   const iniciarRonda = () => {
     const R = reto.rondas[r];
-    caja.classList.remove('ronda-ok');
-    caja.classList.toggle('cargado', R.masa > 20);
     $('.ronda-texto', caja).textContent = R.texto;
-    $('#c-m').textContent = R.masa;
-    F = R.modo === 'fuerza' ? 0 : R.fuerza;
-    rango.value = F; rango.disabled = R.modo !== 'fuerza';
-    $('.ronda-campo', caja).hidden = R.modo !== 'aceleracion';
-    x = 0; vel = 0; pintar();
+    $('.lab-prediccion', caja).hidden = R.predecir == null;
   };
-  rango.addEventListener('input', () => { F = +rango.value; x = 0; vel = 0; pintar(); });
-  // El carrito acelera con a = F/m y vuelve a empezar al llegar al centro de acopio
-  const animar = ahora => {
+  const medir = () => { sMax = Math.max(120, Math.min(260, pista.clientWidth - carro.offsetWidth - 150)); };
+  caja.querySelectorAll('[data-carga]').forEach(b => b.addEventListener('click', () => { n += +b.dataset.carga; Sonido.clic(); pintar(); }));
+  // Arrastre de la manija: el resorte se estira y el dinamómetro marca la fuerza
+  let arrastre = null;
+  manija.addEventListener('pointerdown', e => { if (moviendo || e.button > 0) return; medir(); arrastre = { x: e.clientX - s, id: e.pointerId }; manija.setPointerCapture(e.pointerId); manija.classList.add('tensa'); });
+  manija.addEventListener('pointermove', e => { if (!arrastre || e.pointerId !== arrastre.id) return; s = Math.max(0, Math.min(sMax, e.clientX - arrastre.x)); pintar(); });
+  const soltarManija = e => { if (!arrastre || e.pointerId !== arrastre.id) return; arrastre = null; manija.classList.remove('tensa'); jalar(); };
+  manija.addEventListener('pointerup', soltarManija);
+  manija.addEventListener('pointercancel', soltarManija);
+  manija.addEventListener('keydown', e => {
+    if (moviendo) return;
+    medir();
+    const paso = sMax * reto.fpaso / reto.fmax;
+    if (e.key === 'ArrowRight') { s = Math.min(sMax, s + paso); pintar(); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { s = Math.max(0, s - paso); pintar(); e.preventDefault(); }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); jalar(); }
+  });
+  // Al soltar: se registra el ensayo y el carrito acelera con a = F/m (movimiento uniformemente acelerado)
+  async function jalar() {
+    const F = fuerza(), m = masa();
+    if (F === 0) { s = 0; pintar(); return; }
+    const a = F / m;
+    moviendo = true;
+    ensayos.push({ m, F, a });
+    const tbody = $('tbody', caja);
+    tbody.querySelector('.vacia')?.remove();
+    tbody.append(html(`<table><tr class="nuevo"><td>${ensayos.length}</td><td>${m}</td><td>${F}</td><td>${fmt(a)}</td></tr></table>`).querySelector('tr'));
+    Sonido.clic();
+    manija.classList.add('oculta'); resorte.classList.add('oculta');
+    const d = pista.clientWidth - carro.offsetWidth - 24;
+    const duracion = reducirMovimiento ? 300 : Math.min(4000, Math.max(700, Math.sqrt(2 * d / (a * 40)) * 1000));
+    ctx.feedback.className = 'reto-feedback'; ctx.feedback.textContent = `Ensayo ${ensayos.length}: ${m} kg y ${F} N → aceleración de ${fmt(a)} m/s².`;
+    // easeInQuad: la posición crece con el cuadrado del tiempo, como en un movimiento con aceleración constante
+    await carro.animate([{ transform: 'translateX(0)' }, { transform: `translateX(${d}px)` }], { duration: duracion, easing: 'cubic-bezier(0.11, 0, 0.5, 0)', fill: 'forwards' }).finished;
+    evaluar(m, F, a);
+    await esperar(500);
     if (!caja.isConnected) return;
-    const dt = Math.min((ahora - ultimo) / 1000, 0.05); ultimo = ahora;
-    const a = F / reto.rondas[r].masa;
-    if (!reducirMovimiento) { vel += a * dt; x += vel * dt * 40; }
-    const limite = pista.clientWidth - carro.clientWidth - 20;
-    if (x > limite) { x = 0; vel = 0; }
-    carro.style.transform = `translateX(${x}px)`;
-    requestAnimationFrame(animar);
-  };
-  requestAnimationFrame(animar);
-  iniciarRonda();
-  botonComprobar(ctx, () => {
+    carro.getAnimations().forEach(x => x.cancel());
+    s = 0; moviendo = false;
+    manija.classList.remove('oculta'); resorte.classList.remove('oculta');
+    pintar();
+  }
+  function evaluar(m, F, a) {
     const R = reto.rondas[r];
-    const ok = R.modo === 'fuerza' ? F / R.masa === R.objetivo : aceptaNumero($('.ronda-campo input', caja).value, R.respuesta);
-    if (!ok) {
-      if (R.modo === 'fuerza') ctx.mal(F / R.masa < R.objetivo ? `Con ${F} N acelera a ${fmt(F / R.masa)} m/s²: falta fuerza.` : `Con ${F} N acelera a ${fmt(F / R.masa)} m/s²: es demasiada fuerza.`);
-      else ctx.mal('Esa no es la aceleración. Divide la fuerza entre la nueva masa.');
-      return;
-    }
-    caja.classList.add('ronda-ok'); pintar();
+    if (!R || caja.classList.contains('terminado')) return;
+    if (m !== R.masa) { ctx.feedback.textContent += ` Para esta ronda, el carrito debe pesar ${R.masa} kg.`; return; }
+    if (F !== R.fuerza) { ctx.feedback.textContent += R.predecir == null ? ` Buscamos una aceleración de ${fmt(R.fuerza / R.masa)} m/s².` : ` Jala con ${R.fuerza} N.`; return; }
+    if (R.predecir != null && !aceptaNumero($('.lab-prediccion input', caja).value, R.predecir)) { ctx.mal(`El resultado fue ${fmt(a)} m/s², pero tu predicción no coincide. Revisa a = F ÷ m, corrígela y vuelve a jalar.`); return; }
     if (r + 1 < reto.rondas.length) {
-      r++;
-      Sonido.exito();
+      r++; Sonido.exito();
       ctx.feedback.className = 'reto-feedback ok'; ctx.feedback.textContent = R.exito || '¡Correcto!';
-      setTimeout(iniciarRonda, reducirMovimiento ? 0 : 1100);
-    } else { rango.disabled = true; ctx.resuelto(); }
+      iniciarRonda();
+    } else { caja.classList.add('terminado'); ctx.resuelto(); }
+  }
+  iniciarRonda(); pintar();
+};
+
+/* Inclinómetro: ajustar la pendiente calculada y ver la ladera inclinarse */
+RETOS.inclinometro = (reto, ctx) => {
+  const caja = html(`<div class="inclinometro">
+    ${preguntaHTML(reto)}
+    <svg class="incl-figura" viewBox="0 0 340 200" role="img" aria-label="Ladera que se inclina según el porcentaje elegido; una estaca marca la altura medida de 36 metros">
+      <line x1="20" y1="170" x2="320" y2="170" stroke="#7a5233" stroke-width="3"/>
+      <polygon class="incl-ladera" points="30,170 290,170 290,170" fill="#8fb05a" stroke="#4f6e3a" stroke-width="2"/>
+      <g class="incl-terrazas"></g>
+      <line x1="290" y1="170" x2="290" y2="${170 - 260 * reto.altura / reto.base}" stroke="#b5553a" stroke-width="4" stroke-dasharray="6 5"/>
+      <text x="298" y="${176 - 130 * reto.altura / reto.base}" font-size="13" fill="#b5553a" font-weight="700">${reto.altura} m</text>
+      <text x="160" y="192" text-anchor="middle" font-size="13" fill="currentColor">${reto.base} m</text>
+      <text class="incl-valor" x="40" y="40" font-size="22" font-weight="800" fill="#4a3020"></text>
+    </svg>
+    <label class="deslizador"><span>Inclinómetro</span><input type="range" min="0" max="60" step="1" value="10"></label>
+  </div>`);
+  ctx.cuerpo.append(caja);
+  const r = $('input', caja);
+  const pintar = () => {
+    const p = +r.value, h = 260 * p / 100;
+    $('.incl-ladera', caja).setAttribute('points', `30,170 290,170 290,${170 - h}`);
+    $('.incl-valor', caja).textContent = `${p} %`;
+  };
+  r.addEventListener('input', pintar); pintar();
+  botonComprobar(ctx, () => {
+    const p = +r.value;
+    if (p === reto.objetivo) {
+      // Recompensa visual: la ladera se convierte en terrazas
+      const h = 260 * p / 100, pasos = 5;
+      $('.incl-terrazas', caja).innerHTML = Array.from({ length: pasos }, (_, k) => {
+        const x = 30 + 260 * k / pasos, y = 170 - h * (k + 1) / pasos;
+        return `<rect x="${x}" y="${y}" width="${260 / pasos}" height="${170 - y}" fill="${k % 2 ? '#7d9a4a' : '#6b8a3d'}" stroke="#8a6f4e" stroke-width="2"/>`;
+      }).join('');
+      ctx.resuelto();
+    } else ctx.mal(p < reto.objetivo ? 'Todavía no llega a la estaca de 36 m: falta inclinación.' : 'Pasa de la estaca de 36 m: es demasiada inclinación.');
+  });
+};
+
+/* Cargar camiones: repartir los sacos en viajes iguales */
+RETOS.camiones = (reto, ctx) => {
+  let activo = 0;
+  const caja = html(`<div class="camiones">
+    <div class="pila" aria-label="Sacos por cargar">${Array.from({ length: reto.sacos }, (_, k) => `<button class="saco-t" type="button" data-k="${k}" aria-label="Saco de 1 tonelada">1 t</button>`).join('')}</div>
+    <div class="flota">${Array.from({ length: reto.camiones }, (_, k) => `<div class="camion ${k === 0 ? 'activo' : ''}" data-k="${k}">
+      <button class="camion-elegir" type="button" aria-pressed="${k === 0}">Camión ${k + 1} · <b>0 t</b></button>
+      <div class="camion-caja"></div>
+      <svg viewBox="0 0 220 70" aria-hidden="true"><rect x="0" y="0" width="150" height="40" rx="6" fill="#c9a26b" stroke="#7a5233" stroke-width="2"/><rect x="150" y="12" width="56" height="28" rx="6" fill="#b5553a"/><rect x="164" y="17" width="26" height="12" rx="3" fill="#cfe3ec"/><circle cx="36" cy="50" r="13" fill="#4a3020"/><circle cx="176" cy="50" r="13" fill="#4a3020"/><circle cx="36" cy="50" r="4" fill="#d4a23c"/><circle cx="176" cy="50" r="4" fill="#d4a23c"/></svg>
+    </div>`).join('')}</div>
+  </div>`);
+  ctx.cuerpo.append(caja);
+  const pila = $('.pila', caja), camiones = [...caja.querySelectorAll('.camion')];
+  const contar = () => camiones.forEach(c => { c.querySelector('b').textContent = `${c.querySelectorAll('.saco-t').length} t`; });
+  camiones.forEach((c, k) => c.querySelector('.camion-elegir').addEventListener('click', () => {
+    activo = k; Sonido.clic();
+    camiones.forEach((x, j) => { x.classList.toggle('activo', j === k); x.querySelector('.camion-elegir').setAttribute('aria-pressed', j === k); });
+  }));
+  caja.addEventListener('click', e => {
+    const saco = e.target.closest('.saco-t'); if (!saco || caja.classList.contains('partieron')) return;
+    const destino = saco.parentElement === pila ? camiones[activo].querySelector('.camion-caja') : pila;
+    animarMovimiento(saco, () => destino.append(saco));
+    Sonido.clic(); contar();
+  });
+  const b = botonComprobar(ctx, () => {
+    const cargas = camiones.map(c => c.querySelectorAll('.saco-t').length);
+    if (pila.children.length) { ctx.mal(`Aún quedan ${pila.children.length} sacos por subir.`); return; }
+    if (cargas.some(x => x !== reto.sacos / reto.camiones)) { ctx.mal(`Los viajes deben ser iguales: ahora llevan ${cargas.join(' t y ')} t.`); return; }
+    caja.classList.add('partieron');
+    setTimeout(() => ctx.resuelto(), reducirMovimiento ? 0 : 900);
+  });
+  b.innerHTML = `${icono('flecha')} ¡Arrancar!`;
+};
+
+/* Punto de equilibrio: mover x hasta que el ingreso alcance al costo */
+RETOS.equilibrio = (reto, ctx) => {
+  const f = html(`<div class="equilibrio">${preguntaHTML(reto)}<div class="figura">${FIGURAS.funcion()}</div>
+    <p class="equilibrio-g" aria-live="polite"></p></div>`);
+  ctx.cuerpo.append(f);
+  activarGraficaFuncion(f);
+  const r = $('input[type=range]', f), g = $('.equilibrio-g', f);
+  const pintar = () => {
+    const x = +r.value, G = 480 * x - (180 * x + 2400);
+    g.className = 'equilibrio-g ' + (G > 0 ? 'gana' : G < 0 ? 'pierde' : 'empate');
+    g.textContent = G > 0 ? `Ganancia: ${G.toLocaleString('es-EC')} $` : G < 0 ? `Pérdida: ${(-G).toLocaleString('es-EC')} $` : 'Ni se gana ni se pierde';
+  };
+  r.addEventListener('input', pintar); pintar();
+  botonComprobar(ctx, () => {
+    const x = +r.value;
+    if (x === reto.objetivo) ctx.resuelto();
+    else ctx.mal(x < reto.objetivo ? `Con ${x} t el costo todavía supera al ingreso: se pierde dinero.` : `Con ${x} t ya hay ganancia: el punto de equilibrio está antes.`);
   });
 };
 
@@ -1906,7 +2145,13 @@ function solucionHTML(reto) {
     case 'acertijo': return lista([`Andenes (también se acepta: ${reto.respuestas.filter(r => r !== 'andenes').join(', ')})`]);
     case 'numero': return lista(reto.campos.map(c => `${c.etiqueta}: <b>${fmt(c.respuesta)} ${c.unidad}</b>`));
     case 'medidor': return lista(reto.controles.map(c => `${c.etiqueta}: entre <b>${fmt(c.objetivo[0])} y ${fmt(c.objetivo[1])}${c.unidad ? ' ' + c.unidad : ''}</b>`));
-    case 'carrito': return lista(reto.rondas.map((r, k) => r.modo === 'fuerza' ? `Ronda ${k + 1}: fuerza = <b>${r.masa * r.objetivo} N</b>` : `Ronda ${k + 1}: aceleración = <b>${fmt(r.respuesta)} m/s²</b>`));
+    case 'tuberias': return lista(['Gira los tramos hasta formar el recorrido: baja, gira a la derecha, baja, regresa a la izquierda, baja y sale por la derecha hacia los andenes.']);
+    case 'memoria': return lista(reto.parejas.map(([a, b]) => `${a} ↔ ${b}`));
+    case 'dosis': return lista([`Detén el control en la dosis ${reto.justa}: ahí la cosecha llega a su máximo sin desperdicio.`]);
+    case 'laboratorio': return lista(reto.rondas.map((r, k) => `Ronda ${k + 1}: ${(r.masa - reto.carrito) / reto.recipiente} recipientes (${r.masa} kg), jalar con <b>${r.fuerza} N</b>${r.predecir != null ? `; predicción: <b>${fmt(r.predecir)} m/s²</b>` : ''}`));
+    case 'inclinometro': return lista([`Pendiente = 36 ÷ 120 × 100 = <b>${reto.objetivo} %</b>`]);
+    case 'camiones': return lista([`<b>${reto.sacos / reto.camiones} sacos</b> (toneladas) en cada camión`]);
+    case 'equilibrio': return lista([`x = <b>${reto.objetivo} t</b> (480 × 8 = 180 × 8 + 2.400 = 3.840 $)`]);
     case 'imagen': return lista(reto.pasos.map(id => reto.puntos.find(p => p.id === id).etiqueta));
     case 'escucha': return `<p><i>${reto.guion}</i></p>` + lista(reto.preguntas.map(q => `${q.pregunta} → <b>${q.tipo === 'opcion' ? q.opciones[q.correcta] : fmt(q.respuesta) + ' ' + q.unidad}</b>`));
     default: return '';
