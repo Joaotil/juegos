@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Current state
 
-The repository is nearly empty: `README.md` (contains only `# juegos`) is the only tracked file. There is no source code, package manifest, build, lint or test setup yet, so no commands are documented. Add them here once they exist.
+`escape-room/` holds «Misión Lloa: El secreto de las aguas», a static HTML/CSS/JS educational escape room with no build step and no dependencies. Open `escape-room/index.html` directly, or serve it with `python3 -m http.server 8000 --directory escape-room`. Game content (missions, answers, evidence) lives in `escape-room/js/missions.js`; dialogue and characters live in `escape-room/js/dialogue.js`. See `escape-room/README.md` for editing details. There is no automated test suite in the repo.
 
 ## Design rule
 
