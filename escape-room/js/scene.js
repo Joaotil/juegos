@@ -100,7 +100,7 @@ function landscape({ fit = 'slice' } = {}) {
 
 /* ---------- Mapa del río (vista desde arriba) ---------- */
 // Puntos de cada estación en un lienzo de 1000 × 1300
-const MAP_PTS = [[300, 330], [580, 440], [370, 570], [640, 690], [400, 810], [650, 930], [420, 1050], [580, 1170]];
+const MAP_PTS = [[300, 330], [610, 480], [360, 640], [650, 800], [400, 960], [600, 1120]];
 const MAP_SRC = [330, 175], MAP_END = [520, 1265];
 
 /* Curva suave (Catmull-Rom) entre dos puntos, usando sus vecinos */

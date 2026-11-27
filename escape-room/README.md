@@ -28,7 +28,7 @@ escape-room/
 ├── index.html          Página principal
 ├── css/styles.css      Diseño, colores, animaciones y versión móvil
 ├── js/dialogue.js      Personajes, retratos, introducción y desenlace
-├── js/missions.js      Los 7 desafíos, sus actividades, respuestas y evidencias
+├── js/missions.js      Las 6 estaciones (una por materia), actividades, respuestas y evidencias
 ├── js/game.js          Puntuación, progreso, guardado (localStorage) y rúbrica
 ├── js/audio.js         Sonidos generados por el navegador (sin archivos)
 ├── js/scene.js         Paisaje de papel recortado y mapa del río (SVG)
@@ -64,7 +64,7 @@ Para usar una imagen propia en lugar del dibujo:
 
 ### Actividades y respuestas
 
-Cada desafío de `MISSIONS` (`js/missions.js`) tiene una lista `steps` de actividades. Hay seis tipos:
+Cada estación de `MISSIONS` (`js/missions.js`) es una materia y tiene una lista `steps` de actividades. Una actividad puede llevar `intro` con diálogos que se reproducen antes de empezarla. Tipos:
 
 | Tipo | Qué es | Dónde está la respuesta |
 |---|---|---|
@@ -72,7 +72,7 @@ Cada desafío de `MISSIONS` (`js/missions.js`) tiene una lista `steps` de activi
 | `numbers` | Cálculos | `answer` y `tol`, el margen de error aceptado. Se acepta coma decimal |
 | `place` | Arrastrar y soltar | `items[].zone`: zona correcta de cada tarjeta, desde 0. `mode` puede ser `match`, `order` o `classify` |
 | `hotspots` | Explorar la escena tocando pistas | `x` e `y`: posición en % sobre el dibujo |
-| `decision` | Decisión final del Desafío 6 | `proposals`: `quality` (0 a 3) y `relevant` (evidencias que la apoyan) |
+| `decision` | Decisión final (estación de Emprendimiento y Gestión) | `proposals`: `quality` (0 a 3) y `relevant` (evidencias que la apoyan) |
 | `pledge` | Compromiso final | `items`: lista de compromisos |
 | `catch` | Minijuego «Guarda la lluvia»: mover el depósito y atrapar gotas | `cap`: capacidad del depósito; `demand`: unidades que necesita la comunidad |
 | `lock` | Candado de combinación | `dials[].answer`: número correcto de cada rueda; `digits`: cuántas cifras tiene |
@@ -112,7 +112,14 @@ Cambia las variables de `:root` al inicio de `css/styles.css`, por ejemplo `--fo
 
 ## Funcionalidades
 
-- **Pantallas:** bienvenida, personajes, introducción con diálogos, mapa interactivo, 7 desafíos, desenlace y resultados.
+- **Estaciones por materia, en orden:**
+  1. **Historia** (Narrador): línea del tiempo de Sacsayhuamán, reto de fuentes, y causas, consecuencias, permanencias y cambios.
+  2. **Biología** (Nami Killa): proceso evolutivo de la oca, memoria de mecanismos, verdadero o falso.
+  3. **Física** (Mateo): conectar canales, segunda ley de Newton, laboratorio del carrito.
+  4. **Matemáticas** (Rosa): guarda la lluvia, cuaderno de necesidades, candado de cálculos, reparto proporcional, cálculo de llenado.
+  5. **Inglés** (Yaku): Radio Lloa con escucha en voz alta, vocabulario y mensaje secreto.
+  6. **Emprendimiento y Gestión** (Don Manuel): grupo afectado, problemática, soluciones, matriz de viabilidad, decisión final y compromiso.
+- **Pantallas:** bienvenida, personajes, introducción con diálogos, mapa interactivo, 6 estaciones por materia, desenlace y resultados.
 - **Personajes:** 7 personajes con retrato, nombre, papel y voz propia. Aparecen en las escenas de cada desafío.
 - **Personajes animados:** respiran, parpadean, mueven la boca y saludan mientras su diálogo se escribe letra por letra, con «voz» propia.
 - **Estación de inglés «Radio Lloa»:** apartado propio con escucha en voz alta (comprensión auditiva), memoria de vocabulario y mensaje secreto.
@@ -149,4 +156,4 @@ Se corrigieron estos errores de los documentos:
 - En sequía, con 7 u, se cubre el 46,7 %.
 - Faltan 8 u.
 
-Si el equipo de Matemática obtiene datos reales de capacidad, se pueden cambiar en el Desafío 6 de `js/missions.js`.
+Si el equipo de Matemática obtiene datos reales de capacidad, se pueden cambiar en la estación de Matemáticas de `js/missions.js`.

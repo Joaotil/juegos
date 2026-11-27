@@ -144,14 +144,14 @@ const STORY_INTRO = [
   ['rosa', 'Tienes razón, Don Manuel. Nuestros cultivos de oca necesitan agua para crecer, y muchas familias dependen de ella.'],
   ['mateo', 'Como encargado del agua, debo encontrar una manera de organizar su distribución para que todos reciban una cantidad justa.'],
   ['narrador', 'En ese momento, unos pasos se acercan por el camino de piedra… Llega un visitante a la comunidad.', 'mystery'],
-  ['narrador', '¡Bienvenido, Visitante! Para ayudar a Valle Verde tendrás que superar siete desafíos. Cada uno te dará una evidencia y te acercará a una solución sostenible.'],
+  ['narrador', '¡Bienvenido, Visitante! Para ayudar a Valle Verde recorrerás seis estaciones, una por materia: Historia, Biología, Física, Matemáticas, Inglés y Emprendimiento. Cada una te dará evidencias para una solución sostenible.'],
   ['visitante', '¡Acepto el reto! Quiero ayudar a esta comunidad y descubrir cómo podemos cuidar mejor el agua.'],
   ['yaku', 'Shhh… el agua escucha. Reúne las evidencias, visitante: al final tendrás que defender tu decisión con ellas.', 'water']
 ];
 
 /* ---------- Desenlace (basado en el guion) ---------- */
 const STORY_ENDING = [
-  ['narrador', 'Después de superar los siete desafíos, la comunidad de Valle Verde comprende que necesita trabajar unida.', 'water'],
+  ['narrador', 'Después de recorrer las seis estaciones, la comunidad de Valle Verde comprende que necesita trabajar unida.', 'water'],
   ['manuel', 'Nuestra propuesta será mejorar nuestros depósitos de almacenamiento.'],
   ['mateo', 'También organizaremos turnos de distribución y construiremos nuevos espacios.'],
   ['rosa', 'Además, promoveremos la recolección de agua de lluvia para aprovechar mejor este recurso.'],

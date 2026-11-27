@@ -40,10 +40,13 @@ const ICONS = {
   music: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
   users: '<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7"/><path d="M16 4a4 4 0 0 1 0 8M22 21c0-3-2-6-5-6.7"/>',
   reset: '<path d="M4 4v6h6"/><path d="M5 15a8 8 0 1 0 2-8.5L4 10"/>',
+  temple: '<path d="M3 21h18M5 21V11M9.5 21V11M14.5 21V11M19 21V11M2 11l10-7 10 7z"/>',
+  bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
   radio: '<rect x="3" y="9" width="18" height="12" rx="2"/><path d="m7 9 10-6"/><circle cx="15" cy="15" r="3"/><path d="M6 13h3M6 17h3"/>'
 };
 const icon = (n, cls = '') => `<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
-const mLabel = m => m.label || `Desafío ${m.id}`;
+const mLabel = m => m.label;
+const mByID = id => MISSIONS.find(x => x.id === id);
 const avatar = (id, size = '') => `<span class="avatar ${size}" style="--c:${CHARACTERS[id].color}">${avatarSVG(id)}</span>`;
 
 /* ---------- Personajes animados que hablan ---------- */
@@ -105,7 +108,7 @@ function screenWelcome() {
         <h1 class="title">Misión Lloa <em>El secreto de las aguas</em></h1>
         <p class="kichwa"><i>yaku kamachikkuna</i> · guardianes del agua en los Andes</p>
         <div class="weave" aria-hidden="true"></div>
-        <p class="lead">Valle Verde cultiva la oca en las faldas del Pichincha, pero sus depósitos ya no alcanzan. Sigue el río, supera siete desafíos y la estación de inglés, y descubre el secreto de las aguas.</p>
+        <p class="lead">Valle Verde cultiva la oca en las faldas del Pichincha, pero sus depósitos ya no alcanzan. Sigue el río por seis estaciones, una por materia: Historia, Biología, Física, Matemáticas, Inglés y Emprendimiento.</p>
         <div class="actions">
           ${has ? `<button class="btn primary lg" data-act="continue">${icon('next')}<span>Continuar aventura</span></button><button class="btn sand" data-act="newgame"><span>Nueva partida</span></button>`
                 : `<button class="btn primary lg" data-act="start">${icon('next')}<span>Comenzar aventura</span></button>`}
@@ -206,7 +209,7 @@ function screenMap(sel) {
         ${MISSIONS.map((m, i) => {
           const st = Game.status(m.id), [x, y] = MAP_PTS[i];
           return `<button class="node is-${st}" data-node="${i}" style="left:${x / 10}%;top:${y / 13}%" aria-label="${mLabel(m)}: ${m.title}. ${st === 'done' ? 'Completado' : st === 'open' ? 'Disponible' : 'Bloqueado'}">
-            <span class="node-dot">${st === 'locked' ? icon('lock') : icon(m.icon)}</span><span class="node-n">${m.id === 8 ? 'EN' : m.id}</span>${st === 'done' ? `<span class="node-ok">${icon('check')}</span>` : ''}</button>`;
+            <span class="node-dot">${st === 'locked' ? icon('lock') : icon(m.icon)}</span><span class="node-n">${i + 1}</span>${st === 'done' ? `<span class="node-ok">${icon('check')}</span>` : ''}</button>`;
         }).join('')}
       </div>
       <aside class="route">
@@ -247,7 +250,7 @@ function screenMission(id) {
   render(`${hud()}<section class="screen mission">
     <div class="m-top">
       <button class="btn ghost sm" data-act="map">${icon('back')} Mapa</button>
-      <div class="m-title"><p class="eyebrow">${m.label || `Desafío ${m.id} de 7`} · ${CHARACTERS[m.char].name}</p><h2>${m.title}</h2></div>
+      <div class="m-title"><p class="eyebrow">Estación ${MISSIONS.indexOf(m) + 1} de ${MISSIONS.length} · ${m.label}</p><h2>${m.title}</h2></div>
       <ol class="dots" aria-label="Actividades">${m.steps.map(() => '<li></li>').join('')}</ol>
     </div>
     <div class="m-grid">
@@ -287,8 +290,16 @@ function playLines(lines, done) {
 function updateDots() { $$('.dots li').forEach((li, i) => { li.className = i < ctx.step ? 'done' : i === ctx.step ? 'now' : ''; }); }
 
 function runStep(i) {
-  const m = ctx.m, s = m.steps[i], T = STEPS[s.type];
+  const m = ctx.m, s = m.steps[i];
   ctx.step = i; updateDots();
+  // Algunas actividades empiezan con diálogo de los personajes
+  if (s.intro && !s._heard) {
+    s._heard = true;
+    $('#panel').innerHTML = `<div class="panel-wait">${icon('drop')}<p>Escucha a los personajes…</p></div>`;
+    return playLines(s.intro, () => runStep(i));
+  }
+  s._heard = false;
+  const T = STEPS[s.type];
   let tries = 0;
   const panel = $('#panel');
   panel.innerHTML = `<div class="step">
@@ -359,7 +370,7 @@ function completeMission() {
 
 function showReward(m, score, fresh) {
   Sound.play('unlock');
-  const last = m.id === 7;
+  const last = m === MISSIONS[MISSIONS.length - 1];
   const el = document.createElement('div');
   el.className = 'reward';
   el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Desafío completado');
@@ -379,7 +390,7 @@ function showReward(m, score, fresh) {
 function evCard(id) {
   const e = EVIDENCE[id];
   return `<article class="ev">
-    <div class="ev-top"><span class="ev-ic">${icon('key')}</span><div><h4>${e.name}</h4><p class="ev-desc">${e.desc}</p></div><span class="ev-m">${e.mission === 8 ? 'Inglés' : 'Desafío ' + e.mission}</span></div>
+    <div class="ev-top"><span class="ev-ic">${icon('key')}</span><div><h4>${e.name}</h4><p class="ev-desc">${e.desc}</p></div><span class="ev-m">${mByID(e.mission).label}</span></div>
     <p class="ev-info">${e.info}</p>
     <p class="ev-src">Fuente: ${e.source}</p>
   </article>`;
@@ -578,13 +589,13 @@ const STEPS = {
   /* ---- Decisión final ---- */
   decision: {
     html: (s, m) => {
-      const evs = Game.state.evidence.filter(id => EVIDENCE[id].mission < 7);
+      const evs = Game.state.evidence.filter(id => id !== 'E10');
       return `<div class="keydata">${[['Demanda', '15 u'], ['Inicial', '10 u'], ['Sequía', '7 u'], ['Llenado en sequía', '46,7 %'], ['Falta', '8 u']].map(([a, b]) => `<span><small>${a}</small><b>${b}</b></span>`).join('')}</div>
       <section class="dec"><h4><span>1</span> Compara las alternativas y elige una</h4>
         <div class="props">${m.proposals.map(p => `<label class="prop"><input type="radio" name="prop" value="${p.id}"><span class="prop-n">${p.name}</span>
           <span class="prop-tags">${p.covers.length ? p.covers.map(c => `<i>${icon('check')}${c}</i>`).join('') : '<i class="no">No atiende el problema</i>'}</span></label>`).join('')}</div></section>
       <section class="dec"><h4><span>2</span> Elige tus evidencias <small>(mínimo 2)</small></h4>
-        <div class="ev-pick">${evs.map(id => `<label class="evp"><input type="checkbox" value="${id}"><span class="evp-box">${icon('check')}</span><span class="evp-t"><b>${EVIDENCE[id].name}</b><small>Desafío ${EVIDENCE[id].mission}</small><span>${EVIDENCE[id].info}</span></span></label>`).join('')}</div></section>
+        <div class="ev-pick">${evs.map(id => `<label class="evp"><input type="checkbox" value="${id}"><span class="evp-box">${icon('check')}</span><span class="evp-t"><b>${EVIDENCE[id].name}</b><small>${mByID(EVIDENCE[id].mission).label}</small><span>${EVIDENCE[id].info}</span></span></label>`).join('')}</div></section>
       <section class="dec"><h4><span>3</span> Justifica tu decisión</h4>
         <textarea id="just" rows="5" maxlength="700" placeholder="Elijo esta propuesta porque… (usa datos y cálculos de tus evidencias)"></textarea>
         <p class="counter"><span id="jc">0</span> caracteres · mínimo 40</p>
@@ -705,7 +716,7 @@ function openEvidence() {
   const got = Game.state.evidence;
   openSheet(`Evidencias <small>${got.length}/${ids.length}</small>`, `<p class="sheet-sub">Las evidencias te servirán para defender tu decisión en el Desafío 6.</p>
     <div class="ev-list">${ids.map(id => got.includes(id) ? evCard(id)
-      : `<article class="ev locked"><div class="ev-top"><span class="ev-ic">${icon('lock')}</span><div><h4>Evidencia oculta</h4><p class="ev-desc">Se obtiene en ${EVIDENCE[id].mission === 8 ? 'la estación de inglés' : 'el Desafío ' + EVIDENCE[id].mission}.</p></div></div></article>`).join('')}</div>`);
+      : `<article class="ev locked"><div class="ev-top"><span class="ev-ic">${icon('lock')}</span><div><h4>Evidencia oculta</h4><p class="ev-desc">Se obtiene en la estación de ${mByID(EVIDENCE[id].mission).label}.</p></div></div></article>`).join('')}</div>`);
 }
 
 function openMenu() {
