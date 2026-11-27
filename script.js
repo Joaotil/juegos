@@ -574,7 +574,9 @@ const METAFORA = 'La tierra es el corazón que mantiene viva a nuestra comunidad
 
 /* Modo revisión (docente): lo activa revision.html. Todo desbloqueado y con soluciones visibles. */
 const MODO_REVISION = window.MODO_REVISION === true;
-const CLAVE_GUARDADO = MODO_REVISION ? 'misionLloa.revision' : 'misionLloa.v1';
+/* Versión de demostración: solo la Misión 1 es jugable */
+const MODO_DEMO = window.MODO_DEMO === true;
+const CLAVE_GUARDADO = MODO_REVISION ? 'misionLloa.revision' : MODO_DEMO ? 'misionLloa.demo' : 'misionLloa.v1';
 const ORDEN = [...MISIONES.map(m => m.id), 'final']; // 7 lugares del mapa
 const $ = (sel, raiz = document) => raiz.querySelector(sel);
 const mision = id => MISIONES.find(m => m.id === id);
@@ -598,7 +600,7 @@ function guardar() {
 }
 const haySave = () => { try { return !!localStorage.getItem(CLAVE_GUARDADO); } catch { return false; } };
 const completada = id => S.hechas.includes(id);
-const desbloqueada = id => MODO_REVISION || ORDEN.indexOf(id) <= S.hechas.length;
+const desbloqueada = id => MODO_REVISION || (MODO_DEMO ? id === 'm1' : ORDEN.indexOf(id) <= S.hechas.length);
 const evidenciasGanadas = () => MISIONES.filter(m => completada(m.id)).flatMap(m => m.recompensa.evidencias);
 
 /* ---------- Iconos de interfaz (SVG en línea, toman el color del texto) ---------- */
@@ -851,7 +853,7 @@ PANTALLAS.inicio = main => {
   main.append(html(`
     <section class="inicio">
       <div class="inicio-panel">
-        <span class="chip">${MODO_REVISION ? 'Modo revisión (docente)' : 'Lloa · Pichincha · Ecuador'}</span>
+        <span class="chip">${MODO_REVISION ? 'Modo revisión (docente)' : MODO_DEMO ? 'Versión de demostración' : 'Lloa · Pichincha · Ecuador'}</span>
         <h1 class="inicio-titulo">Misión Lloa</h1>
         <p class="inicio-subtitulo">yaku kamachikkuna</p>
         <p class="inicio-lema">Las familias de Lloa cultivan papa en tierras generosas, pero sus parcelas están lejos de los mercados y llevar la cosecha es difícil. Recorre Lloa, supera seis desafíos, reúne las claves de Mama Quilla y ayuda a Yaku Camayoc a decidir el futuro de la comunidad.</p>
@@ -1054,7 +1056,7 @@ PANTALLAS.mapa = main => {
       Sonido.error();
       b.classList.remove('sacudir'); void b.offsetWidth; b.classList.add('sacudir');
       const previo = ORDEN[ORDEN.indexOf(id) - 1];
-      aviso(`Bloqueado: primero completa «${previo === 'final' ? 'Casa Comunal' : mision(previo).lugar}».`, 'error', 'candado');
+      aviso(MODO_DEMO ? 'Disponible en la versión completa.' : `Bloqueado: primero completa «${previo === 'final' ? 'Casa Comunal' : mision(previo).lugar}».`, 'error', 'candado');
       return;
     }
     Sonido.clic(); caminando = true;
@@ -1071,7 +1073,10 @@ PANTALLAS.mapa = main => {
     else ir('mision:' + id);
   }));
   const [quien, frase] = MAPA_DIALOGOS[Math.min(avance + (S.terminado ? 1 : 0), MAPA_DIALOGOS.length - 1)];
-  if (S.vistoMapa !== avance) { S.vistoMapa = avance; guardar(); setTimeout(() => dialogo([[quien, frase]]), reducirMovimiento ? 0 : 900); }
+  const lineas = MODO_DEMO && avance > 0
+    ? [['quilla', 'Aquí termina la demostración. En la versión completa te esperan cuatro misiones más, el reto de inglés y la asamblea final de Lloa.']]
+    : [[quien, frase]];
+  if (S.vistoMapa !== avance) { S.vistoMapa = avance; guardar(); setTimeout(() => dialogo(lineas), reducirMovimiento ? 0 : 900); }
 };
 
 /* 5-10. Pantalla de misión (sirve para las cinco misiones y el reto de inglés) */
@@ -2277,6 +2282,7 @@ console.assert(aceptaNumero('1.440', 1440) && aceptaNumero('1440', 1440) && acep
 console.assert(aceptaNumero('232,32', 232.32) && aceptaNumero('2.5', 2.5) && aceptaNumero('2,5 m/s²', 2.5) && aceptaNumero('0,18', 0.18), 'decimales');
 console.assert(!aceptaNumero('', 0) && !aceptaNumero('13', 13.5) && aceptaNumero('29,2', 29.17, 0.05), 'rechazos');
 
+if (MODO_DEMO) document.body.append(html('<div class="marca-demo" aria-hidden="true">Versión de demostración</div>'));
 if (MODO_REVISION) { document.body.classList.add('revision'); $('.hud-marca span').textContent = 'Misión Lloa · Revisión'; }
 document.addEventListener('visibilitychange', () => { if (document.hidden) speechSynthesis?.cancel(); });
 document.addEventListener('pointerdown', () => Sonido.iniciar(), { once: true });
