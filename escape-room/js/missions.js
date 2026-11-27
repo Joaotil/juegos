@@ -49,6 +49,9 @@ const EVIDENCE = {
   E9: { name: 'Cálculo de llenado', mission: 6, desc: 'Cuánto se llena el depósito frente a la demanda.',
         info: 'Frente a una demanda de 15 u, el almacenamiento cubre el 66,7 % con 10 u y solo el 46,7 % en sequía crítica (7 u). Faltan 8 u de almacenamiento.',
         source: 'Presentación ABP · Matemática' },
+  E11: { name: 'Radio Lloa (English)', mission: 8, desc: 'El mensaje de la comunidad en inglés.',
+        info: 'Not enough community water tanks. Build more deposits and manage water responsibly. Save water, save lives!',
+        source: 'Missions: Save the water in Lloa' },
   E10: { name: 'Compromiso del guardián', mission: 7, desc: 'Tu compromiso con el agua.',
         info: 'Me comprometo a proteger y promover el cuidado del agua, evitar su desperdicio y apoyar las soluciones comunitarias.',
         source: 'Guion' }
@@ -58,6 +61,7 @@ const MISSIONS = [
   /* ---------------- DESAFÍO 1 ---------------- */
   {
     id: 1, title: 'Conocer el problema', char: 'manuel', icon: 'search',
+    goal: 'Recorre Valle Verde y descubre por qué falta agua guardada.',
     intro: [
       ['manuel', 'Visitante, observa nuestros depósitos. Su capacidad es insuficiente para almacenar toda el agua que necesitan las familias y los cultivos.', 'drip'],
       ['visitante', 'Entonces, ¿el problema principal es que no tienen suficiente espacio para guardar el agua?'],
@@ -81,13 +85,7 @@ const MISSIONS = [
             options: ['Hay demasiados depósitos de agua en la comunidad.', 'Los depósitos comunitarios no tienen capacidad suficiente para almacenar el agua necesaria.', 'Llueve demasiado y el agua inunda las chacras de oca.'],
             answer: 1 }
         ],
-        hint: 'Vuelve a leer la pista del depósito comunitario.' },
-      { type: 'quiz', lang: 'en', title: 'Radio Lloa · in English',
-        prompt: 'The community radio is asking visitors a question. Answer in English!',
-        questions: [
-          { q: 'What is the main water problem in Lloa?', options: ['Too many water tanks.', 'Not enough community water tanks.', 'Too much rain.'], answer: 1 }
-        ],
-        hint: '“Not enough” = “no suficientes”.' }
+        hint: 'Vuelve a leer la pista del depósito comunitario.' }
     ],
     success: [
       ['manuel', '¡Exactamente! Esa es la dificultad que afecta a nuestra comunidad.', 'success'],
@@ -99,6 +97,7 @@ const MISSIONS = [
   /* ---------------- DESAFÍO 2 ---------------- */
   {
     id: 2, title: 'Analizar las necesidades', char: 'rosa', icon: 'drop',
+    goal: 'Calcula cuánta agua necesita cada familia y cuánto falta.',
     intro: [
       ['rosa', 'Debemos conocer las necesidades de todos: cuánta agua requieren las familias y los agricultores para mantener sus actividades diarias.'],
       ['visitante', '¿Y cómo podemos evitar que algunas familias reciban demasiada agua mientras otras se quedan sin ella?'],
@@ -134,6 +133,7 @@ const MISSIONS = [
   /* ---------------- DESAFÍO 3 ---------------- */
   {
     id: 3, title: 'Organizar el reparto', char: 'mateo', icon: 'clock',
+    goal: 'Conecta los canales y reparte el agua de forma justa.',
     intro: [
       ['mateo', 'Soy el encargado de distribuir el agua, pero necesito ayuda para organizar los turnos de manera ordenada.', 'water'],
       ['visitante', 'Podríamos establecer horarios para que cada familia reciba el agua que necesita sin desperdiciarla.'],
@@ -186,6 +186,7 @@ const MISSIONS = [
   /* ---------------- DESAFÍO 4 ---------------- */
   {
     id: 4, title: 'Proteger los cultivos andinos', char: 'nami', icon: 'leaf',
+    goal: 'Descubre cómo la oca enfrenta la sequía y qué enseñan los incas.',
     intro: [
       ['nami', '¡Saludos, Visitante! Soy Nami Killa, guardiana de los cultivos andinos. La oca es parte importante de nuestra alimentación y debemos protegerla.', 'wind'],
       ['visitante', '¿Qué podemos hacer para que el cultivo no se vea afectado por la falta de agua?'],
@@ -236,6 +237,7 @@ const MISSIONS = [
   /* ---------------- DESAFÍO 5 ---------------- */
   {
     id: 5, title: 'Buscar alternativas', char: 'yaku', icon: 'bulb',
+    goal: 'Separa las buenas ideas de las malas y mide su viabilidad.',
     intro: [
       ['yaku', 'Pueden mejorar los depósitos existentes, construir nuevos espacios de almacenamiento y recolectar agua de lluvia…', 'water'],
       ['visitante', 'Entonces debemos analizar cuál de estas alternativas sería más conveniente para la comunidad.'],
@@ -263,14 +265,7 @@ const MISSIONS = [
           { label: 'Total de la Idea B', answer: 17, tol: 0, unit: '/20' },
           { label: 'Total de la Idea C', answer: 11, tol: 0, unit: '/20' }
         ],
-        hint: 'Suma los cuatro valores de cada columna.' },
-      { type: 'quiz', lang: 'en', title: 'Radio Lloa · in English',
-        prompt: 'The radio is back with two more questions!',
-        questions: [
-          { q: 'What can the community do to improve water storage?', options: ['Build more water tanks.', 'Waste more water.', 'Close all water deposits.'], answer: 0 },
-          { q: 'Why are more community deposits necessary?', options: ['To waste more water.', 'To store enough water for everyone.', 'To make water disappear.'], answer: 1 }
-        ],
-        hint: '“Store” = “almacenar”.' }
+        hint: 'Suma los cuatro valores de cada columna.' }
     ],
     success: [
       ['yaku', 'Bien separado: el agua clara corre hacia las buenas ideas.', 'success'],
@@ -282,6 +277,7 @@ const MISSIONS = [
   /* ---------------- DESAFÍO 6 · DECISIÓN FINAL ---------------- */
   {
     id: 6, title: 'Decisión final', char: 'mateo', icon: 'scale', maxScore: 150,
+    goal: 'Calcula el llenado y defiende tu propuesta con evidencias.',
     intro: [
       ['mateo', 'Hemos llegado a un momento importante. Tenemos varias alternativas, pero debemos elegir una solución que realmente ayude a Valle Verde.', 'mystery'],
       ['manuel', 'Podemos mejorar los depósitos actuales, construir nuevos o recolectar agua de lluvia.'],
@@ -324,9 +320,45 @@ const MISSIONS = [
     evidence: []
   },
 
+  /* ---------------- ESTACIÓN DE INGLÉS · RADIO LLOA ---------------- */
+  {
+    id: 8, label: 'Estación de inglés', title: 'Radio Lloa · English', char: 'yaku', icon: 'radio',
+    goal: 'Escucha los mensajes en inglés de la radio comunitaria y sube la señal al 100 %.',
+    intro: [
+      ['yaku', '¡Bienvenido a Radio Lloa, la estación del agua! Aquí todo se escucha en inglés.', 'water'],
+      ['visitante', '¿En inglés? ¡Perfecto para practicar la comprensión auditiva!'],
+      ['yaku', 'Escucha cada mensaje, responde y sube la señal al 100 %. Good luck!']
+    ],
+    steps: [
+      { type: 'radio', title: 'Mission: Save the water in Lloa!',
+        prompt: 'Presiona PLAY para escuchar cada misión en inglés y elige la respuesta correcta. Si lo necesitas, muestra el texto.',
+        questions: [
+          { q: 'Mission 1. Identify the problem. What is the main water problem in Lloa?', options: ['Too many water tanks.', 'Not enough community water tanks.', 'Too much rain.'], answer: 1 },
+          { q: 'Mission 2. Find a solution. What can the community do to improve water storage?', options: ['Build more water tanks.', 'Waste more water.', 'Close all water deposits.'], answer: 0 },
+          { q: 'Mission 3. Save water. What should people do to save water?', options: ['Leave the taps open.', 'Use water responsibly.', 'Throw water away.'], answer: 1 },
+          { q: 'Mission 4. Protect water deposits. How can we keep community water tanks clean?', options: ['Throw garbage inside.', 'Clean and maintain them regularly.', 'Leave them uncovered.'], answer: 1 },
+          { q: 'Mission 5. Evaluate water storage. Why are more community deposits necessary?', options: ['To waste more water.', 'To store enough water for everyone.', 'To make water disappear.'], answer: 1 },
+          { q: 'Mission 6. Complete the mission! What is the best way to solve the problem in Lloa?', options: ['Build more deposits and manage water responsibly.', 'Stop collecting water.', 'Use all the water without planning.'], answer: 0 }
+        ] },
+      { type: 'memory', title: 'Vocabulary match',
+        prompt: 'Encuentra cada palabra en inglés con su significado en español.',
+        pairs: [['water tank', 'depósito de agua'], ['rain', 'lluvia'], ['waste', 'desperdiciar'], ['store', 'almacenar'], ['clean', 'limpiar']] },
+      { type: 'scramble', title: 'Secret message',
+        prompt: 'Ordena las letras del mensaje final de la radio.',
+        answer: 'SAVE WATER SAVE LIVES',
+        hint: 'Two words repeat: SAVE…' }
+    ],
+    success: [
+      ['yaku', 'Signal at 100 %! Save water, save lives!', 'success'],
+      ['narrador', 'Ahora el mensaje de Valle Verde también se escucha en inglés.']
+    ],
+    evidence: ['E11']
+  },
+
   /* ---------------- DESAFÍO 7 ---------------- */
   {
     id: 7, title: 'Compromiso con la comunidad', char: 'nami', icon: 'heart',
+    goal: 'Firma tu compromiso como guardián del agua.',
     intro: [
       ['nami', 'Antes de terminar, recuerda que el agua no solo es importante para los cultivos: también lo es para la vida de todas las personas.', 'wind'],
       ['yaku', 'Cada gota cuenta. Si desperdiciamos el agua, pondremos en riesgo el futuro de nuestra comunidad.', 'drip']
@@ -336,12 +368,17 @@ const MISSIONS = [
         prompt: 'Ordena las letras para descubrir lo que gritó toda la comunidad al final de la historia.',
         answer: 'EL AGUA ES VIDA',
         hint: 'Empieza con «EL AGUA…».' },
-      { type: 'quiz', lang: 'en', title: 'Radio Lloa · Final mission',
-        prompt: 'Last broadcast from Lloa. Complete the mission!',
-        questions: [
-          { q: 'What should people do to save water?', options: ['Leave the taps open.', 'Use water responsibly.', 'Throw water away.'], answer: 1 },
-          { q: 'How can we keep community water tanks clean?', options: ['Throw garbage inside.', 'Clean and maintain them regularly.', 'Leave them uncovered.'], answer: 1 },
-          { q: 'What is the best way to solve the problem in Lloa?', options: ['Build more deposits and manage water responsibly.', 'Stop collecting water.', 'Use all the water without planning.'], answer: 0 }
+      { type: 'place', mode: 'classify', title: 'Hábitos del guardián',
+        prompt: 'Clasifica cada acción según su efecto sobre el agua de Valle Verde.',
+        zones: [{ label: 'Cuida el agua', tone: 'good' }, { label: 'Pone el agua en riesgo', tone: 'bad' }],
+        items: [
+          { text: 'Usar el agua con responsabilidad', zone: 0 },
+          { text: 'Limpiar y mantener los depósitos con regularidad', zone: 0 },
+          { text: 'Respetar los turnos de distribución', zone: 0 },
+          { text: 'Recolectar agua de lluvia', zone: 0 },
+          { text: 'Dejar las llaves abiertas', zone: 1 },
+          { text: 'Botar basura dentro de los tanques', zone: 1 },
+          { text: 'Dejar los depósitos destapados', zone: 1 }
         ] },
       { type: 'pledge', title: 'Firma tu compromiso',
         prompt: 'Marca cada compromiso y escribe tu nombre para convertirte en guardián del agua.',

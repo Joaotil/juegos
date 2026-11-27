@@ -54,11 +54,11 @@ const CHARACTERS = {
    head = true devuelve solo la cabeza (para iconos pequeños).
    Para usar una imagen propia: coloca el archivo en assets/characters/
    y agrega en CHARACTERS la propiedad  img: 'assets/characters/rosa.png' */
-const INK = '#2B2130';
+const INK = '#3A2F55';
 function charSVG(id, head = false) {
   const c = CHARACTERS[id], a = c.look;
   if (c.img) return `<img src="${c.img}" alt="" />`;
-  const S = `stroke="${INK}" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"`;
+  const S = `stroke="${INK}" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"`;
   const mouth = `<path class="m-closed" d="M62 91q8 7 16 0" fill="none" ${S}/>
     <g class="m-open"><path d="M61 89q9 15 18 0z" fill="#6B1F2E" ${S}/><path d="M65 95q5 4 10 0" fill="#F07C7C"/></g>`;
   if (a.spirit) {
@@ -102,8 +102,8 @@ function charSVG(id, head = false) {
   else torsoExtra = `<path d="M44 128l8-7 8 7 8-7 8 7 8-7 8 7 8-7" fill="none" stroke="${a.cloth2}" stroke-width="4"/>`;
   if (a.shawl) torsoExtra = `<path d="M40 110q30 26 60 0l4 18q-34 22-68 0z" fill="${a.shawl}" ${S}/><circle cx="70" cy="122" r="3.5" fill="#F2C14E" ${S} stroke-width="2"/>`;
   if (a.pack) torsoExtra += `<path d="M52 104l-4 40M88 104l4 40" stroke="#9C6B3F" stroke-width="5"/>`;
-  const armL = `<g class="c-arm-l"><path d="M46 112q-16 16-12 36" fill="none" stroke="${INK}" stroke-width="16" stroke-linecap="round"/><path d="M46 112q-16 16-12 36" fill="none" stroke="${a.cloth}" stroke-width="9" stroke-linecap="round"/><circle cx="34" cy="150" r="7" fill="${a.skin}" ${S}/></g>`;
-  const armR = `<g class="c-arm-r"><path d="M94 112q16 16 12 36" fill="none" stroke="${INK}" stroke-width="16" stroke-linecap="round"/><path d="M94 112q16 16 12 36" fill="none" stroke="${a.cloth}" stroke-width="9" stroke-linecap="round"/><circle cx="106" cy="150" r="7" fill="${a.skin}" ${S}/></g>`;
+  const armL = `<g class="c-arm-l"><path d="M46 112q-16 16-12 36" fill="none" stroke="${INK}" stroke-width="14" stroke-linecap="round"/><path d="M46 112q-16 16-12 36" fill="none" stroke="${a.cloth}" stroke-width="9" stroke-linecap="round"/><circle cx="34" cy="150" r="7" fill="${a.skin}" ${S}/></g>`;
+  const armR = `<g class="c-arm-r"><path d="M94 112q16 16 12 36" fill="none" stroke="${INK}" stroke-width="14" stroke-linecap="round"/><path d="M94 112q16 16 12 36" fill="none" stroke="${a.cloth}" stroke-width="9" stroke-linecap="round"/><circle cx="106" cy="150" r="7" fill="${a.skin}" ${S}/></g>`;
   if (a.prop === 'stick') prop = `<path d="M24 112v70" stroke="${INK}" stroke-width="8" stroke-linecap="round"/><path d="M24 112v70" stroke="#9C6B3F" stroke-width="4" stroke-linecap="round"/><path d="M24 112q-2-8 6-10" fill="none" ${S} stroke-width="3"/>`;
   if (a.prop === 'hoe') prop = `<path d="M26 92v90" stroke="${INK}" stroke-width="8" stroke-linecap="round"/><path d="M26 92v90" stroke="#C99A5B" stroke-width="4" stroke-linecap="round"/><path d="M14 96h22l-4 10h-14z" fill="#9AA5AE" ${S} stroke-width="3"/>`;
   if (a.prop === 'basket') front = `<path d="M18 146h32l-4 20h-24z" fill="#D9A25B" ${S} stroke-width="3"/><path d="M22 146q12-14 24 0" fill="none" ${S} stroke-width="3"/><circle cx="28" cy="143" r="4" fill="#E36F9A" ${S} stroke-width="2"/><circle cx="38" cy="142" r="4" fill="#F2C14E" ${S} stroke-width="2"/>`;

@@ -271,6 +271,72 @@ Object.assign(STEPS, {
     }
   },
 
+  /* ---------- Radio Lloa: escucha en inglés ---------- */
+  radio: {
+    auto: true,
+    html: s => `<div class="radio" lang="en">
+      <div class="radio-box">
+        <div class="r-antenna" aria-hidden="true"></div>
+        <div class="r-grill" aria-hidden="true">${Array.from({ length: 5 }, () => '<i></i>').join('')}</div>
+        <div class="r-screen">
+          <div class="r-top"><span class="r-freq">FM 88.<b class="r-n">1</b> · Radio Lloa</span><span class="r-onair">ON AIR</span></div>
+          <p class="r-q" hidden></p>
+          <p class="r-hint">Press <b>PLAY</b> and listen carefully.</p>
+          <div class="r-signal" aria-label="Señal">${s.questions.map(() => '<i></i>').join('')}</div>
+        </div>
+        <div class="r-ctrls">
+          <button type="button" class="btn primary" data-play>${icon('sound')}<span>Play</span></button>
+          <button type="button" class="btn sand sm" data-tx><span>Show text</span></button>
+        </div>
+      </div>
+      <div class="r-opts" role="group" aria-label="Answers"></div>
+    </div>`,
+    mount(root, s, api) {
+      let qi = 0, timer = 0;
+      const tts = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+      const box = $('.radio-box', root), q = $('.r-q', root);
+      const stop = () => { clearTimeout(timer); box.classList.remove('playing'); if (tts) speechSynthesis.cancel(); };
+      const show = () => {
+        const Q = s.questions[qi];
+        $('.r-n', root).textContent = qi + 1;
+        q.textContent = Q.q; q.hidden = tts;
+        $('[data-tx] span', root).textContent = 'Show text';
+        $('.r-opts', root).innerHTML = Q.options.map((o, oi) => `<button type="button" class="r-opt" data-o="${oi}"><b>${'ABC'[oi]}</b><span>${o}</span></button>`).join('');
+      };
+      const play = () => {
+        if (!tts) { q.hidden = false; return; }
+        stop();
+        const Q = s.questions[qi];
+        const u = new SpeechSynthesisUtterance(`${Q.q} ... A: ${Q.options[0]} ... B: ${Q.options[1]} ... C: ${Q.options[2]}`);
+        u.lang = 'en-US'; u.rate = .88;
+        const v = speechSynthesis.getVoices().find(x => /^en(-|_)/i.test(x.lang)); if (v) u.voice = v;
+        u.onend = stop;
+        box.classList.add('playing');
+        timer = setTimeout(stop, 15000); // por si el navegador no avisa del final
+        speechSynthesis.speak(u);
+      };
+      root.addEventListener('click', e => {
+        if (root.classList.contains('locked')) return;
+        if (e.target.closest('[data-play]')) return play();
+        if (e.target.closest('[data-tx]')) { q.hidden = !q.hidden; $('[data-tx] span', root).textContent = q.hidden ? 'Show text' : 'Hide text'; return; }
+        const b = e.target.closest('.r-opt'); if (!b) return;
+        const Q = s.questions[qi];
+        if (+b.dataset.o === Q.answer) {
+          stop(); b.classList.add('right'); Sound.pop();
+          $$('.r-signal i', root)[qi].classList.add('on');
+          api.say(['Great job!', 'Excellent!', 'Well done!', 'Perfect!'][qi % 4] + ` Señal: ${Math.round((qi + 1) / s.questions.length * 100)} %`);
+          qi++;
+          if (qi === s.questions.length) { $('.r-hint', root).innerHTML = '<b>100 %</b> signal!'; setTimeout(() => api.done('Signal at 100 %! Radio Lloa is on air.'), 500); }
+          else setTimeout(show, 650);
+        } else {
+          b.classList.add('wrong');
+          api.fail('Try again! Listen once more and read the options carefully.');
+        }
+      });
+      show();
+    }
+  },
+
   /* ---------- Ordenar letras ---------- */
   scramble: {
     html: s => {
@@ -304,7 +370,7 @@ Object.assign(STEPS, {
       const target = s.answer.replace(/ /g, '');
       let bad = 0;
       slots.forEach((x, i) => { const ok = x.textContent === target[i]; x.classList.toggle('wrong', !ok); x.classList.toggle('right', ok); if (!ok) bad++; });
-      return bad ? { ok: false, msg: `${bad} letra(s) fuera de lugar.` } : { ok: true, msg: '¡«EL AGUA ES VIDA»!' };
+      return bad ? { ok: false, msg: `${bad} letra(s) fuera de lugar.` } : { ok: true, msg: `¡«${s.answer}»!` };
     }
   }
 });

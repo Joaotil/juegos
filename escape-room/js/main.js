@@ -43,6 +43,7 @@ const ICONS = {
   radio: '<rect x="3" y="9" width="18" height="12" rx="2"/><path d="m7 9 10-6"/><circle cx="15" cy="15" r="3"/><path d="M6 13h3M6 17h3"/>'
 };
 const icon = (n, cls = '') => `<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
+const mLabel = m => m.label || `Desafío ${m.id}`;
 const avatar = (id, size = '') => `<span class="avatar ${size}" style="--c:${CHARACTERS[id].color}">${avatarSVG(id)}</span>`;
 
 /* ---------- Personajes animados que hablan ---------- */
@@ -78,7 +79,7 @@ function hud() {
   return `<header class="hud">
     <button class="pill brand" data-act="map" aria-label="Ir al mapa">${icon('drop')}<span>Misión Lloa</span></button>
     <div class="hud-chips">
-      <div class="pill drops" role="img" aria-label="Progreso: ${done} de 7 desafíos">${MISSIONS.map((m, i) => `<i class="${i < done ? 'on' : ''}"></i>`).join('')}<b>${done}/7</b></div>
+      <div class="pill drops" role="img" aria-label="Progreso: ${done} de ${MISSIONS.length} estaciones">${MISSIONS.map((m, i) => `<i class="${i < done ? 'on' : ''}"></i>`).join('')}<b>${done}/${MISSIONS.length}</b></div>
       <div class="pill" title="Puntuación">${icon('star')}<b id="hud-score">${Game.total()}</b></div>
       <div class="pill hide-sm" title="Tiempo">${icon('clock')}<b id="hud-time">${fmtTime(Game.elapsed())}</b></div>
       <button class="pill" data-act="evidence" aria-label="Evidencias (${Game.state.evidence.length})">${icon('bag')}<b>${Game.state.evidence.length}</b></button>
@@ -98,29 +99,30 @@ function screenWelcome() {
   const has = Game.state.startedAt;
   render(`<section class="screen welcome">
     <div class="bg">${landscape()}</div>
-    <div class="welcome-cast left">${charHTML('rosa', 'enter')}${charHTML('manuel', 'enter')}</div>
-    <div class="welcome-cast right">${charHTML('nami', 'enter')}${charHTML('mateo', 'enter')}</div>
-    <div class="welcome-main">
-      <div class="sign">
-        <span class="rope"></span><span class="rope"></span>
-        <div class="board">
-          <p class="sign-tag">Lloa · Pichincha · Ecuador</p>
-          <h1 class="title"><small>Misión</small>Lloa</h1>
-          <div class="ribbon"><span>El secreto de las aguas</span></div>
-          <p class="kichwa"><i>yaku kamachikkuna</i> · guardianes del agua</p>
+    <div class="welcome-grid">
+      <div class="hero-card">
+        <p class="eyebrow">U. E. Franciscana «San Andrés Quitumbe» · Proyecto ABP</p>
+        <h1 class="title">Misión Lloa <em>El secreto de las aguas</em></h1>
+        <p class="kichwa"><i>yaku kamachikkuna</i> · guardianes del agua en los Andes</p>
+        <div class="weave" aria-hidden="true"></div>
+        <p class="lead">Valle Verde cultiva la oca en las faldas del Pichincha, pero sus depósitos ya no alcanzan. Sigue el río, supera siete desafíos y la estación de inglés, y descubre el secreto de las aguas.</p>
+        <div class="actions">
+          ${has ? `<button class="btn primary lg" data-act="continue">${icon('next')}<span>Continuar aventura</span></button><button class="btn sand" data-act="newgame"><span>Nueva partida</span></button>`
+                : `<button class="btn primary lg" data-act="start">${icon('next')}<span>Comenzar aventura</span></button>`}
+        </div>
+        <div class="hero-foot">
+          <label class="switch"><input type="checkbox" id="amb-toggle" ${Sound.ambientOn ? 'checked' : ''}><span class="track"><span></span></span>${icon('music')} Música ambiental</label>
+          <div class="medallions" role="img" aria-label="Personajes de Valle Verde">${['narrador', 'manuel', 'rosa', 'mateo', 'nami', 'visitante'].map(id => `<span class="medal" title="${CHARACTERS[id].name}">${avatar(id)}</span>`).join('')}</div>
         </div>
       </div>
-      <div class="yaku-say">${charHTML('yaku', 'enter')}<div class="speech"><p class="said" id="w-text" aria-hidden="true"></p><p class="sr-only" aria-live="polite"></p></div></div>
-      <div class="actions center">
-        ${has ? `<button class="btn primary lg" data-act="continue">${icon('next')}<span>Continuar aventura</span></button><button class="btn sand" data-act="newgame"><span>Nueva partida</span></button>`
-              : `<button class="btn primary lg" data-act="start">${icon('next')}<span>Comenzar aventura</span></button>`}
+      <div class="hero-yaku">
+        <div class="yaku-bubble"><p class="said" id="w-text" aria-hidden="true"></p><p class="sr-only" aria-live="polite"></p></div>
+        ${charHTML('yaku', 'enter')}
       </div>
-      <label class="switch"><input type="checkbox" id="amb-toggle" ${Sound.ambientOn ? 'checked' : ''}><span class="track"><span></span></span>${icon('music')} Música ambiental</label>
-      <p class="credits">U. E. Franciscana «San Andrés Quitumbe» · Proyecto ABP</p>
     </div>
   </section>`);
   $('#amb-toggle').addEventListener('change', e => { if (e.target.checked !== Sound.ambientOn) Sound.toggleAmbient(); });
-  setTimeout(() => speak($('#w-text'), '¡Hola, visitante! En Valle Verde los depósitos ya no alcanzan para guardar el agua de las familias y de la oca. ¿Nos ayudas a descubrir el secreto de las aguas?', 'yaku'), 500);
+  setTimeout(() => speak($('#w-text'), '¡Hola, visitante! Soy Yaku, el espíritu del agua. Los depósitos de Valle Verde ya no alcanzan para las familias ni para la oca. ¿Me acompañas río abajo?', 'yaku'), 500);
 }
 
 /* =========================================================
@@ -193,37 +195,44 @@ function screenDialogue(lines, onDone, label) {
 /* =========================================================
    PANTALLA D · Mapa de misiones
    ========================================================= */
-const POS_D = [[10, 80], [26, 60], [40, 78], [53, 50], [66, 70], [78, 44], [90, 22]];
-const POS_M = [[26, 86], [72, 75], [28, 63], [72, 51], [28, 39], [72, 27], [42, 10]];
-
-function screenMap() {
-  const done = Game.state.completed.length;
-  const pts = (P, n) => P.slice(0, n).map(p => p.join(',')).join(' ');
+function screenMap(sel) {
+  const done = Game.state.completed.length, N = MISSIONS.length;
+  const cur = sel ?? Math.min(done, N - 1);
   render(`${hud()}<section class="screen map">
-    <div class="map-head">
-      <div><p class="eyebrow">Valle Verde · Lloa, Pichincha</p><h2 class="h2">Mapa de misiones</h2></div>
-      <p class="map-sub">${done === 7 ? '¡Completaste los siete desafíos!' : `Desafío ${done + 1} disponible. Las misiones se desbloquean en orden.`}</p>
-    </div>
-    <div class="map-wrap">
-      <div class="map-bg">${landscape()}</div>
-      <svg class="trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-        <polyline class="t-base t-d" points="${pts(POS_D, 7)}"/><polyline class="t-done t-d" points="${pts(POS_D, Math.min(done + 1, 7))}"/>
-        <polyline class="t-base t-m" points="${pts(POS_M, 7)}"/><polyline class="t-done t-m" points="${pts(POS_M, Math.min(done + 1, 7))}"/>
-      </svg>
-      ${MISSIONS.map((m, i) => {
-        const st = Game.status(m.id), c = CHARACTERS[m.char];
-        return `<button class="node is-${st}" data-mission="${m.id}" style="--x:${POS_D[i][0]}%;--y:${POS_D[i][1]}%;--mx:${POS_M[i][0]}%;--my:${POS_M[i][1]}%"
-          aria-label="Desafío ${m.id}: ${m.title}. ${c.name}. ${st === 'done' ? 'Completado' : st === 'open' ? 'Disponible' : 'Bloqueado'}" ${st === 'locked' ? 'aria-disabled="true"' : ''}>
-          <span class="node-dot">${st === 'locked' ? icon('lock') : icon(m.icon)}${st === 'done' ? `<span class="node-ok">${icon('check')}</span>` : ''}</span>
-          <span class="node-label"><b>${m.id}. ${m.title}</b><small>${c.name}${st === 'done' ? ` · ${Game.state.scores[m.id]} pts` : ''}</small></span>
-        </button>`;
-      }).join('')}
-    </div>
-    <div class="map-legend">
-      <span><i class="lgd open"></i>Disponible</span><span><i class="lgd done"></i>Completada</span><span><i class="lgd locked"></i>Bloqueada</span>
-      ${done === 7 ? `<button class="btn primary" data-act="ending">Ver el desenlace ${icon('next')}</button>` : ''}
+    <div class="map-layout">
+      <div class="map-wrap">
+        ${mapSVG(done)}
+        <div class="map-title"><small>Mapa del agua</small><b>Valle Verde · Lloa</b></div>
+        ${MISSIONS.map((m, i) => {
+          const st = Game.status(m.id), [x, y] = MAP_PTS[i];
+          return `<button class="node is-${st}" data-node="${i}" style="left:${x / 10}%;top:${y / 13}%" aria-label="${mLabel(m)}: ${m.title}. ${st === 'done' ? 'Completado' : st === 'open' ? 'Disponible' : 'Bloqueado'}">
+            <span class="node-dot">${st === 'locked' ? icon('lock') : icon(m.icon)}</span><span class="node-n">${m.id === 8 ? 'EN' : m.id}</span>${st === 'done' ? `<span class="node-ok">${icon('check')}</span>` : ''}</button>`;
+        }).join('')}
+      </div>
+      <aside class="route">
+        <div class="route-card" id="route-card" aria-live="polite"></div>
+        <ol class="route-list">${MISSIONS.map((m, i) => {
+          const st = Game.status(m.id);
+          return `<li><button class="rl is-${st}" data-node="${i}"><span class="rl-dot">${st === 'done' ? icon('check') : st === 'locked' ? icon('lock') : icon(m.icon)}</span>
+            <span class="rl-t"><small>${mLabel(m)}</small>${m.title}</span>${st === 'done' ? `<b>${Game.state.scores[m.id]}</b>` : ''}</button></li>`;
+        }).join('')}</ol>
+        ${done === N ? `<button class="btn primary lg" data-act="ending">${icon('next')}<span>Ver el desenlace</span></button>` : ''}
+      </aside>
     </div>
   </section>`);
+  showRoute(cur);
+}
+
+function showRoute(i, scroll) {
+  const m = MISSIONS[i], st = Game.status(m.id), c = CHARACTERS[m.char];
+  $$('[data-node]').forEach(b => b.classList.toggle('sel', +b.dataset.node === i));
+  const card = $('#route-card');
+  card.innerHTML = `<div class="rc-top"><div class="rc-char">${charHTML(m.char, 'enter')}</div>
+      <div><p class="eyebrow">${mLabel(m)} · ${c.name}</p><h2>${m.title}</h2></div></div>
+    <p class="rc-goal">${m.goal}</p>
+    <p class="rc-status is-${st}">${st === 'done' ? `${icon('check')} Completado · ${Game.state.scores[m.id]} puntos` : st === 'open' ? `${icon('drop')} ${m.steps.length} actividades te esperan` : `${icon('lock')} El agua todavía no llega hasta aquí.`}</p>
+    ${st === 'open' ? `<button class="btn primary lg" data-act="enter" data-id="${m.id}">${icon('next')}<span>Entrar</span></button>` : ''}`;
+  if (scroll && innerWidth < 900) card.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
 }
 
 /* =========================================================
@@ -232,13 +241,13 @@ function screenMap() {
 let ctx = null;
 
 function screenMission(id) {
-  const m = MISSIONS[id - 1];
+  const m = MISSIONS.find(x => x.id === id);
   if (Game.status(id) !== 'open') return;
   ctx = { m, step: 0, decision: null };
   render(`${hud()}<section class="screen mission">
     <div class="m-top">
       <button class="btn ghost sm" data-act="map">${icon('back')} Mapa</button>
-      <div class="m-title"><p class="eyebrow">Desafío ${m.id} de 7 · ${CHARACTERS[m.char].name}</p><h2>${m.title}</h2></div>
+      <div class="m-title"><p class="eyebrow">${m.label || `Desafío ${m.id} de 7`} · ${CHARACTERS[m.char].name}</p><h2>${m.title}</h2></div>
       <ol class="dots" aria-label="Actividades">${m.steps.map(() => '<li></li>').join('')}</ol>
     </div>
     <div class="m-grid">
@@ -356,7 +365,7 @@ function showReward(m, score, fresh) {
   el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Desafío completado');
   el.innerHTML = `<div class="reward-card">
     <div class="splash" aria-hidden="true">${Array.from({ length: 10 }, (_, i) => `<i style="--a:${i * 36}deg;--d:${60 + (i % 3) * 18}px"></i>`).join('')}${icon('check')}</div>
-    <p class="eyebrow">Desafío ${m.id} completado</p>
+    <p class="eyebrow">${mLabel(m)} completado</p>
     <h2>${m.title}</h2>
     <p class="pts">+${score} <small>puntos</small></p>
     ${fresh.length ? `<p class="small-title">Evidencia${fresh.length > 1 ? 's' : ''} obtenida${fresh.length > 1 ? 's' : ''}</p>${fresh.map(evCard).join('')}` : ''}
@@ -370,7 +379,7 @@ function showReward(m, score, fresh) {
 function evCard(id) {
   const e = EVIDENCE[id];
   return `<article class="ev">
-    <div class="ev-top"><span class="ev-ic">${icon('key')}</span><div><h4>${e.name}</h4><p class="ev-desc">${e.desc}</p></div><span class="ev-m">Desafío ${e.mission}</span></div>
+    <div class="ev-top"><span class="ev-ic">${icon('key')}</span><div><h4>${e.name}</h4><p class="ev-desc">${e.desc}</p></div><span class="ev-m">${e.mission === 8 ? 'Inglés' : 'Desafío ' + e.mission}</span></div>
     <p class="ev-info">${e.info}</p>
     <p class="ev-src">Fuente: ${e.source}</p>
   </article>`;
@@ -641,7 +650,7 @@ function screenEnding() {
   const d = Game.state.decision, name = Game.state.playerName || 'el visitante';
   const extra = [];
   if (d) {
-    const p = MISSIONS[5].proposals.find(x => x.id === d.proposal);
+    const p = MISSIONS.find(x => x.id === 6).proposals.find(x => x.id === d.proposal);
     extra.push(['narrador', p.quality === 3 ? `La comunidad adoptó la propuesta que defendió ${name}: «${p.name}».`
       : `La comunidad tomó la idea de ${name} («${p.name}») y la completó con las demás alternativas.`]);
   }
@@ -660,7 +669,7 @@ function screenResults() {
       <h1 class="h1">¡Misión cumplida!</h1>
       <p class="rank">${icon('star')} ${rank}${st.playerName ? ` · <b>${st.playerName.replace(/[<>&]/g, '')}</b>` : ''}</p>
       <div class="stats">
-        <div><small>Misiones</small><b>${st.completed.length}/7</b></div>
+        <div><small>Estaciones</small><b>${st.completed.length}/${MISSIONS.length}</b></div>
         <div><small>Puntuación</small><b>${total}<i>/${max}</i></b></div>
         <div><small>Evidencias</small><b>${st.evidence.length}/${Object.keys(EVIDENCE).length}</b></div>
         <div><small>Tiempo</small><b>${fmtTime(Game.elapsed())}</b></div>
@@ -696,7 +705,7 @@ function openEvidence() {
   const got = Game.state.evidence;
   openSheet(`Evidencias <small>${got.length}/${ids.length}</small>`, `<p class="sheet-sub">Las evidencias te servirán para defender tu decisión en el Desafío 6.</p>
     <div class="ev-list">${ids.map(id => got.includes(id) ? evCard(id)
-      : `<article class="ev locked"><div class="ev-top"><span class="ev-ic">${icon('lock')}</span><div><h4>Evidencia oculta</h4><p class="ev-desc">Se obtiene en el Desafío ${EVIDENCE[id].mission}.</p></div></div></article>`).join('')}</div>`);
+      : `<article class="ev locked"><div class="ev-top"><span class="ev-ic">${icon('lock')}</span><div><h4>Evidencia oculta</h4><p class="ev-desc">Se obtiene en ${EVIDENCE[id].mission === 8 ? 'la estación de inglés' : 'el Desafío ' + EVIDENCE[id].mission}.</p></div></div></article>`).join('')}</div>`);
 }
 
 function openMenu() {
@@ -705,7 +714,7 @@ function openMenu() {
   const d = openSheet('Menú del guardián', `<div class="menu-hero">
       <div class="menu-yaku">${charHTML('yaku', 'enter')}</div>
       <div class="menu-stats">
-        <span><small>Desafíos</small><b>${st.completed.length}/7</b></span>
+        <span><small>Estaciones</small><b>${st.completed.length}/${MISSIONS.length}</b></span>
         <span><small>Puntos</small><b>${Game.total()}</b></span>
         <span><small>Evidencias</small><b>${st.evidence.length}/${Object.keys(EVIDENCE).length}</b></span>
         <span><small>Tiempo</small><b>${fmtTime(Game.elapsed())}</b></span>
@@ -764,9 +773,10 @@ document.addEventListener('click', e => {
       if (a === 'newgame') Game.reset();
       Sound.init(); Sound.startAmbient(); Game.start(); screenCharacters();
     }
-    if (a === 'continue') { Sound.init(); Sound.startAmbient(); Game.state.completed.length === 7 && Game.state.decision ? screenResults() : goMap(); }
+    if (a === 'continue') { Sound.init(); Sound.startAmbient(); Game.state.completed.length === MISSIONS.length ? screenResults() : goMap(); }
     if (a === 'story') screenDialogue(STORY_INTRO, () => { Game.state.seenIntro = true; Game.save(); screenMap(); }, 'Introducción');
     if (a === 'map') goMap();
+    if (a === 'enter') screenMission(+b.dataset.id);
     if (a === 'evidence') openEvidence();
     if (a === 'menu') openMenu();
     if (a === 'sound') { Sound.toggle(); refreshHud(); }
@@ -776,12 +786,11 @@ document.addEventListener('click', e => {
   }
   const cc = e.target.closest('[data-say]');
   if (cc) { sayCard(cc.dataset.say); return; }
-  const n = e.target.closest('.node');
+  const n = e.target.closest('[data-node]');
   if (n) {
-    const id = +n.dataset.mission, st = Game.status(id);
-    if (st === 'open') { Sound.play('bell'); screenMission(id); }
-    else if (st === 'locked') { Sound.play('error'); toast('Completa primero el desafío anterior.'); }
-    else toast('Ya completaste este desafío.');
+    const i = +n.dataset.node, st = Game.status(MISSIONS[i].id);
+    Sound.play(st === 'locked' ? 'error' : 'bell');
+    showRoute(i, true);
   }
 });
 

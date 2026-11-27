@@ -31,7 +31,7 @@ escape-room/
 ├── js/missions.js      Los 7 desafíos, sus actividades, respuestas y evidencias
 ├── js/game.js          Puntuación, progreso, guardado (localStorage) y rúbrica
 ├── js/audio.js         Sonidos generados por el navegador (sin archivos)
-├── js/scene.js         Paisaje animado de Lloa (SVG)
+├── js/scene.js         Paisaje de papel recortado y mapa del río (SVG)
 ├── js/minigames.js     Minijuegos: lluvia, candado, canales, memoria, tarjetas y letras
 ├── js/main.js          Pantallas, mapa, mecánicas de juego y navegación
 └── assets/             Carpetas para tus imágenes, audios y personajes
@@ -80,6 +80,7 @@ Cada desafío de `MISSIONS` (`js/missions.js`) tiene una lista `steps` de activi
 | `memory` | Memoria de parejas | `pairs`: lista de `[concepto, ejemplo]` |
 | `swipe` | Deslizar tarjetas: derecha = sí, izquierda = no | `cards[].ok`: `true` si la idea ayuda; `why`: explicación si se equivoca |
 | `scramble` | Ordenar letras para formar una frase | `answer`: la frase correcta |
+| `radio` | Escucha en inglés: el navegador lee cada pregunta en voz alta | `questions[].answer`: opción correcta (0 = A) |
 
 `hint` es la pista que da el personaje cuando el estudiante se equivoca.
 
@@ -114,6 +115,8 @@ Cambia las variables de `:root` al inicio de `css/styles.css`, por ejemplo `--fo
 - **Pantallas:** bienvenida, personajes, introducción con diálogos, mapa interactivo, 7 desafíos, desenlace y resultados.
 - **Personajes:** 7 personajes con retrato, nombre, papel y voz propia. Aparecen en las escenas de cada desafío.
 - **Personajes animados:** respiran, parpadean, mueven la boca y saludan mientras su diálogo se escribe letra por letra, con «voz» propia.
+- **Estación de inglés «Radio Lloa»:** apartado propio con escucha en voz alta (comprensión auditiva), memoria de vocabulario y mensaje secreto.
+- **Mapa del río:** vista desde arriba; el agua avanza con cada estación completada y la niebla cubre las bloqueadas.
 - **Minijuegos:** atrapa la lluvia, candado de combinación, conectar canales, memoria, deslizar tarjetas y ordenar letras.
 - **Mecánicas variadas:** exploración de escena, opción múltiple, cálculos, arrastrar y soltar (con mouse, dedo o teclado), ordenar, relacionar, clasificar, análisis de fuentes, retos en inglés, decisión argumentada y compromiso firmado.
 - **Desbloqueo:** las misiones se abren en orden. Cada una muestra su estado: bloqueada, disponible o completada.
