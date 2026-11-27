@@ -68,6 +68,13 @@ const Sound = {
     }
   },
 
+  /* «Voz» de los personajes mientras hablan (solo si el audio ya fue activado por el usuario) */
+  blip(pitch) {
+    if (!this.on || !this.ctx || this.ctx.state !== 'running') return;
+    this.tone(pitch * (0.9 + Math.random() * 0.25), 0.05, { type: 'square', vol: 0.015 });
+  },
+  pop() { if (this.on && this.ctx && this.ctx.state === 'running') this.tone(880 + Math.random() * 300, 0.09, { type: 'triangle', vol: 0.06, slide: 1.5 }); },
+
   /* Ambiente de montaña: viento suave y gotas al azar */
   startAmbient() {
     if (!this.on || !this.ambientOn || this.amb || !this.init()) return;

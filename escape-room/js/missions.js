@@ -11,6 +11,12 @@
    - numbers  : cálculos (fields[].answer, tol = margen aceptado)
    - place    : arrastrar y soltar (mode: match | order | classify;
                 items[].zone = índice de la zona correcta)
+   - catch    : minijuego «atrapa la lluvia» (cap = capacidad del depósito, demand = demanda)
+   - lock     : candado de combinación (dials[].answer = número correcto)
+   - pipes    : conectar canales girando piezas
+   - memory   : memoria de parejas (pairs = [concepto, descripción])
+   - swipe    : deslizar tarjetas a la derecha (sí) o a la izquierda (no)
+   - scramble : ordenar letras para formar una frase (answer)
    - decision : decisión final con evidencias (misión 6)
    - pledge   : compromiso final (misión 7)
    ========================================================= */
@@ -61,11 +67,13 @@ const MISSIONS = [
       { type: 'hotspots', title: 'Recorre Valle Verde',
         prompt: 'Toca los cuatro lugares marcados para descubrir las pistas.',
         spots: [
-          { x: 56, y: 62, label: 'Depósito comunitario', text: 'El depósito no tiene la capacidad suficiente para almacenar el agua necesaria. Registro de Mateo: demanda total 15 u · disponibilidad 10 u.' },
+          { x: 57.5, y: 58, label: 'Depósito comunitario', text: 'El depósito no tiene la capacidad suficiente para almacenar el agua necesaria. Registro de Mateo: demanda total 15 u · disponibilidad 10 u.' },
           { x: 39, y: 78, label: 'Canal de riego', text: 'El agua llega por el canal, pero no hay suficiente espacio para guardarla y repartirla.' },
-          { x: 76, y: 84, label: 'Chacra de oca', text: 'Los cultivos de oca necesitan agua para crecer. Si falta, la producción se verá afectada.' },
-          { x: 25, y: 66, label: 'Casas de las familias', text: 'El agua debe repartirse entre los hogares y los cultivos. Las familias están preocupadas.' }
+          { x: 78, y: 86, label: 'Chacra de oca', text: 'Los cultivos de oca necesitan agua para crecer. Si falta, la producción se verá afectada.' },
+          { x: 21, y: 67, label: 'Casas de las familias', text: 'El agua debe repartirse entre los hogares y los cultivos. Las familias están preocupadas.' }
         ] },
+      { type: 'catch', title: 'Guarda la lluvia', cap: 10, demand: 15,
+        prompt: 'Mueve el depósito (con el dedo, el mouse o las flechas) y atrapa 15 unidades de agua: lo que necesita la comunidad. ¡Esquiva la basura!' },
       { type: 'quiz', title: 'Identifica el problema',
         prompt: 'Don Manuel quiere saber qué descubriste.',
         questions: [
@@ -107,15 +115,14 @@ const MISSIONS = [
         ],
         items: [ { text: '6 unidades', zone: 0 }, { text: '5 unidades', zone: 1 }, { text: '4 unidades', zone: 2 } ],
         hint: 'Ordena las cantidades de mayor a menor: 6, 5 y 4.' },
-      { type: 'numbers', title: 'Completa las cuentas',
-        prompt: 'Al inicio la comunidad dispone de 10 unidades; en la sequía crítica, solo de 7.',
-        fields: [
-          { label: 'Demanda total de las tres familias', answer: 15, tol: 0, unit: 'u' },
-          { label: 'Déficit con la disponibilidad inicial (10 u)', answer: 5, tol: 0, unit: 'u' },
-          { label: 'Déficit en la sequía crítica (7 u)', answer: 8, tol: 0, unit: 'u' },
-          { label: 'Porcentaje de la demanda total que necesita la Familia B', answer: 33.3, tol: 0.2, unit: '%' }
+      { type: 'lock', title: 'El candado del cuaderno',
+        prompt: 'Rosa guardó sus cuentas en un cofre con candado. Cada número de la clave es un resultado: al inicio hay 10 u disponibles y en la sequía crítica solo 7 u.',
+        dials: [
+          { label: 'Demanda total de las tres familias', digits: 2, answer: 15 },
+          { label: 'Déficit con la disponibilidad inicial', digits: 1, answer: 5 },
+          { label: 'Déficit en la sequía crítica', digits: 1, answer: 8 }
         ],
-        hint: 'Déficit = demanda − disponibilidad. Porcentaje = 5 ÷ 15 × 100.' }
+        hint: 'Demanda = 6 + 5 + 4. Déficit = demanda − disponibilidad.' }
     ],
     success: [
       ['rosa', '¡Ahora sabemos cuánto falta! En plena sequía nos faltan 8 unidades de agua.', 'success'],
@@ -133,6 +140,8 @@ const MISSIONS = [
       ['mateo', '¡Excelente idea! La cooperación es fundamental. Pero en plena sequía solo tenemos 7 unidades… ¿cuánto le toca a cada familia?']
     ],
     steps: [
+      { type: 'pipes', title: 'Conecta los canales',
+        prompt: 'Gira las piezas del canal (tócalas) para que el agua del depósito llegue a las tres familias.' },
       { type: 'numbers', title: 'Turnos en la sequía', sum: 7,
         prompt: 'Reparte las 7 unidades en proporción a lo que necesita cada familia (6 : 5 : 4). Usa dos decimales.',
         formula: 'Parte de cada familia = 7 × necesidad ÷ 15',
@@ -194,15 +203,14 @@ const MISSIONS = [
           { text: 'Cambio poblacional a través de las generaciones', zone: 4 }
         ],
         hint: 'Todo empieza con la variación y termina con el cambio en la población.' },
-      { type: 'place', mode: 'match', title: 'Conceptos de la evolución',
-        prompt: 'Relaciona cada situación de la oca con el mecanismo evolutivo correcto.',
-        zones: [{ label: 'Variación' }, { label: 'Aislamiento' }, { label: 'Migración (flujo génico)' }],
-        items: [
-          { text: 'Las muestras de oca difieren en color, forma y tamaño.', zone: 0 },
-          { text: 'Poblaciones separadas por zonas y pisos de cultivo enfrentan presiones locales distintas.', zone: 1 },
-          { text: 'Las comunidades trasladan e intercambian material de siembra entre zonas.', zone: 2 }
-        ],
-        hint: 'Migración = movimiento de material genético entre lugares.' },
+      { type: 'memory', title: 'Memoria de la oca',
+        prompt: 'Voltea las cartas y encuentra cada mecanismo evolutivo con su ejemplo en la oca.',
+        pairs: [
+          ['Variación', 'Las ocas difieren en color, forma y tamaño.'],
+          ['Aislamiento', 'Poblaciones separadas por zonas enfrentan presiones locales distintas.'],
+          ['Migración (flujo génico)', 'Las comunidades intercambian material de siembra.'],
+          ['Selección natural', 'En la sequía sobreviven y se reproducen más las plantas con rasgos favorables.']
+        ] },
       { type: 'quiz', title: 'Saberes de los antiguos',
         prompt: 'Nami Killa guarda dos fuentes sobre Sacsayhuamán, obra inca del siglo XV.',
         sources: [
@@ -234,19 +242,18 @@ const MISSIONS = [
       ['yaku', 'Escucha bien: no todas las ideas que corren por el canal son buenas. Separa el agua limpia de la turbia.']
     ],
     steps: [
-      { type: 'place', mode: 'classify', title: 'Agua limpia, agua turbia',
-        prompt: 'Clasifica cada idea: ¿ayuda a resolver el problema de Valle Verde o se descarta?',
-        zones: [{ label: 'Ayuda a Valle Verde', tone: 'good' }, { label: 'Se descarta', tone: 'bad' }],
-        items: [
-          { text: 'Mejorar los depósitos existentes', zone: 0 },
-          { text: 'Construir nuevos espacios de almacenamiento', zone: 0 },
-          { text: 'Recolectar agua de lluvia', zone: 0 },
-          { text: 'Instalar riego por goteo', zone: 0 },
-          { text: 'Cambiarse de ubicación', zone: 1 },
-          { text: 'Cerrar todos los depósitos', zone: 1 },
-          { text: 'Desperdiciar más agua', zone: 1 }
-        ],
-        hint: 'En Emprendimiento se descartó la opción de abandonar el territorio.' },
+      { type: 'swipe', title: 'Agua limpia, agua turbia',
+        prompt: 'Desliza cada idea: a la derecha si ayuda a Valle Verde, a la izquierda si se descarta.',
+        yes: 'Ayuda', no: 'Se descarta',
+        cards: [
+          { text: 'Mejorar los depósitos existentes', ok: true },
+          { text: 'Cambiarse de ubicación', ok: false, why: 'En Emprendimiento se descartó abandonar el territorio.' },
+          { text: 'Construir nuevos espacios de almacenamiento', ok: true },
+          { text: 'Desperdiciar más agua', ok: false, why: 'Desperdiciar agua agrava el déficit.' },
+          { text: 'Recolectar agua de lluvia', ok: true },
+          { text: 'Cerrar todos los depósitos', ok: false, why: 'Sin depósitos no hay dónde guardar el agua.' },
+          { text: 'Instalar riego por goteo', ok: true }
+        ] },
       { type: 'numbers', title: 'Matriz de viabilidad',
         prompt: 'El equipo de Emprendimiento y Gestión calificó tres ideas (1 a 5 puntos). Suma cada columna.',
         table: { head: ['Criterio', 'Idea A · Almacenamiento ventilado', 'Idea B · Riego por goteo', 'Idea C · Harina y conservas'],
@@ -325,18 +332,10 @@ const MISSIONS = [
       ['yaku', 'Cada gota cuenta. Si desperdiciamos el agua, pondremos en riesgo el futuro de nuestra comunidad.', 'drip']
     ],
     steps: [
-      { type: 'place', mode: 'classify', title: 'Hábitos del guardián',
-        prompt: 'Clasifica cada acción según su efecto sobre el agua de Valle Verde.',
-        zones: [{ label: 'Cuida el agua', tone: 'good' }, { label: 'Pone el agua en riesgo', tone: 'bad' }],
-        items: [
-          { text: 'Usar el agua con responsabilidad', zone: 0 },
-          { text: 'Limpiar y mantener los depósitos con regularidad', zone: 0 },
-          { text: 'Respetar los turnos de distribución', zone: 0 },
-          { text: 'Recolectar agua de lluvia', zone: 0 },
-          { text: 'Dejar las llaves abiertas', zone: 1 },
-          { text: 'Botar basura dentro de los tanques', zone: 1 },
-          { text: 'Dejar los depósitos destapados', zone: 1 }
-        ] },
+      { type: 'scramble', title: 'El grito de Valle Verde',
+        prompt: 'Ordena las letras para descubrir lo que gritó toda la comunidad al final de la historia.',
+        answer: 'EL AGUA ES VIDA',
+        hint: 'Empieza con «EL AGUA…».' },
       { type: 'quiz', lang: 'en', title: 'Radio Lloa · Final mission',
         prompt: 'Last broadcast from Lloa. Complete the mission!',
         questions: [

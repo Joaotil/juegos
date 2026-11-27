@@ -45,64 +45,46 @@ const ICONS = {
 const icon = (n, cls = '') => `<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
 const avatar = (id, size = '') => `<span class="avatar ${size}" style="--c:${CHARACTERS[id].color}">${avatarSVG(id)}</span>`;
 
-/* ---------- Paisaje de Lloa (SVG) ---------- */
-let uid = 0;
-function landscape({ fit = 'slice' } = {}) {
-  const k = ++uid;
-  const par = fit === 'meet' ? 'xMidYMid meet' : 'xMidYMax slice';
-  return `<svg class="land" viewBox="0 0 1200 600" preserveAspectRatio="${par}" aria-hidden="true">
-  <defs>
-    <linearGradient id="sky${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9DAE1"/><stop offset=".6" stop-color="#E6EFE6"/><stop offset="1" stop-color="#F3EBDD"/></linearGradient>
-    <linearGradient id="vol${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C928C"/><stop offset="1" stop-color="#A7B9AB"/></linearGradient>
-    <linearGradient id="mist${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-  </defs>
-  <rect width="1200" height="600" fill="url(#sky${k})"/>
-  <circle cx="940" cy="105" r="44" fill="#FFF4CF"/>
-  <path d="M0 330 170 262l130 28 170-140q50-32 90-18 40-20 80 8l150 122 140-26 270 64v300H0z" fill="url(#vol${k})"/>
-  <path d="m470 150q50-32 90-18 40-20 80 8l-30 22q-25-12-50 2-30-14-60 4z" fill="#677C77"/>
-  <g class="cloud" fill="#fff" opacity=".8"><ellipse cx="300" cy="246" rx="130" ry="16"/><ellipse cx="360" cy="236" rx="60" ry="14"/><ellipse cx="780" cy="214" rx="150" ry="15"/><ellipse cx="720" cy="204" rx="60" ry="12"/></g>
-  <path d="M0 360c180-42 330-8 520-34 180-26 360 14 680-8v282H0z" fill="#9BB487"/>
-  <g stroke="#B7C99A" stroke-width="3" fill="none" opacity=".9"><path d="M640 336c120-12 240 6 380-4"/><path d="M610 352c150-12 290 6 470-4"/><path d="M120 352c90-14 180-10 270-16"/></g>
-  <path d="M0 400c200-40 380-8 560-28 200-22 360 20 640-4v232H0z" fill="#718C61"/>
-  <rect y="300" width="1200" height="110" fill="url(#mist${k})"/>
-  <path d="M0 470c240-40 470 10 720-24 200-26 340 6 480-8v162H0z" fill="#557A55"/>
-  <path d="M0 560c120-40 260-60 400-90 120-26 190-50 250-70" stroke="#896B4B" stroke-width="18" fill="none" stroke-linecap="round" opacity=".5"/>
-  <path d="M0 560c120-40 260-60 400-90 120-26 190-50 250-70" stroke="#79B8C5" stroke-width="9" fill="none" stroke-linecap="round"/>
-  <path class="flow" d="M0 560c120-40 260-60 400-90 120-26 190-50 250-70" stroke="#E2F3F6" stroke-width="2.5" fill="none" stroke-dasharray="12 26" stroke-linecap="round"/>
-  <g transform="translate(628 328)">
-    <ellipse cx="46" cy="76" rx="46" ry="10" fill="#B9AE9C" stroke="#896B4B" stroke-width="3"/>
-    <rect y="12" width="92" height="64" fill="#D8CFBF" stroke="#896B4B" stroke-width="3"/>
-    <rect x="38" y="20" width="16" height="50" rx="3" fill="#F3EBDD" stroke="#896B4B" stroke-width="2"/>
-    <rect x="40" y="58" width="12" height="10" fill="#79B8C5"/>
-    <ellipse cx="46" cy="12" rx="46" ry="10" fill="#E9E1D2" stroke="#896B4B" stroke-width="3"/>
-  </g>
-  <g transform="translate(248 368)">
-    <rect y="32" width="98" height="58" fill="#F6EFE2" stroke="#896B4B" stroke-width="2"/>
-    <path d="M-12 36 49 0l61 36z" fill="#A65A3A"/><rect x="40" y="54" width="18" height="36" fill="#896B4B"/><rect x="12" y="48" width="16" height="14" fill="#79B8C5"/><rect x="72" y="48" width="16" height="14" fill="#79B8C5"/>
-  </g>
-  <g transform="translate(1000 340) scale(.72)">
-    <rect y="32" width="98" height="58" fill="#F6EFE2" stroke="#896B4B" stroke-width="3"/>
-    <path d="M-12 36 49 0l61 36z" fill="#A65A3A"/><rect x="40" y="54" width="18" height="36" fill="#896B4B"/>
-  </g>
-  <g fill="#315B43"><rect x="146" y="350" width="6" height="70" fill="#5B4636"/><ellipse cx="149" cy="340" rx="20" ry="42"/><rect x="1118" y="322" width="6" height="70" fill="#5B4636"/><ellipse cx="1121" cy="312" rx="18" ry="40"/><rect x="566" y="380" width="5" height="50" fill="#5B4636"/><ellipse cx="568" cy="372" rx="14" ry="30"/></g>
-  <g stroke="#7A5C3F" stroke-width="7" stroke-linecap="round" fill="none" opacity=".75"><path d="M800 500c80-8 170-8 250-2"/><path d="M790 524c90-8 190-8 280-2"/><path d="M780 548c100-8 210-8 310-2"/></g>
-  <g fill="#8DB06A">${[0, 1, 2].map(r => Array.from({ length: 9 }, (_, i) => `<circle cx="${806 + i * 30 + r * 6}" cy="${494 + r * 24}" r="7"/>`).join('')).join('')}</g>
-  <g fill="#E6A1B0">${[0, 1, 2].map(r => Array.from({ length: 5 }, (_, i) => `<circle cx="${820 + i * 55 + r * 10}" cy="${489 + r * 24}" r="2.5"/>`).join('')).join('')}</g>
-  <path d="M0 540c300-26 600 20 900-12 150-14 250 8 300 2v70H0z" fill="#315B43"/>
-  </svg>`;
+/* ---------- Personajes animados que hablan ---------- */
+const charHTML = (id, cls = '') => `<div class="char ${cls}" data-id="${id}" style="--d:-${(Math.random() * 3).toFixed(2)}s;--c:${CHARACTERS[id].color}">${charSVG(id)}</div>`;
+
+/* Escribe el texto letra por letra mientras el personaje mueve la boca.
+   el._finish() completa el texto al instante (botón «Siguiente»). */
+function speak(el, text, id, done) {
+  if (!el) return; // la pantalla cambió antes de que el personaje hablara
+  clearTimeout(el._t);
+  $$('.char.talking').forEach(c => c.classList.remove('talking'));
+  const who = id ? $$(`.char[data-id="${id}"]`) : [];
+  who.forEach(c => c.classList.add('talking'));
+  const sr = el.nextElementSibling;
+  if (sr && sr.classList.contains('sr-only')) sr.textContent = text;
+  let i = 0;
+  const finish = () => { clearTimeout(el._t); el.textContent = text; el._finish = null; who.forEach(c => c.classList.remove('talking')); done && done(); };
+  el._finish = finish;
+  if (reduceMotion) return finish();
+  const tick = () => {
+    if (!el.isConnected) return;
+    i = Math.min(text.length, i + 2);
+    el.textContent = text.slice(0, i);
+    if (id && i % 6 === 0) Sound.blip(CHARACTERS[id].pitch);
+    if (i < text.length) el._t = setTimeout(tick, 22); else finish();
+  };
+  tick();
 }
 
 /* ---------- Barra superior (HUD) ---------- */
 function hud() {
   const done = Game.state.completed.length;
   return `<header class="hud">
-    <button class="hud-brand" data-act="map" aria-label="Ir al mapa">${icon('drop')}<span>Misión Lloa</span></button>
-    <div class="hud-progress" role="img" aria-label="Progreso: ${done} de 7 desafíos"><div class="bar"><i style="transform:scaleX(${done / 7})"></i></div><span>${done}/7</span></div>
-    <div class="hud-stat" title="Puntuación">${icon('star')}<b id="hud-score">${Game.total()}</b></div>
-    <div class="hud-stat hide-sm" title="Tiempo">${icon('clock')}<b id="hud-time">${fmtTime(Game.elapsed())}</b></div>
-    <button class="hud-btn" data-act="evidence" aria-label="Evidencias (${Game.state.evidence.length})">${icon('bag')}<span class="badge">${Game.state.evidence.length}</span></button>
-    <button class="hud-btn" data-act="sound" aria-label="Sonido" aria-pressed="${Sound.on}">${icon(Sound.on ? 'sound' : 'mute')}</button>
-    <button class="hud-btn" data-act="menu" aria-label="Menú">${icon('menu')}</button>
+    <button class="pill brand" data-act="map" aria-label="Ir al mapa">${icon('drop')}<span>Misión Lloa</span></button>
+    <div class="hud-chips">
+      <div class="pill drops" role="img" aria-label="Progreso: ${done} de 7 desafíos">${MISSIONS.map((m, i) => `<i class="${i < done ? 'on' : ''}"></i>`).join('')}<b>${done}/7</b></div>
+      <div class="pill" title="Puntuación">${icon('star')}<b id="hud-score">${Game.total()}</b></div>
+      <div class="pill hide-sm" title="Tiempo">${icon('clock')}<b id="hud-time">${fmtTime(Game.elapsed())}</b></div>
+      <button class="pill" data-act="evidence" aria-label="Evidencias (${Game.state.evidence.length})">${icon('bag')}<b>${Game.state.evidence.length}</b></button>
+      <button class="pill round" data-act="sound" aria-label="Sonido" aria-pressed="${Sound.on}">${icon(Sound.on ? 'sound' : 'mute')}</button>
+      <button class="pill round" data-act="menu" aria-label="Menú">${icon('menu')}</button>
+    </div>
   </header>`;
 }
 setInterval(() => { const t = $('#hud-time'); if (t) t.textContent = fmtTime(Game.elapsed()); }, 1000);
@@ -116,37 +98,60 @@ function screenWelcome() {
   const has = Game.state.startedAt;
   render(`<section class="screen welcome">
     <div class="bg">${landscape()}</div>
-    <div class="welcome-card">
-      <p class="eyebrow">U. E. Franciscana «San Andrés Quitumbe» · Proyecto ABP</p>
-      <h1 class="title">Misión Lloa<span>El secreto de las aguas</span></h1>
-      <p class="kichwa"><i>yaku kamachikkuna</i> · Guardianes del agua en los Andes</p>
-      <p class="lead">En las faldas del Pichincha, la comunidad de <b>Valle Verde</b> cultiva la oca… pero sus depósitos comunitarios ya no alcanzan para guardar el agua que necesitan. Siete desafíos te esperan.</p>
-      <div class="actions">
-        ${has ? `<button class="btn primary lg" data-act="continue">Continuar aventura ${icon('next')}</button><button class="btn ghost" data-act="newgame">Nueva partida</button>`
-              : `<button class="btn primary lg" data-act="start">Comenzar aventura ${icon('next')}</button>`}
+    <div class="welcome-cast left">${charHTML('rosa', 'enter')}${charHTML('manuel', 'enter')}</div>
+    <div class="welcome-cast right">${charHTML('nami', 'enter')}${charHTML('mateo', 'enter')}</div>
+    <div class="welcome-main">
+      <div class="sign">
+        <span class="rope"></span><span class="rope"></span>
+        <div class="board">
+          <p class="sign-tag">Lloa · Pichincha · Ecuador</p>
+          <h1 class="title"><small>Misión</small>Lloa</h1>
+          <div class="ribbon"><span>El secreto de las aguas</span></div>
+          <p class="kichwa"><i>yaku kamachikkuna</i> · guardianes del agua</p>
+        </div>
+      </div>
+      <div class="yaku-say">${charHTML('yaku', 'enter')}<div class="speech"><p class="said" id="w-text" aria-hidden="true"></p><p class="sr-only" aria-live="polite"></p></div></div>
+      <div class="actions center">
+        ${has ? `<button class="btn primary lg" data-act="continue">${icon('next')}<span>Continuar aventura</span></button><button class="btn sand" data-act="newgame"><span>Nueva partida</span></button>`
+              : `<button class="btn primary lg" data-act="start">${icon('next')}<span>Comenzar aventura</span></button>`}
       </div>
       <label class="switch"><input type="checkbox" id="amb-toggle" ${Sound.ambientOn ? 'checked' : ''}><span class="track"><span></span></span>${icon('music')} Música ambiental</label>
+      <p class="credits">U. E. Franciscana «San Andrés Quitumbe» · Proyecto ABP</p>
     </div>
   </section>`);
   $('#amb-toggle').addEventListener('change', e => { if (e.target.checked !== Sound.ambientOn) Sound.toggleAmbient(); });
+  setTimeout(() => speak($('#w-text'), '¡Hola, visitante! En Valle Verde los depósitos ya no alcanzan para guardar el agua de las familias y de la oca. ¿Nos ayudas a descubrir el secreto de las aguas?', 'yaku'), 500);
 }
 
 /* =========================================================
    PANTALLA B · Personajes
    ========================================================= */
 function screenCharacters(back) {
+  const ids = Object.keys(CHARACTERS);
   render(`<section class="screen characters">
-    <div class="bg soft">${landscape()}</div>
+    <div class="bg">${landscape()}</div>
     <div class="wrap">
-      <p class="eyebrow">Los habitantes de Valle Verde</p>
-      <h2 class="h2">Conoce a los personajes</h2>
-      <div class="cast-grid">${Object.keys(CHARACTERS).map((id, i) => {
+      <div class="pane-title"><p class="tag">Los habitantes de Valle Verde</p><h2 class="h2">Conoce a los personajes</h2><p class="sub">Toca a un personaje para volver a escucharlo.</p></div>
+      <div class="cast-grid">${ids.map((id, i) => {
         const c = CHARACTERS[id];
-        return `<article class="char-card" style="--i:${i};--c:${c.color}">${avatar(id, 'lg')}<div><h3>${c.name}</h3><p class="role">${c.role}</p><p>${c.desc}</p></div></article>`;
+        return `<button class="char-card" data-say="${id}" style="--i:${i};--c:${c.color}" aria-label="Escuchar a ${c.name}">
+          <div class="cc-stage">${charHTML(id, 'enter')}</div>
+          <div class="cc-info"><h3>${c.name}</h3><p class="role">${c.role}</p><p class="cc-line" aria-hidden="true">${c.desc}</p><p class="sr-only" aria-live="polite"></p></div>
+        </button>`;
       }).join('')}</div>
-      <div class="actions center"><button class="btn primary lg" data-act="${back ? 'map' : 'story'}">${back ? 'Volver al mapa' : 'Escuchar la historia'} ${icon('next')}</button></div>
+      <div class="actions center"><button class="btn primary lg" data-act="${back ? 'map' : 'story'}">${icon('next')}<span>${back ? 'Volver al mapa' : 'Escuchar la historia'}</span></button></div>
     </div>
   </section>`);
+  let i = 0;
+  const next = () => { if (i < ids.length && $('.characters')) sayCard(ids[i++], next); };
+  setTimeout(next, 600);
+}
+
+function sayCard(id, done) {
+  const card = $(`.char-card[data-say="${id}"]`); if (!card) return;
+  $$('.char-card.speaking').forEach(c => c.classList.remove('speaking'));
+  card.classList.add('speaking');
+  speak($('.cc-line', card), CHARACTERS[id].hello, id, () => { card.classList.remove('speaking'); if (done) setTimeout(done, 300); });
 }
 
 /* =========================================================
@@ -157,28 +162,29 @@ function screenDialogue(lines, onDone, label) {
   render(`<section class="screen story">
     <div class="bg">${landscape()}</div>
     <p class="story-label">${label}</p>
-    <div class="stage">${cast.map(id => `<div class="actor" data-id="${id}">${avatar(id, 'lg')}<span class="actor-name">${CHARACTERS[id].name}</span></div>`).join('')}</div>
+    <div class="stage">${cast.map(id => `<div class="actor" data-actor="${id}">${charHTML(id, 'enter')}<span class="actor-name">${CHARACTERS[id].name}</span></div>`).join('')}</div>
     <div class="dlg">
-      <div class="dlg-portrait" id="dlg-av"></div>
-      <div class="dlg-body">
-        <p class="dlg-name" id="dlg-name"></p>
-        <p class="dlg-text" id="dlg-text" aria-live="polite"></p>
-        <div class="dlg-actions"><span class="dlg-count" id="dlg-count"></span><button class="btn ghost sm" id="dlg-skip">Saltar</button><button class="btn primary" id="dlg-next">Siguiente ${icon('next')}</button></div>
-      </div>
+      <p class="dlg-tab" id="dlg-name"></p>
+      <p class="dlg-text" id="dlg-text" aria-hidden="true"></p><p class="sr-only" aria-live="polite"></p>
+      <div class="dlg-actions"><span class="dlg-count" id="dlg-count"></span><button class="btn sand sm" id="dlg-skip"><span>Saltar</span></button><button class="btn primary" id="dlg-next"><span>Siguiente</span>${icon('next')}</button></div>
     </div>
   </section>`);
   let i = 0;
+  const t = $('#dlg-text');
   const show = () => {
     const [id, text, sfx] = lines[i], c = CHARACTERS[id];
-    $('#dlg-av').innerHTML = avatar(id, 'xl');
-    $('#dlg-name').innerHTML = `${c.name} <small>${c.role}</small>`;
-    const t = $('#dlg-text'); t.textContent = text; t.classList.remove('in'); void t.offsetWidth; t.classList.add('in');
+    const tab = $('#dlg-name');
+    tab.innerHTML = `${c.name} <small>${c.role}</small>`; tab.style.setProperty('--c', c.color);
     $('#dlg-count').textContent = `${i + 1} / ${lines.length}`;
-    $$('.actor').forEach(a => a.classList.toggle('on', a.dataset.id === id));
-    $('#dlg-next').innerHTML = i === lines.length - 1 ? `Continuar ${icon('next')}` : `Siguiente ${icon('next')}`;
+    $$('.actor').forEach(a => a.classList.toggle('on', a.dataset.actor === id));
+    $('#dlg-next span').textContent = i === lines.length - 1 ? 'Continuar' : 'Siguiente';
     Sound.play(sfx);
+    speak(t, text, id);
   };
-  $('#dlg-next').addEventListener('click', () => { Sound.play('click'); if (++i >= lines.length) onDone(); else show(); });
+  $('#dlg-next').addEventListener('click', () => {
+    if (t._finish) return t._finish();
+    Sound.play('click'); if (++i >= lines.length) onDone(); else show();
+  });
   $('#dlg-skip').addEventListener('click', onDone);
   show();
   $('#dlg-next').focus();
@@ -214,7 +220,7 @@ function screenMap() {
       }).join('')}
     </div>
     <div class="map-legend">
-      <span><i class="lg open"></i>Disponible</span><span><i class="lg done"></i>Completada</span><span><i class="lg locked"></i>Bloqueada</span>
+      <span><i class="lgd open"></i>Disponible</span><span><i class="lgd done"></i>Completada</span><span><i class="lgd locked"></i>Bloqueada</span>
       ${done === 7 ? `<button class="btn primary" data-act="ending">Ver el desenlace ${icon('next')}</button>` : ''}
     </div>
   </section>`);
@@ -239,7 +245,7 @@ function screenMission(id) {
       <aside class="m-scene">
         <div class="bg">${landscape()}</div>
         <div class="speaker" id="spk"></div>
-        <div class="bubble" id="bubble"><p class="who" id="spk-name"></p><p class="said" id="spk-text" aria-live="polite"></p><div id="bubble-act"></div></div>
+        <div class="bubble" id="bubble"><p class="who" id="spk-name"></p><p class="said" id="spk-text" aria-hidden="true"></p><p class="sr-only" aria-live="polite"></p><div id="bubble-act"></div></div>
       </aside>
       <div class="m-panel" id="panel"><div class="panel-wait">${icon('drop')}<p>Escucha a ${CHARACTERS[m.char].name}…</p></div></div>
     </div>
@@ -248,13 +254,19 @@ function screenMission(id) {
 }
 
 function say(id, text, next) {
-  const c = CHARACTERS[id];
-  $('#spk').innerHTML = avatar(id, 'xl');
+  const c = CHARACTERS[id], spk = $('#spk');
+  if (spk.dataset.id !== id) { spk.dataset.id = id; spk.innerHTML = charHTML(id, 'enter'); }
   $('#spk-name').innerHTML = `${c.name} <small>${c.role}</small>`;
-  const t = $('#spk-text'); t.textContent = text; t.classList.remove('in'); void t.offsetWidth; t.classList.add('in');
+  $('#bubble').style.setProperty('--c', c.color);
+  const t = $('#spk-text');
+  speak(t, text, id);
   const act = $('#bubble-act');
-  act.innerHTML = next ? `<button class="btn primary sm" id="bubble-next">Siguiente ${icon('next')}</button>` : '';
-  if (next) { const b = $('#bubble-next'); b.addEventListener('click', () => { Sound.play('click'); act.innerHTML = ''; next(); }); b.focus({ preventScroll: true }); }
+  act.innerHTML = next ? `<button class="btn primary sm" id="bubble-next"><span>Siguiente</span>${icon('next')}</button>` : '';
+  if (next) {
+    const b = $('#bubble-next');
+    b.addEventListener('click', () => { if (t._finish) return t._finish(); Sound.play('click'); act.innerHTML = ''; next(); });
+    b.focus({ preventScroll: true });
+  }
 }
 
 function playLines(lines, done) {
@@ -287,12 +299,16 @@ function runStep(i) {
     say: (text, who = m.char) => say(who, text),
     changed: () => feedback(''),
     check: () => doCheck(),
-    done: (msg) => finish(msg)
+    done: (msg) => finish(msg),
+    fail: (msg) => fail({ msg })
   };
   function doCheck() {
     const r = T.check(body, s, api);
     if (r.ok) return finish(r.msg, r.quiet);
     if (r.incomplete) { feedback(r.msg, 'warn'); return; }
+    fail(r);
+  }
+  function fail(r) {
     tries++;
     if (!r.noPenalty) Game.addError(m.id);
     Sound.play('error');
@@ -344,7 +360,7 @@ function showReward(m, score, fresh) {
     <h2>${m.title}</h2>
     <p class="pts">+${score} <small>puntos</small></p>
     ${fresh.length ? `<p class="small-title">Evidencia${fresh.length > 1 ? 's' : ''} obtenida${fresh.length > 1 ? 's' : ''}</p>${fresh.map(evCard).join('')}` : ''}
-    <button class="btn primary lg" data-act="${last ? 'ending' : 'map'}">${last ? 'Ver el desenlace' : 'Volver al mapa'} ${icon('next')}</button>
+    <button class="btn primary lg" data-act="${last ? 'ending' : 'map'}"><span>${last ? 'Ver el desenlace' : 'Volver al mapa'}</span>${icon('next')}</button>
   </div>`;
   document.body.appendChild(el);
   el.querySelector('button').focus();
@@ -684,23 +700,41 @@ function openEvidence() {
 }
 
 function openMenu() {
-  const d = openSheet('Menú', `<div class="menu">
-    <button class="menu-i" data-m="amb">${icon('music')}<span>Música ambiental</span><b>${Sound.ambientOn ? 'Activada' : 'Desactivada'}</b></button>
-    <button class="menu-i" data-m="chars">${icon('users')}<span>Ver personajes</span></button>
-    <button class="menu-i" data-m="map">${icon('map')}<span>Mapa de misiones</span></button>
-    <button class="menu-i danger" data-m="reset">${icon('reset')}<span>Reiniciar aventura</span><b>Borra el progreso</b></button>
-  </div>`);
+  const st = Game.state;
+  const tile = (m, ic, label, sub, tone) => `<button class="tile ${tone}" data-m="${m}">${icon(ic)}<span>${label}</span>${sub ? `<small>${sub}</small>` : ''}</button>`;
+  const d = openSheet('Menú del guardián', `<div class="menu-hero">
+      <div class="menu-yaku">${charHTML('yaku', 'enter')}</div>
+      <div class="menu-stats">
+        <span><small>Desafíos</small><b>${st.completed.length}/7</b></span>
+        <span><small>Puntos</small><b>${Game.total()}</b></span>
+        <span><small>Evidencias</small><b>${st.evidence.length}/${Object.keys(EVIDENCE).length}</b></span>
+        <span><small>Tiempo</small><b>${fmtTime(Game.elapsed())}</b></span>
+      </div>
+    </div>
+    <div class="menu-grid">
+      ${tile('resume', 'next', 'Seguir jugando', '', 't-green')}
+      ${tile('map', 'map', 'Mapa', 'Misiones', 't-blue')}
+      ${tile('chars', 'users', 'Personajes', 'Escúchalos', 't-pink')}
+      ${tile('evidence', 'bag', 'Evidencias', `${st.evidence.length} reunidas`, 't-yellow')}
+      ${tile('sound', Sound.on ? 'sound' : 'mute', 'Sonidos', Sound.on ? 'Activados' : 'Apagados', 't-teal')}
+      ${tile('amb', 'music', 'Música', Sound.ambientOn ? 'Activada' : 'Apagada', 't-purple')}
+      ${tile('reset', 'reset', 'Reiniciar', 'Borra el progreso', 't-red wide')}
+    </div>`);
+  d.classList.add('menu-sheet');
   d.addEventListener('click', e => {
     const b = e.target.closest('[data-m]'); if (!b) return;
     const a = b.dataset.m;
-    if (a === 'amb') { Sound.toggleAmbient(); $('b', b).textContent = Sound.ambientOn ? 'Activada' : 'Desactivada'; refreshHud(); return; }
+    Sound.play('click');
+    if (a === 'amb') { Sound.toggleAmbient(); $('small', b).textContent = Sound.ambientOn ? 'Activada' : 'Apagada'; return; }
+    if (a === 'sound') { Sound.toggle(); $('small', b).textContent = Sound.on ? 'Activados' : 'Apagados'; refreshHud(); return; }
     if (a === 'reset') {
       if (b.dataset.confirm) { d.close(); Game.reset(); screenWelcome(); return; }
-      b.dataset.confirm = '1'; $('span', b).textContent = '¿Seguro? Toca otra vez para confirmar'; return;
+      b.dataset.confirm = '1'; $('span', b).textContent = '¿Seguro?'; $('small', b).textContent = 'Toca otra vez para borrar todo'; return;
     }
     d.close();
     if (a === 'chars') screenCharacters(true);
     if (a === 'map') goMap();
+    if (a === 'evidence') openEvidence();
   });
 }
 
@@ -740,6 +774,8 @@ document.addEventListener('click', e => {
     if (a === 'replay') { Game.reset(); screenWelcome(); }
     return;
   }
+  const cc = e.target.closest('[data-say]');
+  if (cc) { sayCard(cc.dataset.say); return; }
   const n = e.target.closest('.node');
   if (n) {
     const id = +n.dataset.mission, st = Game.status(id);
